@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chapter 7: CSS Backgrounds | Coding Bird</title>
+
+    <link href="../img/logo_name_icon.png" rel="icon" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&family=Fira+Code:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --primary: #ca1551;
+        --accent: #fe6868;
+        --code-bg: #1e1e2e;
+        --bg: #f8f9fa;
+        --text: #2c3e50;
+        --tag-color: #f92672;
+        --attr-color: #a6e22e;
+        --val-color: #e6db74;
+      }
+
+      body {
+        font-family: "Heebo", sans-serif;
+        background-color: var(--bg);
+        color: var(--text);
+        margin: 0;
+        line-height: 1.6;
+      }
+
+      .navbar-custom {
+        background: white;
+        height: 75px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 5%;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        box-sizing: border-box;
+      }
+
+      .navbar-brand {
+        font-family: "Nunito", sans-serif;
+        font-weight: 800;
+        font-size: 25px;
+        text-decoration: none;
+        color: var(--text);
+      }
+
+      .chapter-nav {
+        max-width: 850px;
+        margin: 100px auto 20px auto;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 20px;
+      }
+
+      .btn-action {
+        padding: 10px 20px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .btn-prev {
+        border: 2px solid #ddd;
+        color: #666;
+      }
+      .btn-next {
+        background: var(--primary);
+        color: white;
+      }
+
+      header {
+        text-align: center;
+        padding: 40px 20px;
+      }
+
+      .card {
+        background: white;
+        border-radius: 20px;
+        padding: 30px;
+        margin: 0 auto 35px auto;
+        max-width: 850px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        border: 1px solid #edf2f7;
+      }
+
+      h2 {
+        color: var(--primary);
+        font-family: "Nunito";
+        margin-top: 0;
+        font-size: 1.5rem;
+      }
+
+      .code-block {
+        background: var(--code-bg);
+        color: #f8f8f2;
+        padding: 20px;
+        border-radius: 12px;
+        font-family: "Fira Code", monospace;
+        font-size: 0.85rem;
+        margin: 15px 0;
+        overflow-x: auto;
+        white-space: pre-wrap;
+      }
+
+      .live-result {
+        background: #fff;
+        border: 2px solid #e2e8f0;
+        border-left: 5px solid var(--primary);
+        padding: 20px;
+        border-radius: 12px;
+        margin-top: 15px;
+      }
+
+      .label {
+        font-size: 0.7rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        color: #a0aec0;
+        margin-bottom: 5px;
+        display: block;
+      }
+
+      .t {
+        color: var(--tag-color);
+      }
+      .a {
+        color: var(--attr-color);
+      }
+      .v {
+        color: var(--val-color);
+      }
+
+      footer {
+        text-align: center;
+        padding: 40px;
+        background: #1a202c;
+        color: white;
+        margin-top: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar-custom">
+      <a href="../index.html" class="navbar-brand">
+        Coding<span style="color: var(--primary)">Bird</span>
+      </a>
+      <div class="nav-links">
+        <a href="../index.html">Home</a>
+        <a href="../html.html">HTML</a>
+        <a href="../css.html" style="color: var(--primary)">CSS</a>
+        <a href="../js.html">JS</a>
+      </div>
+    </nav>
+
+    <div class="chapter-nav">
+      <a href="CSSChapter6.html" class="btn-action btn-prev"
+        ><i class="fa fa-arrow-left"></i> Previous</a
+      >
+      <a href="CSSChapter8.html" class="btn-action btn-next"
+        >Next Chapter <i class="fa fa-arrow-right"></i
+      ></a>
+    </div>
+
+    <header>
+      <h1 style="font-family: &quot;Nunito&quot;; font-weight: 800">
+        Chapter 7: CSS Backgrounds
+      </h1>
+      <p>From simple colors to multi-image layers and gradients.</p>
+    </header>
+
+    <div id="chapter-content"></div>
+
+    <footer>&copy; 2026 Marufa Monjuri | Coding Bird</footer>
+
+    <script>
+      const content = document.getElementById("chapter-content");
+
+      function createSection(title, icon, desc, codeHtml, previewHtml) {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <h2><i class="fa ${icon}"></i> ${title}</h2>
+          <p style="color: #4a5568;">${desc}</p>
+          <span class="label">CSS Code</span>
+          <div class="code-block">${codeHtml}</div>
+          <span class="label">Browser View</span>
+          <div class="live-result">${previewHtml}</div>
+        `;
+        content.appendChild(card);
+      }
+
+      // 7.1 Background Repeat
+      createSection(
+        "7.1 Background Repeat",
+        "fa-th",
+        "Control how images tile. Options include <b>repeat</b>, <b>repeat-x</b>, <b>space</b>, <b>round</b>, and <b>no-repeat</b>.",
+        `<span class="t">p</span> { <span class="a">background-repeat</span>: <span class="v">space</span>; }`,
+        "<div style='height:100px; border:1px solid #ddd; background-image: url(\"https://via.placeholder.com/30\"); background-repeat: space;'>This box uses 'space' repeat.</div>",
+      );
+
+      // 7.2 Size: Cover vs Contain
+      createSection(
+        "7.2 Background Size",
+        "fa-expand-arrows-alt",
+        "<b>Cover</b> fills the whole area (might crop), while <b>Contain</b> shows the whole image (might leave gaps).",
+        `<span class="t">p</span> { <span class="a">background-size</span>: <span class="v">cover</span>; }`,
+        "<div style='display:flex; gap:10px;'><div style='width:100px; height:80px; border:1px solid red; background: url(\"https://via.placeholder.com/150\") no-repeat; background-size: cover; color:white; font-size:10px;'>COVER</div><div style='width:100px; height:80px; border:1px solid red; background: url(\"https://via.placeholder.com/150\") no-repeat; background-size: contain; font-size:10px;'>CONTAIN</div></div>",
+      );
+
+      // 7.3 Clip vs Origin
+      createSection(
+        "7.3 Clip & Origin",
+        "fa-crop",
+        "Determine if the background extends under the border, the padding, or stays strictly within the content.",
+        `<span class="t">.box</span> { <span class="a">background-clip</span>: <span class="v">content-box</span>; <span class="a">padding</span>: <span class="v">20px</span>; }`,
+        "<div style='border: 10px dotted black; padding: 20px; background: yellow; background-clip: content-box;'>Background only in Content Box</div>",
+      );
+
+      // 7.4 Gradients
+      createSection(
+        "7.4 CSS Gradients",
+        "fa-brush",
+        "Create smooth transitions between colors without using image files. Supports <b>linear</b> and <b>radial</b> types.",
+        `<span class="t">p</span> { <span class="a">background</span>: <span class="v">linear-gradient(to right, #ca1551, #yellow)</span>; }`,
+        "<div style='height:60px; background: linear-gradient(to right, #ca1551, yellow); border-radius:8px;'></div>",
+      );
+
+      // 7.5 Sprites
+      createSection(
+        "7.5 CSS Sprites",
+        "fa-th-large",
+        "Combine many small images into one file to save server requests. Use <b>background-position</b> to show the right part.",
+        `<span class="t">.icon</span> { <span class="a">background-position</span>: <span class="v">-50px 0px</span>; <span class="a">width</span>: <span class="v">50px</span>; }`,
+        "<div style='display:flex; align-items:center; gap:10px;'><div style='width:40px; height:40px; background: #ca1551; color:white; display:grid; place-items:center; border-radius:5px;'>1</div><p>Imagine these are parts of one large 'sprite' image.</p></div>",
+      );
+    </script>
+  </body>
+</html>

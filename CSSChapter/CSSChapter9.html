@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chapter 9: CSS Layout | Coding Bird</title>
+
+    <link href="../img/logo_name_icon.png" rel="icon" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&family=Fira+Code:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --primary: #ca1551;
+        --secondary: #2c3e50;
+        --code-bg: #1e1e2e;
+        --bg: #f8f9fa;
+        --text: #2c3e50;
+        --tag-color: #f92672;
+        --attr-color: #a6e22e;
+        --val-color: #e6db74;
+      }
+
+      body {
+        font-family: "Heebo", sans-serif;
+        background-color: var(--bg);
+        color: var(--text);
+        margin: 0;
+        line-height: 1.6;
+      }
+
+      .navbar-custom {
+        background: white;
+        height: 75px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 5%;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        box-sizing: border-box;
+      }
+
+      .navbar-brand {
+        font-family: "Nunito", sans-serif;
+        font-weight: 800;
+        font-size: 25px;
+        text-decoration: none;
+        color: var(--text);
+      }
+
+      .chapter-nav {
+        max-width: 850px;
+        margin: 100px auto 20px auto;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 20px;
+      }
+
+      .btn-action {
+        padding: 10px 20px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .btn-prev {
+        border: 2px solid #ddd;
+        color: #666;
+      }
+      .btn-next {
+        background: var(--primary);
+        color: white;
+      }
+
+      header {
+        text-align: center;
+        padding: 40px 20px;
+      }
+
+      .card {
+        background: white;
+        border-radius: 20px;
+        padding: 30px;
+        margin: 0 auto 35px auto;
+        max-width: 850px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        border: 1px solid #edf2f7;
+      }
+
+      h2 {
+        color: var(--primary);
+        font-family: "Nunito";
+        margin-top: 0;
+        font-size: 1.5rem;
+      }
+
+      .code-block {
+        background: var(--code-bg);
+        color: #f8f8f2;
+        padding: 20px;
+        border-radius: 12px;
+        font-family: "Fira Code", monospace;
+        font-size: 0.85rem;
+        margin: 15px 0;
+        overflow-x: auto;
+        white-space: pre-wrap;
+      }
+
+      .live-result {
+        background: #fff;
+        border: 2px solid #e2e8f0;
+        border-left: 5px solid var(--primary);
+        padding: 20px;
+        border-radius: 12px;
+        margin-top: 15px;
+      }
+
+      .label {
+        font-size: 0.7rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        color: #a0aec0;
+        margin-bottom: 5px;
+        display: block;
+      }
+
+      .t {
+        color: var(--tag-color);
+      }
+      .a {
+        color: var(--attr-color);
+      }
+      .v {
+        color: var(--val-color);
+      }
+
+      /* Custom Demo Helper Classes */
+      .demo-box {
+        background: var(--primary);
+        color: white;
+        padding: 10px;
+        text-align: center;
+        border-radius: 4px;
+      }
+
+      footer {
+        text-align: center;
+        padding: 40px;
+        background: #1a202c;
+        color: white;
+        margin-top: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar-custom">
+      <a href="../index.html" class="navbar-brand">
+        Coding<span style="color: var(--primary)">Bird</span>
+      </a>
+      <div class="nav-links">
+        <a href="../index.html">Home</a>
+        <a href="../html.html">HTML</a>
+        <a href="../css.html" style="color: var(--primary)">CSS</a>
+        <a href="../js.html">JS</a>
+      </div>
+    </nav>
+
+    <div class="chapter-nav">
+      <a href="CSSChapter8.html" class="btn-action btn-prev"
+        ><i class="fa fa-arrow-left"></i> Previous</a
+      >
+      <a href="CSSChapter10.html" class="btn-action btn-next"
+        >Next Chapter <i class="fa fa-arrow-right"></i
+      ></a>
+    </div>
+
+    <header>
+      <h1 style="font-family: &quot;Nunito&quot;; font-weight: 800">
+        Chapter 9: CSS Layout
+      </h1>
+      <p>
+        Mastering the architecture of the web with Position, Flex, and Grid.
+      </p>
+    </header>
+
+    <div id="chapter-content"></div>
+
+    <footer>&copy; 2026 Marufa Monjuri | Coding Bird</footer>
+
+    <script>
+      const content = document.getElementById("chapter-content");
+
+      function createSection(title, icon, desc, codeHtml, previewHtml) {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <h2><i class="fa ${icon}"></i> ${title}</h2>
+          <p style="color: #4a5568;">${desc}</p>
+          <span class="label">CSS Code</span>
+          <div class="code-block">${codeHtml}</div>
+          <span class="label">Browser View</span>
+          <div class="live-result">${previewHtml}</div>
+        `;
+        content.appendChild(card);
+      }
+
+      // 9.1 Position
+      createSection(
+        "9.1 CSS Position",
+        "fa-crosshairs",
+        "Position determines how an element sits in the document flow. <b>Absolute</b> elements position themselves relative to the nearest <b>Relative</b> parent.",
+        `<span class="t">.parent</span> { <span class="a">position</span>: <span class="v">relative</span>; }<br><span class="t">.child</span> { <span class="a">position</span>: <span class="v">absolute</span>; <span class="a">top</span>: <span class="v">10px</span>; }`,
+        `<div style="position: relative; height: 100px; border: 2px dashed #ccc; padding: 10px;">Parent (Relative)
+          <div style="position: absolute; bottom: 10px; right: 10px; background: var(--primary); color: white; padding: 5px 10px; border-radius: 5px;">Absolute Child</div>
+        </div>`,
+      );
+
+      // 9.2 Sticky
+      createSection(
+        "9.2 Sticky Positioning",
+        "fa-thumbtack",
+        "A sticky element toggles between relative and fixed, depending on the user's scroll position.",
+        `<span class="t">.sticky-box</span> { <span class="a">position</span>: <span class="v">sticky</span>; <span class="a">top</span>: <span class="v">0</span>; }`,
+        `<div style="height: 120px; overflow-y: scroll; border: 1px solid #ddd; padding: 0 15px;">
+          <div style="position: sticky; top: 0; background: #ffeb3b; padding: 10px; border: 1px solid #e6db74; font-weight: bold; z-index: 1;">I stick to the top!</div>
+          <p>Scroll down to see the effect...</p><p>Keep scrolling...</p><p>Almost there...</p><p>Content bottom.</p>
+        </div>`,
+      );
+
+      // 9.3 Flexbox
+      createSection(
+        "9.3 Flexbox (1D Layout)",
+        "fa-layer-group",
+        "Flexbox is perfect for aligning items in a single row or column. It handles distribution of space efficiently.",
+        `<span class="t">.container</span> { <span class="a">display</span>: <span class="v">flex</span>; <span class="a">justify-content</span>: <span class="v">space-around</span>; }`,
+        `<div style="display: flex; justify-content: space-around; background: #f1f1f1; padding: 10px; border-radius: 8px;">
+          <div class="demo-box">1</div><div class="demo-box" style="flex-grow: 1; margin: 0 10px;">2 (Grows)</div><div class="demo-box">3</div>
+        </div>`,
+      );
+
+      // 9.4 CSS Grid
+      createSection(
+        "9.4 CSS Grid (2D Layout)",
+        "fa-th",
+        "Grid is the most powerful layout system, allowing you to control both rows and columns simultaneously.",
+        `<span class="t">.grid</span> { <span class="a">display</span>: <span class="v">grid</span>; <span class="a">grid-template-columns</span>: <span class="v">repeat(3, 1fr)</span>; }`,
+        `<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+          <div style="background: var(--secondary); color: white; padding: 15px; text-align: center; border-radius: 5px;">A</div>
+          <div style="background: var(--secondary); color: white; padding: 15px; text-align: center; border-radius: 5px;">B</div>
+          <div style="background: var(--secondary); color: white; padding: 15px; text-align: center; border-radius: 5px;">C</div>
+        </div>`,
+      );
+
+      // 9.5 Centering
+      createSection(
+        "9.5 Perfect Centering",
+        "fa-arrows-alt",
+        "Using Grid's <b>place-items</b> property is the modern and easiest way to center content both horizontally and vertically.",
+        `<span class="t">.center-all</span> { <span class="a">display</span>: <span class="v">grid</span>; <span class="a">place-items</span>: <span class="v">center</span>; }`,
+        `<div style="display: grid; place-items: center; height: 100px; background: #eee; border-radius: 10px;">
+          <div style="background: white; padding: 10px 20px; border: 2px solid var(--primary); border-radius: 50px; font-weight: bold;">Centered!</div>
+        </div>`,
+      );
+    </script>
+  </body>
+</html>

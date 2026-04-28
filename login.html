@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Coding Bird : Login</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+    <link href="img/logo_name_icon.png" rel="icon" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
+
+    <style>
+      /* --- FIXED NAVBAR --- */
+      .navbar {
+        position: fixed !important;
+        top: 0;
+        width: 100%;
+        z-index: 2000;
+        height: 75px;
+        background-color: white !important;
+      }
+
+      /* --- CONTENT OFFSET --- */
+      body {
+        padding-top: 75px;
+      }
+
+      /* --- CODING BIRD THEME COLORS --- */
+      .text-bird {
+        color: #ca1551 !important;
+      }
+
+      .btn-bird {
+        background-color: #ca1551 !important;
+        border: none;
+        color: white;
+      }
+
+      .btn-bird:hover {
+        background-color: #a11141 !important;
+        color: white;
+      }
+
+      .form-control:focus {
+        border-color: #ca1551;
+        box-shadow: 0 0 0 0.25rem rgba(202, 21, 81, 0.25);
+      }
+    </style>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light shadow p-0">
+      <a
+        href="index.html"
+        class="navbar-brand d-flex align-items-center px-4 px-lg-5"
+      >
+        <p class="m-0 fw-bold" style="font-size: 25px">
+          <img src="img/logo_name_icon.png" alt="" height="50px" />Coding<span
+            class="text-bird"
+            >Bird</span
+          >
+        </p>
+      </a>
+      <button
+        type="button"
+        class="navbar-toggler me-4"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarCollapse"
+        style="border: none"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <div class="navbar-nav ms-auto p-4 p-lg-0">
+          <a href="index.html" class="nav-item nav-link">Home</a>
+          <a href="about.html" class="nav-item nav-link">About</a>
+          <a href="html.html" class="nav-item nav-link">HTML</a>
+          <a href="css.html" class="nav-item nav-link">CSS</a>
+          <a href="js.html" class="nav-item nav-link">JS</a>
+          <div class="nav-item dropdown">
+            <a
+              href="#"
+              class="nav-link dropdown-toggle"
+              data-bs-toggle="dropdown"
+              >Pages</a
+            >
+            <div class="dropdown-menu fade-down m-0">
+              <a href="team.html" class="dropdown-item">Our Team</a>
+              <a href="testimonial.html" class="dropdown-item">Testimonial</a>
+            </div>
+          </div>
+          <a href="contact.html" class="nav-item nav-link">Contact</a>
+          <a href="login.html" class="nav-item nav-link active"
+            ><i class="fa fa-user"></i
+          ></a>
+        </div>
+      </div>
+    </nav>
+    <div
+      class="container-fluid py-5 mb-5"
+      style="
+        background:
+          linear-gradient(rgba(24, 29, 56, 0.7), rgba(24, 29, 56, 0.7)),
+          url(img/whiteBgImg.jpg);
+        background-size: cover;
+      "
+    >
+      <div class="container py-5">
+        <div class="row justify-content-center">
+          <div class="col-lg-10 text-center">
+            <h1 class="display-3 text-white animated slideInDown">Login</h1>
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb justify-content-center">
+                <li class="breadcrumb-item">
+                  <a class="text-white" href="index.html">Home</a>
+                </li>
+                <li
+                  class="breadcrumb-item text-white active"
+                  aria-current="page"
+                >
+                  Login
+                </li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-xxl py-2 mt-4">
+      <div class="container">
+        <div class="row g-4 wow fadeInUp" data-wow-delay="0.5s">
+          <div class="col-12 d-flex justify-content-center">
+            <form
+              id="loginForm"
+              class="shadow p-4 bg-white rounded"
+              style="max-width: 500px; width: 100%"
+            >
+              <div class="text-center">
+                <h1 class="mb-5 px-3">Welcome Back</h1>
+              </div>
+              <div class="row g-3">
+                <div class="col-12">
+                  <div class="form-floating">
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="email"
+                      placeholder="Email Address"
+                      required
+                    />
+                    <label for="email">Email Address</label>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="form-floating">
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="password"
+                      placeholder="Password"
+                      required
+                    />
+                    <label for="password">Password</label>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <p><a href="#" class="text-bird">Forgot password?</a></p>
+                </div>
+                <div class="col-12">
+                  <button class="btn btn-bird w-100 py-3" type="submit">
+                    Login
+                  </button>
+                </div>
+                <div class="col-12 text-center">
+                  <p>
+                    Don't have an account?
+                    <a class="text-decoration-none text-bird" href="signup.html"
+                      >Signup</a
+                    >
+                  </p>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="container-fluid bg-dark text-light footer pt-5 mt-5">
+      <div class="container py-5">
+        <div class="row g-5">
+          <div class="col-lg-4 col-md-6">
+            <h4 class="text-white mb-3">Quick Link</h4>
+            <p><a class="text-light" href="about.html">About Us</a></p>
+            <p><a class="text-light" href="contact.html">Contact Us</a></p>
+            <p><a class="text-light" href="attribute.html">Attribute</a></p>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <h4 class="text-white mb-3">Contact</h4>
+            <p class="mb-2">
+              <i class="fa fa-map-marker-alt me-3"></i>Dhaka, Bangladesh
+            </p>
+            <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+98765567</p>
+            <p class="mb-2">
+              <i class="fa fa-envelope me-3"></i>marufamonjuri@gmail.com
+            </p>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <h4 class="text-white mb-3">Subscribe</h4>
+            <div class="position-relative mx-auto" style="max-width: 400px">
+              <input
+                class="form-control border-0 w-100 py-3 ps-4 pe-5"
+                type="email"
+                placeholder="Your email"
+              />
+              <button
+                type="button"
+                class="btn btn-bird py-2 position-absolute top-0 end-0 mt-2 me-2"
+              >
+                Subscribe
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      $(document).ready(function () {
+        $("#loginForm").on("submit", function (e) {
+          e.preventDefault();
+
+          const email = $("#email").val();
+          const password = $("#password").val();
+
+          if (email !== "" && password !== "") {
+            // Success Alert
+            alert(
+              "Welcome back to Coding Bird!\nYou have logged in successfully.",
+            );
+            // window.location.href = "index.html"; // Redirect to home
+          } else {
+            alert("Please fill in both email and password.");
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JS Chapter 11: Browser Tools | Coding Bird</title>
+
+    <link href="../img/logo_name_icon.png" rel="icon" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --primary: #ca1551;
+        --accent: #fe6868;
+        --code-bg: #1a1e21;
+        --bg: #f0f2f5;
+        --text: #2c3e50;
+        --secondary: #2ecc71;
+        --warning: #f39c12;
+      }
+
+      body {
+        font-family: "Heebo", sans-serif;
+        background-color: var(--bg);
+        color: var(--text);
+        margin: 0;
+        line-height: 1.6;
+      }
+
+      /* --- Navbar --- */
+      .navbar-custom {
+        background: white;
+        height: 75px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 5%;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        box-sizing: border-box;
+      }
+
+      .navbar-brand {
+        font-family: "Nunito", sans-serif;
+        font-weight: 800;
+        font-size: 25px;
+        text-decoration: none;
+        color: var(--text);
+        display: flex;
+        align-items: center;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: var(--text);
+        margin-left: 20px;
+        font-weight: 500;
+      }
+
+      /* --- Chapter Navigation --- */
+      .chapter-nav {
+        max-width: 850px;
+        margin: 100px auto 20px auto;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 20px;
+      }
+
+      .btn-action {
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .btn-prev {
+        border: 2px solid #ddd;
+        color: #666;
+      }
+      .btn-next {
+        background: var(--primary);
+        color: white;
+      }
+      .btn-prev:hover {
+        background: #eee;
+      }
+      .btn-next:hover {
+        opacity: 0.9;
+      }
+
+      header {
+        text-align: center;
+        padding: 40px 20px;
+      }
+
+      /* --- Card Layout --- */
+      .card {
+        background: white;
+        border-radius: 15px;
+        padding: 30px;
+        margin: 0 auto 35px auto;
+        max-width: 850px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      }
+
+      h2 {
+        color: var(--primary);
+        font-family: "Nunito";
+        display: flex;
+        align-items: center;
+        margin-top: 0;
+        font-size: 1.4rem;
+        border-left: 5px solid var(--primary);
+        padding-left: 15px;
+      }
+
+      .output-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px;
+        border-bottom: 1px solid #eee;
+        background: #fff;
+        position: relative;
+        cursor: help;
+        border-radius: 6px;
+        transition: 0.2s;
+      }
+
+      .output-row:hover {
+        background: #fff0f5;
+      }
+
+      .output-row::after {
+        content: "Tool: " attr(data-syntax);
+        position: absolute;
+        bottom: 110%;
+        right: 10px;
+        background: var(--code-bg);
+        color: #50fa7b;
+        padding: 8px 12px;
+        border-radius: 4px;
+        font-family: "Consolas", monospace;
+        font-size: 0.8rem;
+        visibility: hidden;
+        opacity: 0;
+        transition: 0.2s;
+        z-index: 100;
+        white-space: pre;
+      }
+
+      .output-row:hover::after {
+        visibility: visible;
+        opacity: 1;
+      }
+
+      .label {
+        font-weight: 600;
+        font-family: monospace;
+        color: #555;
+      }
+      .result {
+        font-weight: bold;
+        font-family: "Consolas", monospace;
+        color: var(--secondary);
+      }
+      .description {
+        font-size: 0.85em;
+        color: #7f8c8d;
+        margin: 4px 0 15px 12px;
+      }
+
+      /* --- Lighthouse specific styles --- */
+      .score-circle {
+        display: inline-block;
+        width: 32px;
+        height: 32px;
+        line-height: 32px;
+        text-align: center;
+        border-radius: 50%;
+        border: 2px solid;
+        font-size: 0.8rem;
+        font-weight: 800;
+      }
+
+      footer {
+        text-align: center;
+        padding: 40px;
+        background: #1a1e21;
+        color: white;
+        margin-top: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar-custom">
+      <a href="../index.html" class="navbar-brand">
+        <img src="../img/logo_name_icon.png" height="45px" alt="" /> Coding<span
+          style="color: var(--primary)"
+          >Bird</span
+        >
+      </a>
+      <div class="nav-links">
+        <a href="../index.html">Home</a>
+        <a href="../html.html">HTML</a>
+        <a href="../css.html">CSS</a>
+        <a href="../js.html" style="color: var(--primary)">JS</a>
+      </div>
+    </nav>
+
+    <div class="chapter-nav">
+      <a href="JSChapter10.html" class="btn-action btn-prev"
+        ><i class="fa fa-arrow-left"></i> Previous Chapter</a
+      >
+      <a href="JSChapter12.html" class="btn-action btn-next">
+        Next Chapter <i class="fa fa-arrow-right"></i
+      ></a>
+    </div>
+
+    <header>
+      <h1 style="font-family: &quot;Nunito&quot;; font-weight: 800">
+        JavaScript Chapter 11 Showcase
+      </h1>
+      <p>Mastering Browser Developer Tools & Audits</p>
+    </header>
+
+    <div id="chapter-content"></div>
+
+    <footer>&copy; 2026 Marufa Monjuri | Coding Bird</footer>
+
+    <script>
+      function addCard(title) {
+        const container = document.getElementById("chapter-content");
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `<h2>${title}</h2><div class="card-body"></div>`;
+        container.appendChild(card);
+        return card.querySelector(".card-body");
+      }
+
+      function addToUI(cardBody, label, result, syntax, description = "") {
+        const wrapper = document.createElement("div");
+        wrapper.innerHTML = `
+                <div class="output-row" data-syntax="${syntax}">
+                    <span class="label">${label}</span>
+                    <span class="result">${result}</span>
+                </div>
+                ${description ? `<div class="description">${description}</div>` : ""}
+            `;
+        cardBody.appendChild(wrapper);
+      }
+
+      // --- 11.1 Debugging JavaScript ---
+      const body111 = addCard("11.1 Debugging Techniques");
+      addToUI(
+        body111,
+        "Breakpoint",
+        "Paused State",
+        "Sources Tab",
+        "Pauses code at a specific line to inspect variable values.",
+      );
+      addToUI(
+        body111,
+        "Debugger Statement",
+        "debugger;",
+        "Code-level breakpoint",
+        "Hardcodes a pause directly into your script logic.",
+      );
+
+      // --- 11.2 Performance Analysis ---
+      const body112 = addCard("11.2 Runtime Performance");
+      addToUI(
+        body112,
+        "CPU Throttling",
+        "4x Slowdown",
+        "Performance > Capture Settings",
+        "Simulates slower hardware to catch bottlenecks.",
+      );
+      addToUI(
+        body112,
+        "Network Throttling",
+        "Slow 3G",
+        "Network / Performance Tab",
+        "Tests site behavior on poor internet connections.",
+      );
+
+      // --- 11.3 Code Coverage ---
+      const body113 = addCard("11.3 Unused JavaScript");
+      addToUI(
+        body113,
+        "Usage Report",
+        "38% Unused",
+        "Coverage Tab",
+        "Shows how many bytes of a file are actually executed.",
+      );
+      addToUI(
+        body113,
+        "Visual Bar",
+        "<span style='color:red'>■■■</span><span style='color:green'>■■■■■</span>",
+        "Usage Visualization",
+        "Green indicates used code; Red indicates unused code.",
+      );
+
+      addToUI(
+        body114,
+        "Performance",
+        getScoreUI(96),
+        "Lighthouse Tab",
+        "Measures speed and optimization.",
+      );
+      addToUI(
+        body114,
+        "Accessibility",
+        getScoreUI(100),
+        "Lighthouse Tab",
+        "Checks usability for people with disabilities.",
+      );
+      addToUI(
+        body114,
+        "Best Practices",
+        getScoreUI(92),
+        "Lighthouse Tab",
+        "Ensures modern web standard compliance.",
+      );
+      addToUI(
+        body114,
+        "SEO",
+        getScoreUI(88),
+        "Lighthouse Tab",
+        "Evaluates search engine optimization.",
+      );
+    </script>
+  </body>
+</html>

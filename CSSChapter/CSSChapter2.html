@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chapter 2: CSS Selectors | Coding Bird</title>
+
+    <link href="../img/logo_name_icon.png" rel="icon" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&family=Fira+Code:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --primary: #ca1551;
+        --accent: #fe6868;
+        --code-bg: #1e1e2e;
+        --bg: #f8f9fa;
+        --text: #2c3e50;
+        --tag-color: #f92672;
+        --attr-color: #a6e22e;
+        --val-color: #e6db74;
+        --comment-color: #75715e;
+        --preview-bg: #ffffff;
+      }
+
+      body {
+        font-family: "Heebo", sans-serif;
+        background-color: var(--bg);
+        color: var(--text);
+        margin: 0;
+        line-height: 1.6;
+      }
+
+      .navbar-custom {
+        background: white;
+        height: 75px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 5%;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        box-sizing: border-box;
+      }
+
+      .navbar-brand {
+        font-family: "Nunito", sans-serif;
+        font-weight: 800;
+        font-size: 25px;
+        text-decoration: none;
+        color: var(--text);
+      }
+
+      .chapter-nav {
+        max-width: 850px;
+        margin: 100px auto 20px auto;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 20px;
+      }
+
+      .btn-action {
+        padding: 10px 20px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .btn-prev {
+        border: 2px solid #ddd;
+        color: #666;
+      }
+      .btn-next {
+        background: var(--primary);
+        color: white;
+      }
+
+      header {
+        text-align: center;
+        padding: 40px 20px;
+      }
+
+      .card {
+        background: white;
+        border-radius: 20px;
+        padding: 30px;
+        margin: 0 auto 35px auto;
+        max-width: 850px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        border: 1px solid #edf2f7;
+      }
+
+      h2 {
+        color: var(--primary);
+        font-family: "Nunito";
+        margin-top: 0;
+        font-size: 1.5rem;
+      }
+
+      .code-block {
+        background: var(--code-bg);
+        color: #f8f8f2;
+        padding: 20px;
+        border-radius: 12px;
+        font-family: "Fira Code", monospace;
+        font-size: 0.85rem;
+        margin: 15px 0;
+        position: relative;
+        overflow-x: auto;
+        white-space: pre-wrap;
+      }
+
+      .live-result {
+        background: #fff;
+        border: 2px solid #e2e8f0;
+        border-left: 5px solid var(--primary);
+        padding: 20px;
+        border-radius: 12px;
+        margin-top: 15px;
+      }
+
+      .label {
+        font-size: 0.7rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        color: #a0aec0;
+        margin-bottom: 5px;
+        display: block;
+      }
+
+      .t {
+        color: var(--tag-color);
+        font-weight: 500;
+      }
+      .a {
+        color: var(--attr-color);
+      }
+      .v {
+        color: var(--val-color);
+      }
+      .c {
+        color: var(--comment-color);
+        font-style: italic;
+      }
+
+      footer {
+        text-align: center;
+        padding: 40px;
+        background: #1a202c;
+        color: white;
+        margin-top: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar-custom">
+      <a href="../index.html" class="navbar-brand">
+        Coding<span style="color: var(--primary)">Bird</span>
+      </a>
+      <div class="nav-links">
+        <a href="../index.html">Home</a>
+        <a href="../html.html">HTML</a>
+        <a href="../css.html" style="color: var(--primary)">CSS</a>
+        <a href="../js.html">JS</a>
+      </div>
+    </nav>
+
+    <div class="chapter-nav">
+      <a href="CSSChapter1.html" class="btn-action btn-prev"
+        ><i class="fa fa-arrow-left"></i> Previous</a
+      >
+      <a href="CSSChapter3.html" class="btn-action btn-next"
+        >Next Chapter <i class="fa fa-arrow-right"></i
+      ></a>
+    </div>
+
+    <header>
+      <h1 style="font-family: &quot;Nunito&quot;; font-weight: 800">
+        Chapter 2: CSS Selectors
+      </h1>
+      <p>Targeting HTML elements to apply specific styles.</p>
+    </header>
+
+    <div id="chapter-content"></div>
+
+    <footer>&copy; 2026 Marufa Monjuri | Coding Bird</footer>
+
+    <script>
+      const content = document.getElementById("chapter-content");
+
+      function createSection(title, icon, desc, codeHtml, previewHtml) {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <h2><i class="fa ${icon}"></i> ${title}</h2>
+          <p style="color: #4a5568;">${desc}</p>
+          <span class="label">CSS Selector Code</span>
+          <div class="code-block">${codeHtml}</div>
+          <span class="label">Result</span>
+          <div class="live-result">${previewHtml}</div>
+        `;
+        content.appendChild(card);
+      }
+
+      // 2.1 Universal Selector
+      createSection(
+        "2.1 Universal Selector (*)",
+        "fa-globe",
+        "The universal selector targets every single element on the page or within a specific scope.",
+        `<span class="t">body * p</span> { <br> &nbsp;&nbsp;<span class="a">color</span>: <span class="v">red</span>; <br> }`,
+        "<div><p style='color:red; margin:0;'>Selected (nested p)</p> <p style='margin:0;'>Not selected (direct child if specified)</p></div>",
+      );
+
+      // 2.3 ID Selector
+      createSection(
+        "2.3 ID Selector (#)",
+        "fa-fingerprint",
+        "IDs are unique. Use the hash symbol followed by the ID name to target one specific element.",
+        `<span class="t">#my-text</span> { <br> &nbsp;&nbsp;<span class="a">color</span>: <span class="v">#ca1551</span>; <br> }`,
+        "<p id='my-text' style='color:#ca1551; font-weight:bold; margin:0;'>This text has a unique ID.</p>",
+      );
+
+      // 2.4 Class Selector
+      createSection(
+        "2.4 Class Selector (.)",
+        "fa-tags",
+        "Classes are reusable. Use a dot followed by the class name to target multiple elements.",
+        `<span class="t">.highlight</span> { <br> &nbsp;&nbsp;<span class="a">background-color</span>: <span class="v">yellow</span>; <br> }`,
+        "<p style='background-color:yellow; display:inline; margin:0;'>Reusable</p> and <p style='background-color:yellow; display:inline; margin:0;'>Highlight</p>",
+      );
+
+      // 2.5 Interaction Pseudo-classes
+      createSection(
+        "2.5 Interaction (:hover, :active)",
+        "fa-mouse-pointer",
+        "Pseudo-classes change styles based on user interaction like hovering or clicking.",
+        `<span class="t">button:hover</span> { <span class="a">color</span>: <span class="v">green</span>; } <br> <span class="t">button:active</span> { <span class="a">color</span>: <span class="v">blue</span>; }`,
+        "<button style='padding:10px; cursor:pointer;'>Hover or Click Me!</button> <small>(Simulate in editor)</small>",
+      );
+
+      // 2.6 Child Elements
+      createSection(
+        "2.6 Child Selectors (:nth-child)",
+        "fa-sitemap",
+        "Target elements based on their position in a list (e.g., odd/even or a specific number).",
+        `<span class="t">li:nth-child(even)</span> { <br> &nbsp;&nbsp;<span class="a">color</span>: <span class="v">var(--primary)</span>; <br> }`,
+        "<ul style='margin:0;'><li>Item 1</li><li style='color:#ca1551;'>Item 2 (Even)</li><li>Item 3</li><li style='color:#ca1551;'>Item 4 (Even)</li></ul>",
+      );
+
+      // 2.7 Combined Selectors
+      createSection(
+        "2.7 Combined Selectors (> , +)",
+        "fa-link",
+        "Combinators explain the relationship between selectors, like targeting only immediate children.",
+        `<span class="t">div > p</span> { <span class="c">/* Immediate children only */</span> <br> &nbsp;&nbsp;<span class="a">font-weight</span>: <span class="v">bold</span>; <br> }`,
+        "<div><p style='font-weight:bold; margin:0;'>I am a direct child (Bold)</p> <section><p style='margin:0;'>I am a grandchild (Normal)</p></section></div>",
+      );
+
+      // 2.8 Attribute Selectors
+      createSection(
+        "2.8 Attribute Selectors ([type])",
+        "fa-search",
+        "Target elements based on their attributes (like type, href, or title).",
+        `<span class="t">input[type="text"]</span> { <br> &nbsp;&nbsp;<span class="a">border</span>: <span class="v">2px solid red</span>; <br> }`,
+        "<input type='text' value='Targeted' style='border:2px solid red; padding:5px;'> <input type='checkbox'>",
+      );
+    </script>
+  </body>
+</html>

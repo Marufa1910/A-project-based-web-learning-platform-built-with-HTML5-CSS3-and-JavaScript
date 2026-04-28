@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chapter 6: HTML Multimedia | Coding Bird</title>
+
+    <link href="../img/logo_name_icon.png" rel="icon" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&family=Fira+Code:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --primary: #ca1551;
+        --accent: #fe6868;
+        --code-bg: #1e1e2e;
+        --bg: #f8f9fa;
+        --text: #2c3e50;
+        --tag-color: #f92672;
+        --attr-color: #a6e22e;
+        --val-color: #e6db74;
+      }
+
+      body {
+        font-family: "Heebo", sans-serif;
+        background-color: var(--bg);
+        color: var(--text);
+        margin: 0;
+        line-height: 1.6;
+      }
+
+      .navbar-custom {
+        background: white;
+        height: 75px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 5%;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        box-sizing: border-box;
+      }
+
+      .navbar-brand {
+        font-family: "Nunito", sans-serif;
+        font-weight: 800;
+        font-size: 25px;
+        text-decoration: none;
+        color: var(--text);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .navbar-brand img {
+        height: 40px;
+      }
+
+      .chapter-nav {
+        max-width: 850px;
+        margin: 100px auto 20px auto;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 20px;
+      }
+
+      .btn-action {
+        padding: 10px 20px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .btn-prev {
+        border: 2px solid #ddd;
+        color: #666;
+      }
+      .btn-next {
+        background: var(--primary);
+        color: white;
+      }
+
+      header {
+        text-align: center;
+        padding: 40px 20px;
+      }
+
+      .card {
+        background: white;
+        border-radius: 20px;
+        padding: 30px;
+        margin: 0 auto 35px auto;
+        max-width: 850px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        border: 1px solid #edf2f7;
+      }
+
+      h2 {
+        color: var(--primary);
+        font-family: "Nunito";
+        margin-top: 0;
+        font-size: 1.5rem;
+      }
+
+      .code-block {
+        background: var(--code-bg);
+        color: #f8f8f2;
+        padding: 20px;
+        border-radius: 12px;
+        font-family: "Fira Code", monospace;
+        font-size: 0.85rem;
+        margin: 15px 0;
+        overflow-x: auto;
+      }
+
+      .live-result {
+        background: #fff;
+        border: 2px solid #e2e8f0;
+        border-left: 5px solid var(--primary);
+        padding: 20px;
+        border-radius: 12px;
+        margin-top: 15px;
+      }
+
+      .label {
+        font-size: 0.7rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        color: #a0aec0;
+        margin-bottom: 5px;
+        display: block;
+      }
+      .t {
+        color: var(--tag-color);
+      }
+      .a {
+        color: var(--attr-color);
+      }
+      .v {
+        color: var(--val-color);
+      }
+
+      footer {
+        text-align: center;
+        padding: 40px;
+        background: #1a202c;
+        color: white;
+        margin-top: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar-custom">
+      <a href="../index.html" class="navbar-brand">
+        <img src="../img/logo_name_icon.png" alt="Logo" />
+        Coding<span style="color: var(--primary)">Bird</span>
+      </a>
+      <div class="nav-links">
+        <a href="../index.html">Home</a>
+        <a href="../html.html" style="color: var(--primary)">HTML</a>
+        <a href="../css.html">CSS</a>
+        <a href="../js.html">JS</a>
+      </div>
+    </nav>
+
+    <div class="chapter-nav">
+      <a href="HTMLChapter5.html" class="btn-action btn-prev"
+        ><i class="fa fa-arrow-left"></i> Previous</a
+      >
+      <a href="HTMLChapter7.html" class="btn-action btn-next"
+        >Next Chapter <i class="fa fa-arrow-right"></i
+      ></a>
+    </div>
+
+    <header>
+      <h1 style="font-family: &quot;Nunito&quot;; font-weight: 800">
+        HTML Multimedia
+      </h1>
+      <p>
+        Embedding audio and video files to create engaging user experiences.
+      </p>
+    </header>
+
+    <div id="chapter-content"></div>
+
+    <footer>&copy; 2026 Marufa Monjuri | Coding Bird</footer>
+
+    <script>
+      const content = document.getElementById("chapter-content");
+
+      function createSection(title, icon, desc, codeHtml, previewHtml) {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <h2><i class="fa ${icon}"></i> ${title}</h2>
+          <p style="color: #4a5568;">${desc}</p>
+          <span class="label">HTML Source Code</span>
+          <div class="code-block">${codeHtml}</div>
+          <span class="label">Live Result</span>
+          <div class="live-result">${previewHtml}</div>
+        `;
+        content.appendChild(card);
+      }
+
+      // 6.1 Audio
+      createSection(
+        "Audio Embedding",
+        "fa-volume-up",
+        "MP3 is the recommended format. Use the 'controls' attribute to show play/pause buttons.",
+        `<span class="t">&lt;audio</span> <span class="a">controls</span><span class="t">&gt;</span><br>&nbsp;&nbsp;<span class="t">&lt;source</span> <span class="a">src</span>=<span class="v">"music.mp3"</span> <span class="a">type</span>=<span class="v">"audio/mpeg"</span><span class="t">&gt;</span><br>&nbsp;&nbsp;Your browser does not support audio.<br><span class="t">&lt;/audio&gt;</span>`,
+        `<audio controls style="width: 100%;">
+           <source src="../img/horse.mp3" type="audio/mpeg">
+           Your browser does not support the audio element.
+         </audio>`,
+      );
+
+      // 6.2 Video
+      createSection(
+        "Video Embedding",
+        "fa-video",
+        "MP4 is recommended for widest support. Always include width/height to prevent layout shifts.",
+        `<span class="t">&lt;video</span> <span class="a">width</span>=<span class="v">"320"</span> <span class="a">height</span>=<span class="v">"240"</span> <span class="a">controls</span><span class="t">&gt;</span><br>&nbsp;&nbsp;<span class="t">&lt;source</span> <span class="a">src</span>=<span class="v">"movie.mp4"</span> <span class="a">type</span>=<span class="v">"video/mp4"</span><span class="t">&gt;</span><br><span class="t">&lt;/video&gt;</span>`,
+        `<video width="100%" height="auto" controls poster="https://via.placeholder.com/640x360?text=Video+Thumbnail">
+           <source src="../img/vedio.mp4" type="video/mp4">
+           Your browser does not support the video tag.
+         </video>`,
+      );
+
+      // 6.3 Attributes Overview
+      const attrCard = document.createElement("div");
+      attrCard.className = "card";
+      attrCard.innerHTML = `
+        <h2><i class="fa fa-list-ul"></i> Multimedia Attributes</h2>
+        <p>Both &lt;audio&gt; and &lt;video&gt; share several important attributes:</p>
+        <div class="semantic-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-top: 20px;">
+          <div class="tag-pill"><strong>controls</strong>: Shows UI</div>
+          <div class="tag-pill"><strong>autoplay</strong>: Starts on load</div>
+          <div class="tag-pill"><strong>muted</strong>: No sound</div>
+          <div class="tag-pill"><strong>loop</strong>: Replays file</div>
+          <div class="tag-pill"><strong>preload</strong>: Pre-buffers data</div>
+          <div class="tag-pill"><strong>poster</strong>: (Video) Thumbnail</div>
+        </div>
+      `;
+      content.appendChild(attrCard);
+    </script>
+  </body>
+</html>

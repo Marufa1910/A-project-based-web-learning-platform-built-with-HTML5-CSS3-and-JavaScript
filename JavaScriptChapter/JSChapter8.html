@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JS Chapter 8: Professional Classes | Coding Bird</title>
+
+    <link href="../img/logo_name_icon.png" rel="icon" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --primary: #ca1551;
+        --accent: #fe6868;
+        --bg: #f0f2f5;
+        --card-bg: #ffffff;
+        --code-bg: #1a1e21;
+        --code-text: #ffffff;
+        --success: #2ecc71;
+
+        /* Syntax Highlighting */
+        --token-keyword: #ff79c6;
+        --token-function: #50fa7b;
+        --token-string: #f1fa8c;
+        --token-comment: #6272a4;
+        --token-number: #bd93f9;
+      }
+
+      body {
+        font-family: "Heebo", sans-serif;
+        background-color: var(--bg);
+        color: #2c3e50;
+        margin: 0;
+        padding-top: 100px;
+      }
+
+      /* --- Navbar --- */
+      .navbar-custom {
+        background: white;
+        height: 75px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 5%;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        box-sizing: border-box;
+      }
+
+      .navbar-brand {
+        font-family: "Nunito", sans-serif;
+        font-weight: 800;
+        font-size: 25px;
+        text-decoration: none;
+        color: #2c3e50;
+        display: flex;
+        align-items: center;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: #2c3e50;
+        margin-left: 20px;
+        font-weight: 500;
+      }
+
+      /* --- Layout --- */
+      #learning-path {
+        max-width: 850px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .card {
+        background: var(--card-bg);
+        border-radius: 12px;
+        padding: 30px;
+        margin-bottom: 40px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        border-top: 5px solid var(--primary);
+      }
+
+      .card-header {
+        font-weight: 800;
+        font-family: "Nunito";
+        font-size: 1.4rem;
+        margin-bottom: 10px;
+        color: var(--primary);
+      }
+
+      .card-desc {
+        font-size: 1rem;
+        color: #4a4a4a;
+        line-height: 1.6;
+        margin-bottom: 20px;
+      }
+
+      .code-block {
+        background: var(--code-bg);
+        color: var(--code-text);
+        padding: 20px;
+        border-radius: 8px;
+        font-family: "Consolas", monospace;
+        font-size: 0.95rem;
+        white-space: pre-wrap;
+        margin-bottom: 15px;
+        line-height: 1.5;
+      }
+      /* --- Navigation Buttons --- */
+      .chapter-nav {
+        max-width: 850px;
+        margin: 0 auto 20px auto;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 20px;
+      }
+
+      .btn-action {
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .btn-prev {
+        border: 2px solid #ddd;
+        color: #666;
+      }
+      .btn-next {
+        background: var(--primary);
+        color: white;
+      }
+
+      /* Syntax Tokens */
+      .kw {
+        color: var(--token-keyword);
+        font-weight: bold;
+      }
+      .fn {
+        color: var(--token-function);
+      }
+      .str {
+        color: var(--token-string);
+      }
+      .cmt {
+        color: var(--token-comment);
+        font-style: italic;
+      }
+      .num {
+        color: var(--token-number);
+      }
+
+      .result-box {
+        background: #f8f9fa;
+        border-left: 4px solid var(--success);
+        padding: 15px;
+        border-radius: 4px;
+        color: #27ae60;
+        font-weight: bold;
+        font-family: monospace;
+        margin-bottom: 15px;
+      }
+
+      .pro-tip {
+        background: #fff9eb;
+        border: 1px solid #ffeaa7;
+        padding: 12px;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        color: #d35400;
+        display: flex;
+        gap: 10px;
+      }
+
+      footer {
+        text-align: center;
+        padding: 40px;
+        background: #1a1e21;
+        color: white;
+        margin-top: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar-custom">
+      <a href="../index.html" class="navbar-brand">
+        <img src="../img/logo_name_icon.png" height="45px" alt="" /> Coding<span
+          style="color: var(--primary)"
+          >Bird</span
+        >
+      </a>
+      <div class="nav-links">
+        <a href="../index.html">Home</a>
+        <a href="../html.html">HTML</a>
+        <a href="../css.html">CSS</a>
+        <a href="../js.html" style="color: var(--primary)">JS</a>
+      </div>
+    </nav>
+    <div class="chapter-nav">
+      <a href="JSChapter7.html" class="btn-action btn-prev"
+        ><i class="fa fa-arrow-left"></i> Previous Chapter</a
+      >
+      <a href="JSChapter9.html" class="btn-action btn-next"
+        >Next Chapter <i class="fa fa-arrow-right"></i
+      ></a>
+    </div>
+
+    <header style="text-align: center; margin-bottom: 40px">
+      <h1 style="font-family: &quot;Nunito&quot;; font-weight: 800">
+        Chapter 8: Classes & Modules
+      </h1>
+      <p>Blueprints, Inheritance, and Encapsulation</p>
+    </header>
+
+    <main id="learning-path">
+      <div class="card" style="border-top-color: #3498db">
+        <div class="card-header" style="color: #3498db">
+          The Hierarchy of Inheritance
+        </div>
+        <div class="card-desc">
+          Inheritance allows child classes to adopt properties and methods from
+          a parent, reducing code repetition.
+        </div>
+      </div>
+    </main>
+
+    <footer>&copy; 2026 Marufa Monjuri | Coding Bird</footer>
+
+    <script>
+      const lessons = [
+        {
+          title: "8.1 Creating a Reusable Class",
+          desc: "Define a template using 'class' and 'constructor' to bundle data and methods.",
+          code: `<span class="kw">class</span> <span class="fn">Person</span> {
+  <span class="fn">constructor</span>(name) { <span class="kw">this</span>.name = name; }
+  <span class="fn">greet</span>() { <span class="kw">return</span> <span class="str">'Hi, '</span> + <span class="kw">this</span>.name; }
+}`,
+          res: "new Person('Luke').greet() -> 'Hi, Luke'",
+          tip: "Class names should always start with a Capital letter (PascalCase).",
+        },
+        {
+          title: "8.2 Properties & Accessors",
+          desc: "Use 'get' and 'set' to wrap internal data with validation logic.",
+          code: `<span class="kw">class</span> <span class="fn">Account</span> {
+  <span class="fn">set</span> <span class="fn">balance</span>(v) { <span class="kw">if</span>(v < <span class="num">0</span>) <span class="kw">throw</span> <span class="str">'Error'</span>; <span class="kw">this</span>._v = v; }
+  <span class="fn">get</span> <span class="fn">balance</span>() { <span class="kw">return</span> <span class="kw">this</span>._v; }
+}`,
+          res: "Safely manages internal object state",
+          tip: "The underscore prefix (_balance) is a convention meaning 'Private'.",
+        },
+        {
+          title: "8.3 String Representations",
+          desc: "Override the default [object Object] by adding a toString() method.",
+          code: `<span class="kw">class</span> <span class="fn">Book</span> {
+  <span class="fn">toString</span>() { <span class="kw">return</span> <span class="str">\`Book: \${<span class="kw">this</span>.title}\`</span>; }
+}`,
+          res: "String(myBook) -> 'Book: JS Mastery'",
+          tip: "This is automatically called when you alert an object or add it to a string.",
+        },
+        {
+          title: "8.4 Method Chaining",
+          desc: "Return 'this' to allow calling multiple methods in a single line.",
+          code: `<span class="kw">class</span> <span class="fn">Task</span> {
+  <span class="fn">start</span>() { <span class="cmt">/*...*/</span> <span class="kw">return</span> <span class="kw">this</span>; }
+  <span class="fn">end</span>() { <span class="cmt">/*...*/</span> <span class="kw">return</span> <span class="kw">this</span>; }
+}
+<span class="num">t</span>.<span class="fn">start</span>().<span class="fn">end</span>();`,
+          res: "Fluent API design",
+          tip: "Very common in libraries like jQuery or D3.js.",
+        },
+        {
+          title: "8.5 Static Methods",
+          desc: "Utility methods that belong to the Class itself, not individual instances.",
+          code: `<span class="kw">class</span> <span class="fn">Maths</span> {
+  <span class="kw">static</span> <span class="fn">add</span>(a, b) { <span class="kw">return</span> a + b; }
+}
+<span class="fn">Maths</span>.<span class="fn">add</span>(<span class="num">5</span>, <span class="num">10</span>);`,
+          res: "15",
+          tip: "Use static methods for tools that don't need to 'remember' object data.",
+        },
+        {
+          title: "8.6 Static Factory Methods",
+          desc: "Create pre-configured objects using static methods instead of the constructor.",
+          code: `<span class="kw">static</span> <span class="fn">createTrilogy</span>(author) {
+  <span class="kw">return</span> [<span class="kw">new</span> <span class="fn">Book</span>(author), <span class="kw">new</span> <span class="fn">Book</span>(author)];
+}`,
+          res: "Returns an array of pre-built objects",
+          tip: "This is a great way to handle 'multiple constructors' which JS doesn't support.",
+        },
+        {
+          title: "8.7 Class Inheritance",
+          desc: "Extend a parent class to inherit its powers using 'extends' and 'super()'.",
+          code: `<span class="kw">class</span> <span class="fn">EBook</span> <span class="kw">extends</span> <span class="fn">Book</span> {
+  <span class="fn">constructor</span>(title, url) {
+    <span class="kw">super</span>(title); <span class="kw">this</span>.url = url;
+  }
+}`,
+          res: "EBook inherits all Book methods",
+          tip: "You must call super() before accessing 'this' in a child constructor.",
+        },
+        {
+          title: "8.8 ES6 Modules",
+          desc: "Organize code into separate files and share them using 'export' and 'import'.",
+          code: `<span class="cmt">// file.js</span>
+<span class="kw">export</span> <span class="kw">class</span> <span class="fn">Tool</span> {}
+<span class="cmt">// app.js</span>
+<span class="kw">import</span> { <span class="num">Tool</span> } <span class="kw">from</span> <span class="str">'./file.js'</span>;`,
+          res: "Clean, modular code structure",
+          tip: "Modules always run in 'Strict Mode' and have their own private scope.",
+        },
+      ];
+
+      const container = document.getElementById("learning-path");
+
+      lessons.forEach((item) => {
+        container.innerHTML += `
+            <div class="card">
+                <div class="card-header">${item.title}</div>
+                <div class="card-desc">${item.desc}</div>
+                <div class="code-block">${item.code}</div>
+                <div class="result-box"><i class="fas fa-terminal"></i> Result: ${item.res}</div>
+                <div class="pro-tip"><i class="fas fa-lightbulb" style="margin-top:3px"></i> <div><strong>Pro Tip:</strong> ${item.tip}</div></div>
+            </div>
+        `;
+      });
+    </script>
+  </body>
+</html>

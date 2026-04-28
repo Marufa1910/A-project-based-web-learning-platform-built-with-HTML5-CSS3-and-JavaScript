@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JS Chapter 10: Errors & Testing | Coding Bird</title>
+
+    <link href="../img/logo_name_icon.png" rel="icon" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --primary: #ca1551;
+        --accent: #fe6868;
+        --bg: #f0f2f5;
+        --card-bg: #ffffff;
+        --code-bg: #1a1e21;
+        --success: #2ecc71;
+        --error: #e74c3c;
+        --syntax-hint: #50fa7b;
+      }
+
+      body {
+        font-family: "Heebo", sans-serif;
+        background-color: var(--bg);
+        color: #2c3e50;
+        margin: 0;
+        padding-top: 100px;
+      }
+
+      /* --- Branding --- */
+      .navbar-custom {
+        background: white;
+        height: 75px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 5%;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        box-sizing: border-box;
+      }
+
+      .navbar-brand {
+        font-family: "Nunito", sans-serif;
+        font-weight: 800;
+        font-size: 25px;
+        text-decoration: none;
+        color: #2c3e50;
+        display: flex;
+        align-items: center;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: #2c3e50;
+        margin-left: 20px;
+        font-weight: 500;
+      }
+
+      /* --- Navigation --- */
+      .chapter-nav {
+        max-width: 850px;
+        margin: 0 auto 20px auto;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 20px;
+      }
+
+      .btn-action {
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .btn-prev {
+        border: 2px solid #ddd;
+        color: #666;
+      }
+      .btn-next {
+        background: var(--primary);
+        color: white;
+      }
+
+      header {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+
+      /* --- Layout & Cards --- */
+      #chapter-content {
+        max-width: 850px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .card {
+        background: white;
+        border-radius: 12px;
+        padding: 30px;
+        margin-bottom: 35px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        border-top: 5px solid var(--primary);
+      }
+
+      h2 {
+        color: var(--primary);
+        font-family: "Nunito";
+        font-size: 1.4rem;
+        margin-top: 0;
+        margin-bottom: 20px;
+      }
+
+      /* --- Tooltip Engine --- */
+      .output-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 15px;
+        background: #f8f9fa;
+        border-radius: 8px;
+        position: relative;
+        cursor: help;
+        transition: 0.2s;
+        border: 1px solid transparent;
+      }
+
+      .output-row:hover {
+        background: #fff0f5;
+        border-color: var(--accent);
+      }
+
+      .output-row::after {
+        content: "Syntax: " attr(data-syntax);
+        position: absolute;
+        bottom: 115%;
+        right: 0;
+        background: var(--code-bg);
+        color: var(--syntax-hint);
+        padding: 10px 15px;
+        border-radius: 6px;
+        font-family: monospace;
+        font-size: 0.85rem;
+        visibility: hidden;
+        opacity: 0;
+        transition: 0.2s;
+        z-index: 100;
+        white-space: pre;
+      }
+
+      .output-row:hover::after {
+        visibility: visible;
+        opacity: 1;
+      }
+
+      .label {
+        font-weight: 600;
+        font-family: monospace;
+      }
+      .result {
+        font-weight: bold;
+        font-family: "Consolas", monospace;
+        color: var(--success);
+      }
+      .result.err {
+        color: var(--error);
+      }
+
+      .description {
+        font-size: 0.9rem;
+        color: #636e72;
+        margin: 8px 0 20px 15px;
+        border-left: 2px solid #ddd;
+        padding-left: 10px;
+      }
+
+      .test-pass {
+        color: var(--success);
+      }
+      .test-fail {
+        color: var(--error);
+      }
+
+      footer {
+        text-align: center;
+        padding: 40px;
+        background: #1a1e21;
+        color: white;
+        margin-top: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar-custom">
+      <a href="../index.html" class="navbar-brand">
+        <img src="../img/logo_name_icon.png" height="45px" alt="" /> Coding<span
+          style="color: var(--primary)"
+          >Bird</span
+        >
+      </a>
+      <div class="nav-links">
+        <a href="../index.html">Home</a>
+        <a href="../html.html">HTML</a>
+        <a href="../css.html">CSS</a>
+        <a href="../js.html" style="color: var(--primary)">JS</a>
+      </div>
+    </nav>
+
+    <div class="chapter-nav">
+      <a href="JSChapter9.html" class="btn-action btn-prev"
+        ><i class="fa fa-arrow-left"></i> Previous Chapter</a
+      >
+      <a href="JSChapter11.html" class="btn-action btn-next"
+        >Next Chapter <i class="fa fa-arrow-right"></i
+      ></a>
+    </div>
+
+    <header>
+      <h1 style="font-family: &quot;Nunito&quot;; font-weight: 800">
+        Chapter 10: Errors & Testing
+      </h1>
+      <p>Mastering Resilience with Exception Handling and Jest</p>
+    </header>
+
+    <div id="chapter-content">
+      <div class="card" style="border-top-color: #3498db">
+        <h2 style="color: #3498db">The Error Object Hierarchy</h2>
+        <div class="description" style="margin-left: 0; border-left: none">
+          All built-in errors (TypeError, RangeError, etc.) inherit from the
+          base <strong>Error</strong> class. Understanding this allows you to
+          create specialized custom errors for your business logic.
+        </div>
+      </div>
+    </div>
+
+    <footer>&copy; 2026 Marufa Monjuri | Coding Bird</footer>
+
+    <script>
+      function addCard(title) {
+        const container = document.getElementById("chapter-content");
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `<h2>${title}</h2><div class="card-body"></div>`;
+        container.appendChild(card);
+        return card.querySelector(".card-body");
+      }
+
+      function addToUI(
+        cardBody,
+        label,
+        result,
+        syntax,
+        description = "",
+        isError = false,
+      ) {
+        const wrapper = document.createElement("div");
+        wrapper.innerHTML = `
+            <div class="output-row" data-syntax="${syntax}">
+                <span class="label">${label}</span>
+                <span class="result ${isError ? "err" : ""}">${result}</span>
+            </div>
+            ${description ? `<div class="description">${description}</div>` : ""}
+        `;
+        cardBody.appendChild(wrapper);
+      }
+
+      // 10.1 Try/Catch
+      const body101 = addCard("10.1 Exception Handling");
+      addToUI(
+        body101,
+        "decodeURI Fail",
+        "URIError",
+        "try { ... } catch (e)",
+        "Safely intercepts runtime exceptions before they crash the script.",
+      );
+
+      // 10.5 Throwing
+      const body105 = addCard("10.5 Defensive Coding");
+      addToUI(
+        body105,
+        "Validation",
+        "Error: Div by Zero",
+        "throw new Error()",
+        "Manually triggering errors for invalid states.",
+        true,
+      );
+
+      // 10.7 Testing
+      const body107 = addCard("10.7 Jest Assertions");
+      const checkIcon = '<i class="fa fa-check-circle test-pass"></i>';
+      const failIcon = '<i class="fa fa-times-circle test-fail"></i>';
+
+      addToUI(
+        body107,
+        "Sum Test",
+        `${checkIcon} 2 + 2 is 4`,
+        "expect(a+b).toBe(4)",
+        "A successful unit test case.",
+      );
+      addToUI(
+        body107,
+        "Edge Case",
+        `${failIcon} NaN handled`,
+        "expect(x).toBe(0)",
+        "A failing case requiring a bug fix.",
+        true,
+      );
+    </script>
+  </body>
+</html>

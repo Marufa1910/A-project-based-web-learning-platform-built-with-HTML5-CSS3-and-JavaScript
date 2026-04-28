@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chapter 8: CSS Display & Transforms | Coding Bird</title>
+
+    <link href="../img/logo_name_icon.png" rel="icon" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&family=Fira+Code:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --primary: #ca1551;
+        --accent: #fe6868;
+        --code-bg: #1e1e2e;
+        --bg: #f8f9fa;
+        --text: #2c3e50;
+        --tag-color: #f92672;
+        --attr-color: #a6e22e;
+        --val-color: #e6db74;
+      }
+
+      body {
+        font-family: "Heebo", sans-serif;
+        background-color: var(--bg);
+        color: var(--text);
+        margin: 0;
+        line-height: 1.6;
+      }
+
+      .navbar-custom {
+        background: white;
+        height: 75px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 5%;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        box-sizing: border-box;
+      }
+
+      .navbar-brand {
+        font-family: "Nunito", sans-serif;
+        font-weight: 800;
+        font-size: 25px;
+        text-decoration: none;
+        color: var(--text);
+      }
+
+      .chapter-nav {
+        max-width: 850px;
+        margin: 100px auto 20px auto;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 20px;
+      }
+
+      .btn-action {
+        padding: 10px 20px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .btn-prev {
+        border: 2px solid #ddd;
+        color: #666;
+      }
+      .btn-next {
+        background: var(--primary);
+        color: white;
+      }
+
+      header {
+        text-align: center;
+        padding: 40px 20px;
+      }
+
+      .card {
+        background: white;
+        border-radius: 20px;
+        padding: 30px;
+        margin: 0 auto 35px auto;
+        max-width: 850px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        border: 1px solid #edf2f7;
+      }
+
+      h2 {
+        color: var(--primary);
+        font-family: "Nunito";
+        margin-top: 0;
+        font-size: 1.5rem;
+      }
+
+      .code-block {
+        background: var(--code-bg);
+        color: #f8f8f2;
+        padding: 20px;
+        border-radius: 12px;
+        font-family: "Fira Code", monospace;
+        font-size: 0.85rem;
+        margin: 15px 0;
+        overflow-x: auto;
+        white-space: pre-wrap;
+      }
+
+      .live-result {
+        background: #fff;
+        border: 2px solid #e2e8f0;
+        border-left: 5px solid var(--primary);
+        padding: 20px;
+        border-radius: 12px;
+        margin-top: 15px;
+      }
+
+      .label {
+        font-size: 0.7rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        color: #a0aec0;
+        margin-bottom: 5px;
+        display: block;
+      }
+
+      .t {
+        color: var(--tag-color);
+      }
+      .a {
+        color: var(--attr-color);
+      }
+      .v {
+        color: var(--val-color);
+      }
+
+      footer {
+        text-align: center;
+        padding: 40px;
+        background: #1a202c;
+        color: white;
+        margin-top: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar-custom">
+      <a href="../index.html" class="navbar-brand">
+        Coding<span style="color: var(--primary)">Bird</span>
+      </a>
+      <div class="nav-links">
+        <a href="../index.html">Home</a>
+        <a href="../html.html">HTML</a>
+        <a href="../css.html" style="color: var(--primary)">CSS</a>
+        <a href="../js.html">JS</a>
+      </div>
+    </nav>
+
+    <div class="chapter-nav">
+      <a href="CSSChapter7.html" class="btn-action btn-prev"
+        ><i class="fa fa-arrow-left"></i> Previous</a
+      >
+      <a href="CSSChapter9.html" class="btn-action btn-next"
+        >Next Chapter <i class="fa fa-arrow-right"></i
+      ></a>
+    </div>
+
+    <header>
+      <h1 style="font-family: &quot;Nunito&quot;; font-weight: 800">
+        Chapter 8: Display & Layout
+      </h1>
+      <p>Visibility, image fitting, multi-columns, and 3D transforms.</p>
+    </header>
+
+    <div id="chapter-content"></div>
+
+    <footer>&copy; 2026 Marufa Monjuri | Coding Bird</footer>
+
+    <script>
+      const content = document.getElementById("chapter-content");
+
+      function createSection(title, icon, desc, codeHtml, previewHtml) {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <h2><i class="fa ${icon}"></i> ${title}</h2>
+          <p style="color: #4a5568;">${desc}</p>
+          <span class="label">CSS Code</span>
+          <div class="code-block">${codeHtml}</div>
+          <span class="label">Browser View</span>
+          <div class="live-result">${previewHtml}</div>
+        `;
+        content.appendChild(card);
+      }
+
+      // 8.1 Display vs Visibility
+      createSection(
+        "8.1 display: none vs visibility: hidden",
+        "fa-eye-slash",
+        "<b>display: none</b> removes the element from the layout. <b>visibility: hidden</b> hides the element but keeps its physical space.",
+        `<span class="t">.box</span> { <span class="a">visibility</span>: <span class="v">hidden</span>; }`,
+        "<div style='border: 1px solid #ddd; height: 50px;'><div style='visibility: hidden;'>This is invisible but still takes up height.</div></div>",
+      );
+
+      // 8.2 Object Fit
+      createSection(
+        "8.2 CSS object-fit",
+        "fa-image",
+        "Control how images/videos resize within a fixed box. <b>cover</b> fills the box, <b>contain</b> shows the whole image.",
+        `<span class="t">img</span> { <span class="a">object-fit</span>: <span class="v">cover</span>; <span class="a">width</span>: <span class="v">100%</span>; }`,
+        "<img src='https://via.placeholder.com/300x150' style='width: 150px; height: 80px; object-fit: cover; border: 2px solid red;' alt='Object fit cover example'>",
+      );
+
+      // 8.3 Shadows
+      createSection(
+        "8.3 CSS Shadows",
+        "fa-clone",
+        "Add depth with <b>text-shadow</b> and <b>box-shadow</b>. Syntax: x-offset y-offset blur spread color.",
+        `<span class="t">h1</span> { <span class="a">text-shadow</span>: <span class="v">3px 3px 5px #ca1551</span>; }`,
+        "<h1 style='text-shadow: 3px 3px 5px #ca1551; color: #2c3e50; margin:0;'>Glow Shadow</h1>",
+      );
+
+      // 8.4 Multiple Columns
+      createSection(
+        "8.4 Multi-Column Layout",
+        "fa-columns",
+        "Create newspaper-style layouts easily with <b>column-count</b> and <b>column-gap</b>.",
+        `<span class="t">.news</span> { <span class="a">column-count</span>: <span class="v">2</span>; <span class="a">column-gap</span>: <span class="v">20px</span>; }`,
+        "<div style='column-count: 2; column-gap: 20px; font-size: 12px;'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>",
+      );
+
+      // 8.5 Transforms
+      createSection(
+        "8.5 CSS Transforms",
+        "fa-sync-alt",
+        "Rotate, Scale, Skew, or Translate elements in 2D or 3D space.",
+        `<span class="t">.box</span> { <span class="a">transform</span>: <span class="v">rotate(10deg) scale(1.1)</span>; }`,
+        "<div style='width: 100px; padding: 10px; background: #ca1551; color: white; transform: rotate(5deg); transition: 0.3s; cursor: pointer;'>Hover me (Soon)</div>",
+      );
+    </script>
+  </body>
+</html>

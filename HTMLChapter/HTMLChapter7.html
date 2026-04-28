@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chapter 7: HTML Graphics | Coding Bird</title>
+
+    <link href="../img/logo_name_icon.png" rel="icon" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&family=Fira+Code:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --primary: #ca1551;
+        --accent: #fe6868;
+        --code-bg: #1e1e2e;
+        --bg: #f8f9fa;
+        --text: #2c3e50;
+        --tag-color: #f92672;
+        --attr-color: #a6e22e;
+        --val-color: #e6db74;
+      }
+
+      body {
+        font-family: "Heebo", sans-serif;
+        background-color: var(--bg);
+        color: var(--text);
+        margin: 0;
+        line-height: 1.6;
+      }
+
+      .navbar-custom {
+        background: white;
+        height: 75px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 5%;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        box-sizing: border-box;
+      }
+
+      .navbar-brand {
+        font-family: "Nunito", sans-serif;
+        font-weight: 800;
+        font-size: 25px;
+        text-decoration: none;
+        color: var(--text);
+      }
+
+      .chapter-nav {
+        max-width: 850px;
+        margin: 100px auto 20px auto;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 20px;
+      }
+
+      .btn-action {
+        padding: 10px 20px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .btn-prev {
+        border: 2px solid #ddd;
+        color: #666;
+      }
+      .btn-next {
+        background: var(--primary);
+        color: white;
+      }
+
+      header {
+        text-align: center;
+        padding: 40px 20px;
+      }
+
+      .card {
+        background: white;
+        border-radius: 20px;
+        padding: 30px;
+        margin: 0 auto 35px auto;
+        max-width: 850px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        border: 1px solid #edf2f7;
+      }
+
+      h2 {
+        color: var(--primary);
+        font-family: "Nunito";
+        margin-top: 0;
+        font-size: 1.5rem;
+      }
+
+      .code-block {
+        background: var(--code-bg);
+        color: #f8f8f2;
+        padding: 20px;
+        border-radius: 12px;
+        font-family: "Fira Code", monospace;
+        font-size: 0.85rem;
+        margin: 15px 0;
+        overflow-x: auto;
+      }
+
+      .live-result {
+        background: #fff;
+        border: 2px solid #e2e8f0;
+        border-left: 5px solid var(--primary);
+        padding: 20px;
+        border-radius: 12px;
+        margin-top: 15px;
+        overflow: auto;
+      }
+
+      .label {
+        font-size: 0.7rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        color: #a0aec0;
+        margin-bottom: 5px;
+        display: block;
+      }
+      .t {
+        color: var(--tag-color);
+      }
+      .a {
+        color: var(--attr-color);
+      }
+      .v {
+        color: var(--val-color);
+      }
+
+      footer {
+        text-align: center;
+        padding: 40px;
+        background: #1a202c;
+        color: white;
+        margin-top: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar-custom">
+      <a
+        href="../index.html"
+        class="navbar-brand"
+        style="
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          text-decoration: none;
+          color: var(--text);
+        "
+      >
+        <img
+          src="../img/logo_name_icon.png"
+          alt="Logo"
+          style="height: 30px; width: auto"
+        />
+
+        <span
+          style="
+            font-family: &quot;Nunito&quot;, sans-serif;
+            font-weight: 800;
+            font-size: 25px;
+          "
+        >
+          Coding<span style="color: var(--primary)">Bird</span>
+        </span>
+      </a>
+
+      <div class="nav-links">
+        <a href="../index.html">Home</a>
+        <a href="../html.html" style="color: var(--primary)">HTML</a>
+        <a href="../css.html">CSS</a>
+        <a href="../js.html">JS</a>
+      </div>
+    </nav>
+
+    <div class="chapter-nav">
+      <a href="HTMLChapter6.html" class="btn-action btn-prev"
+        ><i class="fa fa-arrow-left"></i> Previous</a
+      >
+      <a href="HTMLChapter8.html" class="btn-action btn-next"
+        >Next Chapter <i class="fa fa-arrow-right"></i
+      ></a>
+    </div>
+
+    <header>
+      <h1 style="font-family: &quot;Nunito&quot;; font-weight: 800">
+        HTML Graphics
+      </h1>
+      <p>Mastering Canvas and SVG for modern web visuals.</p>
+    </header>
+
+    <div id="chapter-content"></div>
+
+    <footer>&copy; 2026 Marufa Monjuri | Coding Bird</footer>
+
+    <script>
+      const content = document.getElementById("chapter-content");
+
+      function createSection(title, icon, desc, codeHtml, previewHtml) {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <h2><i class="fa ${icon}"></i> ${title}</h2>
+          <p style="color: #4a5568;">${desc}</p>
+          <span class="label">Source Code</span>
+          <div class="code-block">${codeHtml}</div>
+          <span class="label">Live Result</span>
+          <div class="live-result">${previewHtml}</div>
+        `;
+        content.appendChild(card);
+      }
+      // 7.1 SVG Circle
+      createSection(
+        "SVG: Circle",
+        "fa-circle",
+        "The &lt;circle&gt; tag is used to create a circle. 'cx' and 'cy' define the center, and 'r' defines the radius.",
+        `<span class="t">&lt;svg</span> <span class="a">width</span>=<span class="v">"100"</span> <span class="a">height</span>=<span class="v">"100"</span><span class="t">&gt;</span><br>&nbsp;&nbsp;<span class="t">&lt;circle</span> <span class="a">cx</span>=<span class="v">"50"</span> <span class="a">cy</span>=<span class="v">"50"</span> <span class="a">r</span>=<span class="v">"40"</span> <span class="a">stroke</span>=<span class="v">"red"</span> <span class="a">fill</span>=<span class="v">"yellow"</span> <span class="t">/&gt;</span><br><span class="t">&lt;/svg&gt;</span>`,
+        `<svg width="100" height="100">
+          <circle cx="50" cy="50" r="40" stroke="red" stroke-width="2" fill="yellow" />
+        </svg>`,
+      );
+
+      // 7.2 SVG Rectangle
+      createSection(
+        "SVG: Rectangle",
+        "fa-square",
+        "The &lt;rect&gt; tag creates a rectangle. You can use 'rx' and 'ry' to create rounded corners.",
+        `<span class="t">&lt;rect</span> <span class="a">width</span>=<span class="v">"100"</span> <span class="a">height</span>=<span class="v">"100"</span> <span class="a">rx</span>=<span class="v">"10"</span> <span class="t">/&gt;</span>`,
+        `<svg width="120" height="120">
+          <rect x="10" y="10" width="100" height="100" stroke="red" stroke-width="2" fill="yellow" rx="8" ry="8" />
+        </svg>`,
+      );
+
+      // 7.3 SVG Ellipse
+      createSection(
+        "SVG: Ellipse",
+        "fa-egg",
+        "An ellipse is similar to a circle, but you define two radii: 'rx' (horizontal) and 'ry' (vertical).",
+        `<span class="t">&lt;ellipse</span> <span class="a">cx</span>=<span class="v">"50"</span> <span class="a">cy</span>=<span class="v">"50"</span> <span class="a">rx</span>=<span class="v">"40"</span> <span class="a">ry</span>=<span class="v">"20"</span> <span class="t">/&gt;</span>`,
+        `<svg width="100" height="100">
+          <ellipse cx="50" cy="50" rx="40" ry="20" fill="yellow" stroke="red" stroke-width="2" />
+        </svg>`,
+      );
+
+      // 7.4 SVG Line
+      createSection(
+        "SVG: Line",
+        "fa-minus",
+        "The &lt;line&gt; tag draws a single line between two points (x1,y1) and (x2,y2).",
+        `<span class="t">&lt;line</span> <span class="a">x1</span>=<span class="v">"0"</span> <span class="a">y1</span>=<span class="v">"0"</span> <span class="a">x2</span>=<span class="v">"200"</span> <span class="a">y2</span>=<span class="v">"0"</span> <span class="t">/&gt;</span>`,
+        `<svg width="200" height="60">
+          <line x1="10" y1="30" x2="190" y2="30" stroke="red" stroke-width="10" stroke-linecap="round" />
+        </svg>`,
+      );
+
+      // 7.5 SVG Star (Polygon)
+      createSection(
+        "SVG: Star (Polygon)",
+        "fa-star",
+        "The &lt;polygon&gt; tag creates a shape with at least three sides by connecting multiple points.",
+        `<span class="t">&lt;polygon</span> <span class="a">points</span>=<span class="v">"50 0, 61 35, 98 35, 68 57..."</span> <span class="t">/&gt;</span>`,
+        `<svg width="150" height="150" viewBox="0 0 100 100">
+          <polygon points="50 0,61 35,98 35, 68 57, 79 91,50 70, 21 91, 32 57, 2 35, 39 35" fill="blue" stroke="red" stroke-width="2" stroke-linejoin="round" />
+        </svg>`,
+      );
+
+      // 7.6 SVG Polyline
+      createSection(
+        "SVG: Polyline",
+        "fa-draw-polygon",
+        "Similar to polygon, but &lt;polyline&gt; is used to create open shapes (not necessarily closed).",
+        `<span class="t">&lt;polyline</span> <span class="a">points</span>=<span class="v">"50,0 100,50 50,100 0,50"</span> <span class="a">fill</span>=<span class="v">"none"</span> <span class="t">/&gt;</span>`,
+        `<svg width="100" height="100">
+          <polyline points="50,0 100,50 50,100 0,50" fill="none" stroke="red" stroke-width="2" />
+        </svg>`,
+      );
+
+      // 7.7 SVG Path
+      createSection(
+        "SVG: Path",
+        "fa-bezier-curve",
+        "The &lt;path&gt; element is the most powerful; it uses commands like M (move to), L (line to), and Z (close path).",
+        `<span class="t">&lt;path</span> <span class="a">d</span>=<span class="v">"M50 0 L25 80 l50 0 Z"</span> <span class="t">/&gt;</span>`,
+        `<svg width="100" height="100">
+          <path d="M50 0 L25 80 l50 0 Z" fill="none" stroke="red" stroke-width="2" />
+        </svg>`,
+      );
+
+      // 7.8 SVG Text
+      createSection(
+        "SVG: Text & Tspan",
+        "fa-font",
+        "The &lt;text&gt; element is used to draw text. &lt;tspan&gt; allows you to style or position sub-strings.",
+        `<span class="t">&lt;text</span> <span class="a">x</span>=<span class="v">"0"</span> <span class="a">y</span>=<span class="v">"20"</span><span class="t">&gt;</span><br>&nbsp;&nbsp;SVG text <span class="t">&lt;tspan&gt;</span>subline<span class="t">&lt;/tspan&gt;</span><br><span class="t">&lt;/text&gt;</span>`,
+        `<svg width="300" height="100">
+          <text x="0" y="20" fill="red">
+            This is a SVG text
+            <tspan x="10" y="50" fill="blue">This is the second line</tspan>
+            <tspan x="20" y="80" fill="blue">This is the third line</tspan>
+          </text>
+        </svg>`,
+      );
+
+      // 7.9 SVG Filter (Blur)
+      createSection(
+        "SVG: Filters (Blur)",
+        "fa-magic",
+        "Filters are defined within &lt;defs&gt;. 'feGaussianBlur' creates a blur effect.",
+        `<span class="t">&lt;filter</span> <span class="a">id</span>=<span class="v">"blur"</span><span class="t">&gt;</span><br>&nbsp;&nbsp;<span class="t">&lt;feGaussianBlur</span> <span class="a">stdDeviation</span>=<span class="v">"5"</span> <span class="t">/&gt;</span><br><span class="t">&lt;/filter&gt;</span>`,
+        `<svg height="120" width="220">
+          <defs>
+            <filter id="my-filter">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="5" />
+            </filter>
+          </defs>
+          <rect x="10" y="10" width="200" height="100" fill="green" filter="url(#my-filter)" />
+        </svg>`,
+      );
+      // 7.10 SVG Linear Gradient
+      createSection(
+        "SVG: Linear Gradient",
+        "fa-layer-group",
+        "Linear gradients transition colors along a straight line. They are defined in the &lt;defs&gt; section and applied via the 'fill' attribute using the gradient ID.",
+        `<span class="t">&lt;defs&gt;</span><br>&nbsp;&nbsp;<span class="t">&lt;linearGradient</span> <span class="a">id</span>=<span class="v">"grad1"</span><span class="t">&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="t">&lt;stop</span> <span class="a">offset</span>=<span class="v">"0%"</span> <span class="a">stop-color</span>=<span class="v">"yellow"</span> <span class="t">/&gt;</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="t">&lt;stop</span> <span class="a">offset</span>=<span class="v">"100%"</span> <span class="a">stop-color</span>=<span class="v">"red"</span> <span class="t">/&gt;</span><br>&nbsp;&nbsp;<span class="t">&lt;/linearGradient&gt;</span><br><span class="t">&lt;/defs&gt;</span><br><span class="t">&lt;rect</span> <span class="a">fill</span>=<span class="v">"url(#grad1)"</span> <span class="t">/&gt;</span>`,
+        `<svg width="300" height="120">
+          <defs>
+            <linearGradient id="lgrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="yellow" />
+              <stop offset="50%" stop-color="green" />
+              <stop offset="100%" stop-color="red" />
+            </linearGradient>
+          </defs>
+          <rect x="0" y="0" width="300" height="100" fill="url(#lgrad)" />
+        </svg>`,
+      );
+
+      // 7.11 SVG Radial Gradient
+      createSection(
+        "SVG: Radial Gradient",
+        "fa-dot-circle",
+        "Radial gradients transition colors from a center point (cx, cy) outward. The focal point (fx, fy) can be used to shift the center of the gradient.",
+        `<span class="t">&lt;radialGradient</span> <span class="a">id</span>=<span class="v">"grad2"</span> <span class="a">cx</span>=<span class="v">"50%"</span> <span class="a">cy</span>=<span class="v">"50%"</span> <span class="a">r</span>=<span class="v">"50%"</span><span class="t">&gt;</span><br>&nbsp;&nbsp;<span class="t">&lt;stop</span> <span class="a">offset</span>=<span class="v">"0%"</span> <span class="a">stop-color</span>=<span class="v">"white"</span> <span class="t">/&gt;</span><br>&nbsp;&nbsp;<span class="t">&lt;stop</span> <span class="a">offset</span>=<span class="v">"100%"</span> <span class="a">stop-color</span>=<span class="v">"blue"</span> <span class="t">/&gt;</span><br><span class="t">&lt;/radialGradient&gt;</span>`,
+        `<svg width="300" height="120">
+          <defs>
+            <radialGradient id="rgrad" cx="50%" cy="50%" r="50%" fx="30%" fy="30%">
+              <stop offset="0%" stop-color="yellow" />
+              <stop offset="50%" stop-color="green" />
+              <stop offset="100%" stop-color="red" />
+            </radialGradient>
+          </defs>
+          <rect x="0" y="0" width="300" height="100" fill="url(#rgrad)" />
+        </svg>`,
+      );
+    </script>
+  </body>
+</html>

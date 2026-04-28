@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chapter 10: HTML APIs | Coding Bird</title>
+
+    <link href="../img/logo_name_icon.png" rel="icon" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&family=Fira+Code:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --primary: #ca1551;
+        --accent: #fe6868;
+        --code-bg: #1e1e2e;
+        --bg: #f8f9fa;
+        --text: #2c3e50;
+        --tag-color: #f92672;
+        --attr-color: #a6e22e;
+        --val-color: #e6db74;
+      }
+
+      body {
+        font-family: "Heebo", sans-serif;
+        background-color: var(--bg);
+        color: var(--text);
+        margin: 0;
+        line-height: 1.6;
+      }
+
+      .navbar-custom {
+        background: white;
+        height: 75px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 5%;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        box-sizing: border-box;
+      }
+
+      .navbar-brand {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+        color: var(--text);
+      }
+
+      .chapter-nav {
+        max-width: 850px;
+        margin: 100px auto 20px auto;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 20px;
+      }
+
+      .btn-action {
+        padding: 10px 20px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .btn-prev {
+        border: 2px solid #ddd;
+        color: #666;
+      }
+      .btn-next {
+        background: var(--primary);
+        color: white;
+      }
+
+      header {
+        text-align: center;
+        padding: 40px 20px;
+      }
+
+      .card {
+        background: white;
+        border-radius: 20px;
+        padding: 30px;
+        margin: 0 auto 35px auto;
+        max-width: 850px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        border: 1px solid #edf2f7;
+      }
+
+      h2 {
+        color: var(--primary);
+        font-family: "Nunito";
+        margin-top: 0;
+        font-size: 1.5rem;
+      }
+
+      .code-block {
+        background: var(--code-bg);
+        color: #f8f8f2;
+        padding: 20px;
+        border-radius: 12px;
+        font-family: "Fira Code", monospace;
+        font-size: 0.85rem;
+        margin: 15px 0;
+        overflow-x: auto;
+        white-space: pre-wrap;
+      }
+
+      .live-result {
+        background: #fff;
+        border: 2px solid #e2e8f0;
+        border-left: 5px solid var(--primary);
+        padding: 20px;
+        border-radius: 12px;
+        margin-top: 15px;
+      }
+
+      .label {
+        font-size: 0.7rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        color: #a0aec0;
+        margin-bottom: 5px;
+        display: block;
+      }
+
+      .t {
+        color: var(--tag-color);
+      }
+      .a {
+        color: var(--attr-color);
+      }
+      .v {
+        color: var(--val-color);
+      }
+
+      button {
+        background: var(--primary);
+        color: white;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 5px 0;
+        font-weight: 600;
+      }
+
+      input {
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        width: 100%;
+        margin-bottom: 10px;
+        box-sizing: border-box;
+      }
+
+      footer {
+        text-align: center;
+        padding: 40px;
+        background: #1a202c;
+        color: white;
+        margin-top: 50px;
+      }
+
+      #drop-zone {
+        width: 100%;
+        height: 100px;
+        border: 2px dashed #bbb;
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+        color: #718096;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar-custom">
+      <a href="../index.html" class="navbar-brand">
+        <img
+          src="../img/logo_name_icon.png"
+          alt="Logo"
+          style="height: 30px; width: auto"
+        />
+        <span
+          style="
+            font-family: &quot;Nunito&quot;, sans-serif;
+            font-weight: 800;
+            font-size: 25px;
+          "
+          >Coding<span style="color: var(--primary)">Bird</span></span
+        >
+      </a>
+    </nav>
+
+    <div class="chapter-nav">
+      <a href="HTMLChapter9.html" class="btn-action btn-prev"
+        ><i class="fa fa-arrow-left"></i> Previous</a
+      >
+      <a href="../html.html" class="btn-action btn-next"
+        >Back to HTML Menu <i class="fa fa-th-list"></i
+      ></a>
+    </div>
+
+    <header>
+      <h1 style="font-family: &quot;Nunito&quot;; font-weight: 800">
+        Chapter 10: HTML APIs
+      </h1>
+      <p>Building high-performance apps with background threads and storage.</p>
+    </header>
+
+    <div id="chapter-content"></div>
+
+    <footer>&copy; 2026 Marufa Monjuri | Coding Bird</footer>
+
+    <script>
+      const content = document.getElementById("chapter-content");
+
+      function createSection(title, icon, desc, codeHtml, previewHtml) {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <h2><i class="fa ${icon}"></i> ${title}</h2>
+          <p style="color: #4a5568;">${desc}</p>
+          <span class="label">Source Code</span>
+          <div class="code-block">${codeHtml}</div>
+          <span class="label">Live Preview</span>
+          <div class="live-result">${previewHtml}</div>
+        `;
+        content.appendChild(card);
+      }
+
+      // 10.1 Drag & Drop
+      createSection(
+        "Drag and Drop",
+        "fa-hand-rock",
+        "Move elements by setting <b>draggable='true'</b>.",
+        `<span class="t">&lt;div</span> <span class="a">draggable</span>=<span class="v">"true"</span><span class="t">&gt;</span>`,
+        `<div>
+            <div id="drag-box" draggable="true" ondragstart="event.dataTransfer.setData('text', event.target.id)" 
+                 style="width: 80px; height: 80px; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; border-radius: 8px; cursor: grab;">Drag me</div>
+            <div id="drop-zone" ondragover="event.preventDefault()" ondrop="drop(event)">Drop Box Here</div>
+         </div>`,
+      );
+
+      // 10.2 Geolocation
+      createSection(
+        "Geolocation API",
+        "fa-location-arrow",
+        "Retrieve coordinates with <b>getCurrentPosition()</b>.",
+        `<span class="t">navigator</span>.<span class="a">geolocation</span>.<span class="v">getCurrentPosition</span>();`,
+        `<button onclick="getLocation()">Get Current Location</button>`,
+      );
+
+      // 10.3 Web Storage
+      createSection(
+        "Web Storage",
+        "fa-database",
+        "Persistent data storage in the browser.",
+        `<span class="t">localStorage</span>.<span class="a">setItem</span>(<span class="v">"key", "value"</span>);`,
+        `<div>
+            <input type="text" id="store-in" placeholder="Data to save...">
+            <button onclick="saveLocal()">Save Local</button>
+            <button onclick="getLocal()" style="background:#4a5568;">Get Local</button>
+         </div>`,
+      );
+
+      // 10.4 Web Workers
+      createSection(
+        "Web Workers",
+        "fa-microchip",
+        "Run code in the background using a separate thread.",
+        `<span class="t">var</span> <span class="a">w</span> = <span class="v">new Worker("script.js")</span>;`,
+        `<div>
+            <p>Background Counter: <b id="counter-val" style="color:var(--primary); font-size: 1.2rem;">0</b></p>
+            <button onclick="startMyWorker()">Start Counting</button>
+            <button onclick="stopMyWorker()" style="background:#a0aec0;">Stop Thread</button>
+         </div>`,
+      );
+
+      // Functions
+      function drop(event) {
+        event.preventDefault();
+        var data = event.dataTransfer.getData("text");
+        var el = document.getElementById(data);
+        event.target.innerHTML = "";
+        event.target.appendChild(el);
+      }
+
+      function getLocation() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(
+            (pos) =>
+              alert(
+                "Lat: " +
+                  pos.coords.latitude +
+                  "\nLong: " +
+                  pos.coords.longitude,
+              ),
+            (err) => alert("Permission Denied or Error"),
+          );
+        }
+      }
+
+      function saveLocal() {
+        const val = document.getElementById("store-in").value;
+        localStorage.setItem("bird_data", val);
+        alert("Saved!");
+      }
+      function getLocal() {
+        alert("Stored: " + localStorage.getItem("bird_data"));
+      }
+
+      var workerObj;
+      function startMyWorker() {
+        if (typeof Worker !== "undefined") {
+          if (typeof workerObj == "undefined") {
+            const code =
+              "var i=0; function t(){i++; postMessage(i); setTimeout(t,500);} t();";
+            const blob = new Blob([code], { type: "application/javascript" });
+            workerObj = new Worker(URL.createObjectURL(blob));
+            workerObj.onmessage = function (e) {
+              document.getElementById("counter-val").innerHTML = e.data;
+            };
+          }
+        } else {
+          alert("Web Workers not supported.");
+        }
+      }
+
+      function stopMyWorker() {
+        if (workerObj) {
+          workerObj.terminate();
+          workerObj = undefined;
+        }
+      }
+    </script>
+  </body>
+</html>

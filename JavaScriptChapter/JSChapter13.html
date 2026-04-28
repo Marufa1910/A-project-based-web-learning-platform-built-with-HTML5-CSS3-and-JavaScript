@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JS Chapter 13: Fetching Data | Coding Bird</title>
+
+    <link href="../img/logo_name_icon.png" rel="icon" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --primary: #ca1551;
+        --accent: #fe6868;
+        --bg: #f0f2f5;
+        --text: #2c3e50;
+        --secondary: #2ecc71;
+        --code-bg: #1a1e21;
+      }
+
+      body {
+        font-family: "Heebo", sans-serif;
+        background-color: var(--bg);
+        margin: 0;
+        padding-top: 90px;
+        line-height: 1.6;
+      }
+
+      /* --- Fixed Navbar --- */
+      .navbar-custom {
+        background: white;
+        height: 75px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 5%;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        box-sizing: border-box;
+      }
+
+      .navbar-brand {
+        font-family: "Nunito", sans-serif;
+        font-weight: 800;
+        font-size: 25px;
+        text-decoration: none;
+        color: var(--text);
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: var(--text);
+        margin-left: 20px;
+        font-weight: 500;
+        transition: 0.3s;
+      }
+
+      .nav-links a:hover {
+        color: var(--primary);
+      }
+
+      /* --- Cards & Buttons --- */
+      .card {
+        background: white;
+        border-radius: 15px;
+        padding: 30px;
+        margin: 0 auto 30px auto;
+        max-width: 850px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      }
+
+      h2 {
+        color: var(--primary);
+        font-family: "Nunito";
+        border-left: 5px solid var(--primary);
+        padding-left: 15px;
+        margin-bottom: 20px;
+      }
+
+      .chapter-nav {
+        max-width: 850px;
+        margin: 20px auto;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 20px;
+      }
+
+      .btn-action {
+        padding: 12px 24px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        border: none;
+        cursor: pointer;
+        transition: 0.3s;
+        background: var(--primary);
+        color: white;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .btn-prev {
+        background: white;
+        border: 1px solid #ddd;
+        color: #666;
+      }
+      .btn-action:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(202, 21, 81, 0.2);
+      }
+      .btn-action:disabled {
+        background: #ccc;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      /* --- Interactive Elements --- */
+      .status-box {
+        padding: 10px;
+        background: #f8f9fa;
+        border-radius: 4px;
+        margin-top: 10px;
+        font-family: monospace;
+        font-size: 0.9rem;
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        padding: 10px;
+        margin: 8px 0;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+
+      #chat-display {
+        height: 120px;
+        background: #1e1e1e;
+        color: #50fa7b;
+        padding: 15px;
+        overflow-y: auto;
+        border-radius: 5px;
+        margin-top: 10px;
+      }
+
+      footer {
+        text-align: center;
+        padding: 40px;
+        background: var(--code-bg);
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar-custom">
+      <a href="../index.html" class="navbar-brand">
+        <img src="../img/logo_name_icon.png" height="45px" alt="" /> Coding<span
+          style="color: var(--primary)"
+          >Bird</span
+        >
+      </a>
+      <div class="nav-links">
+        <a href="../index.html">Home</a>
+        <a href="../html.html">HTML</a>
+        <a href="../css.html">CSS</a>
+        <a href="../js.html" style="color: var(--primary)">JS</a>
+      </div>
+    </nav>
+    <div class="chapter-nav">
+      <a href="JSChapter12.html" class="btn-action btn-prev"
+        ><i class="fa fa-arrow-left"></i> Previous Chapter
+      </a>
+      <a href="JSChapter14.html" class="btn-action"
+        >Next Chapter<i class="fa fa-arrow-right"></i
+      ></a>
+    </div>
+
+    <header style="text-align: center; padding: 20px">
+      <h1 style="font-family: &quot;Nunito&quot;; font-weight: 800">
+        Chapter 13: Fetching Remote Data
+      </h1>
+      <p>AJAX, Promises, and Real-Time Communication</p>
+    </header>
+
+    <div id="chapter-content">
+      <div class="card">
+        <h2>13.1 & 13.2: Basic Requests</h2>
+        <p>
+          Compare modern <strong>Fetch</strong> with legacy
+          <strong>XMLHttpRequest</strong>.
+        </p>
+        <button id="btnFetch" class="btn-action">Run Fetch (NASA API)</button>
+        <button id="btnXHR" class="btn-action btn-secondary">Run XHR</button>
+        <div id="requestStatus" class="status-box">Status: Waiting...</div>
+      </div>
+
+      <div class="card">
+        <h2>13.3: Submit Form (FormData)</h2>
+        <form id="fetchForm">
+          <input type="text" name="name" placeholder="Name" required />
+          <input type="email" name="email" placeholder="Email" required />
+          <textarea name="message" placeholder="Message"></textarea>
+          <button type="submit" class="btn-action">Post with Fetch</button>
+        </form>
+        <div id="formResult" class="status-box">
+          Form Data Result will appear here.
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>13.4: Populating Lists from Server</h2>
+        <label>Select Category:</label>
+        <select id="mainCategory">
+          <option value="">-- Choose --</option>
+          <option value="birds">Flowers</option>
+          <option value="sweets">Fruits</option>
+        </select>
+        <div id="subCategoryWrapper" style="display: none; margin-top: 10px">
+          <label>Available Items:</label>
+          <select id="subCategory"></select>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>13.6 & 13.7: XML & Binary (Blob)</h2>
+        <div style="display: flex; gap: 20px">
+          <div style="flex: 1">
+            <button
+              id="btnXML"
+              class="btn-action btn-secondary"
+              style="width: 100%"
+            >
+              Parse XML
+            </button>
+            <div
+              id="xmlOutput"
+              class="status-box"
+              style="height: 100px; overflow: auto"
+            ></div>
+          </div>
+          <div style="flex: 1">
+            <button
+              id="btnBinary"
+              class="btn-action btn-secondary"
+              style="width: 100%"
+            >
+              Fetch Binary Image
+            </button>
+            <div
+              id="imgOutput"
+              style="margin-top: 10px; text-align: center"
+            ></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>13.9: WebSocket Communication</h2>
+        <p>Two-way, real-time data flow.</p>
+        <button id="btnWS" class="btn-action">
+          Simulate WebSocket Handshake
+        </button>
+        <div id="chat-display">Connection Idle...</div>
+      </div>
+    </div>
+
+    <footer>&copy; 2026 Marufa Monjuri | Coding Bird</footer>
+
+    <script>
+      const statusDiv = document.getElementById("requestStatus");
+
+      // 13.1: Fetch API
+      document
+        .getElementById("btnFetch")
+        .addEventListener("click", async () => {
+          statusDiv.textContent = "Fetching NASA APOD...";
+          try {
+            const response = await fetch(
+              "https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY",
+            );
+            if (response.ok) {
+              const data = await response.json();
+              statusDiv.textContent = `Success: ${data.title}`;
+            } else {
+              statusDiv.textContent = `Error: ${response.status}`;
+            }
+          } catch (err) {
+            statusDiv.textContent = `Error: ${err.message}`;
+          }
+        });
+
+      // 13.2: XMLHttpRequest
+      document.getElementById("btnXHR").addEventListener("click", () => {
+        const xhr = new XMLHttpRequest();
+        xhr.open("GET", "https://jsonplaceholder.typicode.com/posts/1");
+        xhr.onload = () => {
+          const data = JSON.parse(xhr.response);
+          statusDiv.textContent = `XHR Result: ${data.title}`;
+        };
+        xhr.send();
+      });
+
+      // 13.3: Form Submission
+      document
+        .getElementById("fetchForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const formData = new FormData(e.target);
+          // Displaying locally since we don't have a live backend URL here
+          let output = "Sent Data: ";
+          for (let [key, value] of formData.entries()) {
+            output += `${key}: ${value} | `;
+          }
+          document.getElementById("formResult").textContent = output;
+        });
+
+      // 13.4: Dynamic Populating
+      document
+        .getElementById("mainCategory")
+        .addEventListener("change", async function () {
+          const subWrapper = document.getElementById("subCategoryWrapper");
+          const subSelect = document.getElementById("subCategory");
+
+          if (!this.value) {
+            subWrapper.style.display = "none";
+            return;
+          }
+
+          // Simulating Server Logic
+          const mockServer = {
+            flowers: ["Lily", "Rose", "Tulip"],
+            fruits: ["Banana", "Apple", "Orange"],
+          };
+
+          const data = mockServer[this.value];
+          subSelect.length = 0; // Clear
+          data.forEach((item) => {
+            subSelect.options[subSelect.length] = new Option(
+              item,
+              item.toLowerCase(),
+            );
+          });
+          subWrapper.style.display = "block";
+        });
+
+      // 13.6: XML Parsing
+      document.getElementById("btnXML").addEventListener("click", () => {
+        const mockXml = `<items><item>Item A</item><item>Item B</item></items>`;
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(mockXml, "text/xml");
+        const items = xmlDoc.getElementsByTagName("item");
+        let out = "";
+        for (let i = 0; i < items.length; i++) {
+          out += items[i].textContent + " ";
+        }
+        document.getElementById("xmlOutput").textContent = "Parsed: " + out;
+      });
+
+      // 13.7: Binary Data (Blob)
+      document
+        .getElementById("btnBinary")
+        .addEventListener("click", async () => {
+          const resp = await fetch("https://picsum.photos/100");
+          const blob = await resp.blob();
+          const url = URL.createObjectURL(blob);
+          const img = document.createElement("img");
+          img.src = url;
+          img.style.borderRadius = "5px";
+          const out = document.getElementById("imgOutput");
+          out.innerHTML = "";
+          out.appendChild(img);
+        });
+
+      // 13.9: WebSocket Simulation
+      document.getElementById("btnWS").addEventListener("click", function () {
+        const display = document.getElementById("chat-display");
+        display.innerHTML = "Opening WebSocket (ws://)...<br>";
+
+        setTimeout(() => {
+          display.innerHTML += "Handshake Complete.<br>";
+          let count = 0;
+          const interval = setInterval(() => {
+            count++;
+            display.innerHTML += `Message received: {counter: ${count}}<br>`;
+            display.scrollTop = display.scrollHeight;
+            if (count >= 5) {
+              clearInterval(interval);
+              display.innerHTML += "Connection Closed.";
+            }
+          }, 1000);
+        }, 1000);
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JS Chapter 15: Multimedia & SVG | Coding Bird</title>
+
+    <link href="../img/logo_name_icon.png" rel="icon" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --primary: #ca1551;
+        --accent: #fe6868;
+        --bg: #f0f2f5;
+        --text: #2c3e50;
+        --card-bg: #ffffff;
+      }
+      body {
+        font-family: "Heebo", sans-serif;
+        background-color: var(--bg);
+        color: var(--text);
+        margin: 0;
+        padding-top: 100px;
+      }
+
+      /* --- Navigation --- */
+      .navbar-custom {
+        background: white;
+        height: 75px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 5%;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        box-sizing: border-box;
+      }
+
+      .navbar-brand {
+        font-family: "Nunito", sans-serif;
+        font-weight: 800;
+        font-size: 25px;
+        text-decoration: none;
+        color: var(--text);
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: var(--text);
+        margin-left: 20px;
+        font-weight: 500;
+        transition: 0.3s;
+      }
+
+      .nav-links a:hover {
+        color: var(--primary);
+      }
+
+      .chapter-nav {
+        max-width: 850px;
+        margin: 0 auto 20px auto;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 20px;
+      }
+
+      .btn-action {
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .btn-prev {
+        border: 2px solid #ddd;
+        color: #666;
+      }
+      .btn-next {
+        background: var(--primary);
+        color: white;
+      }
+
+      /* --- Cards --- */
+      #learning-path {
+        max-width: 850px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+      .card {
+        background: var(--card-bg);
+        border-radius: 12px;
+        padding: 30px;
+        margin-bottom: 40px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        border-left: 5px solid var(--primary);
+        text-align: center;
+      }
+      .card-header {
+        font-weight: 800;
+        font-family: "Nunito";
+        font-size: 1.4rem;
+        margin-bottom: 15px;
+        color: var(--primary);
+        text-align: left;
+      }
+
+      /* --- Media Elements --- */
+      video {
+        width: 100%;
+        border-radius: 10px;
+        background: #000;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+      .btn-media {
+        padding: 10px 22px;
+        border-radius: 6px;
+        border: none;
+        font-weight: 600;
+        cursor: pointer;
+        margin: 5px;
+        transition: 0.2s;
+        color: white;
+      }
+      .btn-media:disabled {
+        background: #bdc3c7 !important;
+        cursor: not-allowed;
+      }
+
+      .status-box {
+        padding: 12px;
+        background: #f8f9fa;
+        border-radius: 8px;
+        margin: 15px 0;
+        font-family: monospace;
+        border-left: 4px solid var(--primary);
+        text-align: left;
+      }
+
+      svg {
+        border: 1px solid #eee;
+        border-radius: 8px;
+        background: #fff;
+      }
+
+      footer {
+        text-align: center;
+        padding: 40px;
+        background: #1a1e21;
+        color: white;
+        margin-top: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar-custom">
+      <a href="../index.html" class="navbar-brand">
+        <img src="../img/logo_name_icon.png" height="45px" alt="" /> Coding<span
+          style="color: var(--primary)"
+          >Bird</span
+        >
+      </a>
+      <div class="nav-links">
+        <a href="../index.html">Home</a>
+        <a href="../html.html">HTML</a>
+        <a href="../css.html">CSS</a>
+        <a href="../js.html" style="color: var(--primary)">JS</a>
+      </div>
+    </nav>
+
+    <div class="chapter-nav">
+      <a href="JSChapter14.html" class="btn-action btn-prev"
+        ><i class="fa fa-arrow-left"></i> Previous Chapter</a
+      >
+      <a href="Calculator.html" class="btn-action btn-next"
+        >Next Chapter <i class="fa fa-arrow-right"></i
+      ></a>
+    </div>
+
+    <header style="text-align: center; margin-bottom: 40px">
+      <h1 style="font-family: &quot;Nunito&quot;; font-weight: 800">
+        Chapter 15: Multimedia & SVG
+      </h1>
+      <p>
+        Mastering Video, Audio, and Scalable Vector Graphics with JavaScript
+      </p>
+    </header>
+
+    <main id="learning-path">
+      <div class="card" style="border-left-color: #34495e">
+        <div class="card-header" style="color: #34495e">
+          15.6: Interactive Video Control
+        </div>
+        <p style="text-align: left">
+          Control HTML5 Video playback programmatically using the Media API.
+        </p>
+        <video id="vPlayer" preload="auto">
+          <source src="movie1.mp4" type="video/mp4" />
+        </video>
+        <div id="vTimer" class="status-box">⏱️ Playback: 0 seconds</div>
+        <div class="controls">
+          <button id="pStart" class="btn-media" style="background: #27ae60">
+            <i class="fa fa-play"></i> Play
+          </button>
+          <button
+            id="pPause"
+            class="btn-media"
+            style="background: #f39c12"
+            disabled
+          >
+            <i class="fa fa-pause"></i> Pause
+          </button>
+          <button
+            id="pStop"
+            class="btn-media"
+            style="background: #e74c3c"
+            disabled
+          >
+            <i class="fa fa-stop"></i> Stop
+          </button>
+        </div>
+      </div>
+
+      <div class="card" style="border-left-color: #8e44ad">
+        <div class="card-header" style="color: #8e44ad">
+          15.1 & 15.2: Manipulating SVG
+        </div>
+        <p style="text-align: left">
+          Click the squares to toggle colors via standard DOM attributes vs.
+          XML/CDATA scripts.
+        </p>
+
+        <div
+          style="
+            display: flex;
+            justify-content: space-around;
+            gap: 20px;
+            flex-wrap: wrap;
+          "
+        >
+          <div>
+            <p><small>Standard DOM Manipulation</small></p>
+            <svg width="100" height="100">
+              <rect
+                id="rectNormal"
+                width="100"
+                height="100"
+                fill="#ff0000"
+                style="cursor: pointer; transition: 0.3s"
+              />
+            </svg>
+          </div>
+          <div>
+            <p><small>XML/CDATA Internal Script</small></p>
+            <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
+              <rect
+                id="rectXml"
+                width="100"
+                height="100"
+                fill="#ff0000"
+                style="cursor: pointer"
+              />
+              <script type="text/ecmascript">
+                // <![CDATA[
+                (function() {
+                    window.addEventListener('load', function() {
+                        const xmlBox = document.getElementById('rectXml');
+                        if (xmlBox) {
+                            xmlBox.onclick = function() {
+                                const fill = this.getAttribute('fill');
+                                this.setAttribute('fill', (fill === '#ff0000') ? '#001aff' : '#ff0000');
+                            };
+                        }
+                    });
+                })();
+                // ]]>
+              </script>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="border-left-color: #27ae60">
+        <div class="card-header" style="color: #27ae60">15.5: Audio API</div>
+        <audio id="mainAudio">
+          <source src="../img/horse.mp3" type="audio/mpeg" />
+        </audio>
+        <button
+          id="audioToggle"
+          class="btn-media"
+          style="background: var(--primary); width: 100%; margin-top: 10px"
+        >
+          <i class="fa fa-volume-up"></i> Play Audio Resource
+        </button>
+        <div class="pro-tip" style="text-align: left; margin-top: 20px">
+          <strong>Pro Tip:</strong> Most modern browsers block "Autoplay". Audio
+          must usually be triggered by a user gesture (like a click).
+        </div>
+      </div>
+    </main>
+
+    <footer>&copy; 2026 Marufa Monjuri | Coding Bird</footer>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // --- Video Logic ---
+        const video = document.getElementById("vPlayer");
+        const bStart = document.getElementById("pStart");
+        const bPause = document.getElementById("pPause");
+        const bStop = document.getElementById("pStop");
+        const vFeedback = document.getElementById("vTimer");
+
+        bStart.onclick = () => {
+          video.play();
+          bStart.disabled = true;
+          bPause.disabled = false;
+          bStop.disabled = false;
+        };
+
+        bPause.onclick = () => {
+          video.pause();
+          bStart.disabled = false;
+          bPause.disabled = true;
+        };
+
+        bStop.onclick = () => {
+          video.pause();
+          video.currentTime = 0;
+          bStart.disabled = false;
+          bPause.disabled = true;
+          bStop.disabled = true;
+        };
+
+        video.ontimeupdate = () => {
+          vFeedback.innerHTML = `⏱️ Playback: ${Math.round(video.currentTime)} seconds`;
+        };
+
+        // --- Standard SVG Logic ---
+        const sBox = document.getElementById("rectNormal");
+        sBox.onclick = function () {
+          const c = this.getAttribute("fill");
+          this.setAttribute("fill", c === "#ff0000" ? "#001aff" : "#ff0000");
+        };
+
+        // --- Audio Logic ---
+        const audio = document.getElementById("mainAudio");
+        const aBtn = document.getElementById("audioToggle");
+        aBtn.onclick = () => {
+          if (audio.paused) {
+            audio.play();
+            aBtn.innerHTML = '<i class="fa fa-pause"></i> Pause Audio';
+          } else {
+            audio.pause();
+            aBtn.innerHTML =
+              '<i class="fa fa-volume-up"></i> Play Audio Resource';
+          }
+        };
+      });
+    </script>
+  </body>
+</html>

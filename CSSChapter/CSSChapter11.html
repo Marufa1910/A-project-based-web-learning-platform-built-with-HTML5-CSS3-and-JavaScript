@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chapter 11: Advanced CSS | Coding Bird</title>
+
+    <link href="../img/logo_name_icon.png" rel="icon" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&family=Fira+Code:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --primary: #ca1551;
+        --secondary: #2c3e50;
+        --code-bg: #1e1e2e;
+        --bg: #f8f9fa;
+        --text: #2c3e50;
+        --tag-color: #f92672;
+        --attr-color: #a6e22e;
+        --val-color: #e6db74;
+      }
+
+      body {
+        font-family: "Heebo", sans-serif;
+        background-color: var(--bg);
+        color: var(--text);
+        margin: 0;
+        line-height: 1.6;
+      }
+
+      /* Navbar */
+      .navbar-custom {
+        background: white;
+        height: 75px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 5%;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        box-sizing: border-box;
+      }
+
+      .navbar-brand {
+        font-family: "Nunito", sans-serif;
+        font-weight: 800;
+        font-size: 25px;
+        text-decoration: none;
+        color: var(--text);
+      }
+
+      /* Navigation */
+      .chapter-nav {
+        max-width: 850px;
+        margin: 100px auto 20px auto;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 20px;
+      }
+
+      .btn-action {
+        padding: 10px 20px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .btn-prev {
+        border: 2px solid #ddd;
+        color: #666;
+      }
+      .btn-next {
+        background: var(--primary);
+        color: white;
+      }
+
+      header {
+        text-align: center;
+        padding: 40px 20px;
+      }
+
+      .card {
+        background: white;
+        border-radius: 20px;
+        padding: 30px;
+        margin: 0 auto 35px auto;
+        max-width: 850px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        border: 1px solid #edf2f7;
+      }
+
+      h2 {
+        color: var(--primary);
+        font-family: "Nunito";
+        margin-top: 0;
+        font-size: 1.5rem;
+      }
+
+      .code-block {
+        background: var(--code-bg);
+        color: #f8f8f2;
+        padding: 20px;
+        border-radius: 12px;
+        font-family: "Fira Code", monospace;
+        font-size: 0.85rem;
+        margin: 15px 0;
+        overflow-x: auto;
+        white-space: pre-wrap;
+      }
+
+      .live-result {
+        background: #fff;
+        border: 2px solid #e2e8f0;
+        border-left: 5px solid var(--primary);
+        padding: 20px;
+        border-radius: 12px;
+        margin-top: 15px;
+      }
+
+      .label {
+        font-size: 0.7rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        color: #a0aec0;
+        margin-bottom: 5px;
+        display: block;
+      }
+
+      /* Counter Demo Styles */
+      .counter-demo {
+        counter-reset: main-chapter;
+        padding: 10px;
+      }
+      .counter-demo h4 {
+        counter-reset: sub-topic;
+        margin-bottom: 5px;
+      }
+      .counter-demo h4::before {
+        counter-increment: main-chapter;
+        content: "Section " counter(main-chapter) ": ";
+        color: var(--primary);
+      }
+      .counter-demo p::before {
+        counter-increment: sub-topic;
+        content: counter(main-chapter) "." counter(sub-topic) " ";
+        font-weight: bold;
+        color: var(--secondary);
+      }
+
+      footer {
+        text-align: center;
+        padding: 40px;
+        background: #1a202c;
+        color: white;
+        margin-top: 50px;
+      }
+
+      .t {
+        color: var(--tag-color);
+      }
+      .a {
+        color: var(--attr-color);
+      }
+      .v {
+        color: var(--val-color);
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar-custom">
+      <a href="../index.html" class="navbar-brand">
+        Coding<span style="color: var(--primary)">Bird</span>
+      </a>
+      <div class="nav-links">
+        <a href="../index.html">Home</a>
+        <a href="../html.html">HTML</a>
+        <a href="../css.html" style="color: var(--primary)">CSS</a>
+        <a href="../js.html">JS</a>
+      </div>
+    </nav>
+
+    <div class="chapter-nav">
+      <a href="CSSChapter10.html" class="btn-action btn-prev"
+        ><i class="fa fa-arrow-left"></i> Previous</a
+      >
+      <a href="../css.html" class="btn-action btn-next"
+        >Back To CSS Menu <i class="fa fa-th-list"></i
+      ></a>
+    </div>
+
+    <header>
+      <h1
+        style="
+          font-family: &quot;Nunito&quot;;
+          font-weight: 800;
+          font-size: 2.5rem;
+        "
+      >
+        Chapter 11: Advanced CSS
+      </h1>
+      <p>Mastering modern features: Variables, Math, and Counters.</p>
+    </header>
+
+    <div id="chapter-content"></div>
+
+    <footer>&copy; 2026 Marufa Monjuri | Coding Bird</footer>
+
+    <script>
+      const content = document.getElementById("chapter-content");
+
+      function createSection(title, icon, desc, codeHtml, previewHtml) {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <h2><i class="fa ${icon}"></i> ${title}</h2>
+          <p style="color: #4a5568;">${desc}</p>
+          <span class="label">CSS Code</span>
+          <div class="code-block">${codeHtml}</div>
+          <span class="label">Browser View</span>
+          <div class="live-result">${previewHtml}</div>
+        `;
+        content.appendChild(card);
+      }
+
+      // 11.1 Variables
+      createSection(
+        "11.1 CSS Variables",
+        "fa-cube",
+        "Store frequently used values in Custom Properties. Changing the variable in <b>:root</b> updates your entire site instantly.",
+        `<span class="t">:root</span> { <span class="a">--brand</span>: <span class="v">#ca1551</span>; }<br><span class="t">h2</span> { <span class="a">color</span>: <span class="v">var(--brand)</span>; }`,
+        `<div style="color: var(--primary); font-weight: bold; border: 1px solid var(--primary); padding: 10px; display: inline-block; border-radius: 5px;">This color is pulled from --primary</div>`,
+      );
+
+      // 11.2 Calc
+      createSection(
+        "11.2 The calc() Function",
+        "fa-calculator",
+        "Use <b>calc()</b> to mix different units (like % and px) to create perfectly fluid layouts.",
+        `<span class="t">.banner</span> { <span class="a">width</span>: <span class="v">calc(100% - 50px)</span>; }`,
+        `<div style="background: #edf2f7; padding: 10px; border-radius: 8px;">
+          <div style="width: calc(100% - 60px); background: var(--primary); color: white; padding: 5px; text-align: center;">100% minus 60px width</div>
+        </div>`,
+      );
+
+      // 11.3 Counters
+      createSection(
+        "11.3 CSS Counters",
+        "fa-list-ol",
+        "Automatic numbering for headings and lists using <b>counter-reset</b> and <b>counter-increment</b>.",
+        `<span class="t">body</span> { <span class="a">counter-reset</span>: <span class="v">section</span>; }<br><span class="t">h4::before</span> { <span class="a">counter-increment</span>: <span class="v">section</span>; <span class="a">content</span>: <span class="v">"Section " counter(section)</span>; }`,
+        `<div class="counter-demo">
+          <h4>Web Design</h4>
+          <p>UI Fundamentals</p>
+          <p>Color Theory</p>
+          <h4>Development</h4>
+          <p>Frontend Logic</p>
+        </div>`,
+      );
+    </script>
+  </body>
+</html>

@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chapter 2: HTML Elements | Coding Bird</title>
+
+    <link href="../img/logo_name_icon.png" rel="icon" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --primary: #ca1551;
+        --accent: #fe6868;
+        --code-bg: #000000;
+        --bg: #f0f2f5;
+        --text: #2c3e50;
+        --tag-color: #ff4dc9;
+        --attr-color: #50fa7b;
+        --val-color: #f1fa8c;
+        --comment: #d9d9d9;
+      }
+
+      body {
+        font-family: "Heebo", sans-serif;
+        background-color: var(--bg);
+        color: var(--text);
+        margin: 0;
+        line-height: 1.6;
+      }
+
+      /* --- Full Fixed Navbar --- */
+      .navbar-custom {
+        background: white;
+        height: 75px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 5%;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        box-sizing: border-box;
+      }
+
+      .navbar-brand {
+        font-family: "Nunito", sans-serif;
+        font-weight: 800;
+        font-size: 25px;
+        text-decoration: none;
+        color: var(--text);
+        display: flex;
+        align-items: center;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: var(--text);
+        margin-left: 20px;
+        font-weight: 500;
+      }
+
+      /* --- Chapter Navigation Buttons --- */
+      .chapter-nav {
+        max-width: 850px;
+        margin: 100px auto 20px auto; /* Push below navbar */
+        display: flex;
+        justify-content: space-between;
+        padding: 0 20px;
+      }
+
+      .btn-action {
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .btn-prev {
+        border: 2px solid #ddd;
+        color: #666;
+      }
+      .btn-next {
+        background: var(--primary);
+        color: white;
+      }
+      .btn-prev:hover {
+        background: #eee;
+      }
+      .btn-next:hover {
+        opacity: 0.9;
+      }
+
+      header {
+        text-align: center;
+        padding: 40px 20px;
+      }
+
+      /* --- Card System --- */
+      .card {
+        background: white;
+        border-radius: 15px;
+        padding: 30px;
+        margin: 0 auto 35px auto;
+        max-width: 850px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        border: none;
+      }
+
+      h2 {
+        color: var(--primary);
+        font-family: "Nunito";
+        display: flex;
+        align-items: center;
+      }
+      h2 i {
+        margin-right: 12px;
+        color: var(--accent);
+      }
+
+      .code-block {
+        background: var(--code-bg);
+        color: #f8f8f2;
+        padding: 20px;
+        border-radius: 10px;
+        font-family: "Consolas", monospace;
+        font-size: 0.95rem;
+        margin: 15px 0;
+        border-left: 5px solid var(--primary);
+        overflow-x: auto;
+      }
+
+      .preview {
+        background: #f8f9fa;
+        border: 2px dashed #dee2e6;
+        border-radius: 10px;
+        padding: 20px;
+      }
+
+      /* Calendar Table Styling */
+      .calendar-table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: center;
+      }
+      .calendar-table th,
+      .calendar-table td {
+        border: 1px solid #ddd;
+        padding: 10px;
+      }
+      .days {
+        background: #fffde7;
+      }
+      .weekend {
+        background: #e3f2fd;
+      }
+
+      /* Syntax Colors */
+      .t {
+        color: var(--tag-color);
+      }
+      .a {
+        color: var(--attr-color);
+      }
+      .v {
+        color: var(--val-color);
+      }
+      .c {
+        color: var(--comment);
+        font-style: italic;
+      }
+
+      footer {
+        text-align: center;
+        padding: 40px;
+        background: #1a1e21;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar-custom">
+      <a href="../index.html" class="navbar-brand">
+        <img src="../img/logo_name_icon.png" height="45px" alt="" /> Coding<span
+          style="color: var(--primary)"
+          >Bird</span
+        >
+      </a>
+      <div class="nav-links">
+        <a href="../index.html">Home</a>
+        <a href="../html.html" style="color: var(--primary)">HTML</a>
+        <a href="../css.html">CSS</a>
+        <a href="../js.html">JS</a>
+      </div>
+    </nav>
+
+    <div class="chapter-nav">
+      <a href="HTMLChapter1.html" class="btn-action btn-prev"
+        ><i class="fa fa-arrow-left"></i> Previous Chapter</a
+      >
+      <a href="HTMLChapter3.html" class="btn-action btn-next"
+        >Next Chapter <i class="fa fa-arrow-right"></i
+      ></a>
+    </div>
+
+    <header>
+      <h1 style="font-family: &quot;Nunito&quot;; font-weight: 800">
+        Chapter 2: HTML Elements
+      </h1>
+    </header>
+
+    <div id="content"></div>
+
+    <footer>&copy; 2026 Marufa Monjuri | Coding Bird</footer>
+
+    <script>
+      const container = document.getElementById("content");
+
+      function addCard(title, icon, desc, code, preview) {
+        const div = document.createElement("div");
+        div.className = "card";
+        div.innerHTML = `
+                <h2><i class="fa ${icon}"></i> ${title}</h2>
+                <p>${desc}</p>
+                <div class="code-block">${code}</div>
+                ${preview ? `<div class="preview"><strong>Browser Output:</strong><br><br>${preview}</div>` : ""}
+            `;
+        container.appendChild(div);
+      }
+
+      // 2.1 & 2.2 Typography
+      addCard(
+        "2.1 & 2.2 Headings & Paragraphs",
+        "fa-font",
+        "Headings structure your document, and paragraphs contain your body text.",
+        `<span class="t">&lt;h1&gt;</span>Main Title<span class="t">&lt;/h1&gt;</span>\n<span class="t">&lt;p&gt;</span>Text goes here.<span class="t">&lt;/p&gt;</span>`,
+        "<h1>Main Title</h1><p>Text goes here.</p>",
+      );
+
+      // 2.3 Links
+      addCard(
+        "2.3 Anchors",
+        "fa-link",
+        "Links are created using the &lt;a&gt; tag with the href attribute.",
+        `<span class="t">&lt;a</span> <span class="a">href</span>=<span class="v">"#"</span><span class="t">&gt;</span>Link Text<span class="t">&lt;/a&gt;</span>`,
+        "<a href='#' style='color:var(--primary)'>Link Text</a>",
+      );
+
+      // 2.4 Image Scaling
+      addCard(
+        "2.4 Images",
+        "fa-image",
+        "Scale images by providing only width OR height to maintain aspect ratio.",
+        `<span class="t">&lt;img</span> <span class="a">src</span>=<span class="v">"img.png"</span> <span class="a">width</span>=<span class="v">"150"</span> <span class="t">/&gt;</span>`,
+        `<img src="../img/logo_name_icon.png" width="100">`,
+      );
+
+      // 2.5 Lists
+      addCard(
+        "2.5 Lists",
+        "fa-list",
+        "UL for bullets, OL for numbers.",
+        `<span class="t">&lt;ul&gt;</span><span class="t">&lt;li&gt;</span>Item<span class="t">&lt;/li&gt;</span><span class="t">&lt;/ul&gt;</span>`,
+        "<ul><li>Item 1</li><li>Item 2</li></ul>",
+      );
+
+      // 2.6 FULL JANUARY 2026 CALENDAR
+      addCard(
+        "2.6 Data Tables (Jan 2026)",
+        "fa-table",
+        "Using colgroup to highlight the weekend.",
+        `<span class="t">&lt;table&gt;</span>...<span class="t">&lt;/table&gt;</span>`,
+        `<table class="calendar-table">
+                <caption>January 2026</caption>
+                <colgroup><col span="5" class="days"><col span="2" class="weekend"></colgroup>
+                <tr><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th><th>Sun</th></tr>
+                <tr><td></td><td></td><td></td><td>1</td><td>2</td><td>3</td><td>4</td></tr>
+                <tr><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td></tr>
+                <tr><td>12</td><td>13</td><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td></tr>
+                <tr><td>19</td><td>20</td><td>21</td><td>22</td><td>23</td><td>24</td><td>25</td></tr>
+                <tr><td>26</td><td>27</td><td>28</td><td>29</td><td>30</td><td>31</td><td></td></tr>
+            </table>`,
+      );
+
+      // 2.7 Line Break
+      addCard(
+        "2.7 Line Break",
+        "fa-level-down-alt",
+        "Force a new line using &lt;br&gt;.",
+        `Line 1<span class="t">&lt;br /&gt;</span>Line 2`,
+        "Line 1<br>Line 2",
+      );
+
+      // 2.8 Thematic Break
+      addCard(
+        "2.8 Horizontal Rule",
+        "fa-minus",
+        "Use &lt;hr&gt; to separate topics.",
+        `Section 1<span class="t">&lt;hr /&gt;</span>Section 2`,
+        "Section 1<hr>Section 2",
+      );
+
+      // 2.9 Progress/Meter
+      addCard(
+        "2.9 Progress & Meters",
+        "fa-spinner",
+        "Track completion or measurements.",
+        `<span class="t">&lt;progress</span> <span class="a">value</span>=<span class="v">"50"</span> <span class="a">max</span>=<span class="v">"100"</span><span class="t">&gt;&lt;/progress&gt;</span>`,
+        `<progress value="50" max="100" style="width:100%"></progress>`,
+      );
+
+      // 2.10 Code and Preformatted Text
+      addCard(
+        "2.10 Code and Preformatted Text",
+        "fa-code",
+        "<b>code</b> provides the font style; <b>pre</b> provides the layout (preserves spaces and line breaks).",
+        `<span class="c">&lt;!-- code: Squashes everything into one line --&gt;</span><br><span class="t">&lt;code&gt;</span><br>  var x = 10;<br>  var y = 20;<br><span class="t">&lt;/code&gt;</span><br><br><span class="c">&lt;!-- pre: Keeps the lines and spaces --&gt;</span><br><span class="t">&lt;pre&gt;</span><br>  var x = 10;<br>  var y = 20;<br><span class="t">&lt;/pre&gt;</span>`,
+        `<div>
+      <p><b>Using <code>&lt;code&gt;</code> only:</b> (All on one line)</p>
+      <code style="background:#eee;">var x = 10 
+      var y = 20 
+      result = x / y</code>
+
+      <hr>
+
+      <p><b>Using <code>&lt;pre&gt;</code> only:</b> (Respects your Enters)</p>
+      <pre style="background:#eee;">var x = 10
+var y = 20
+result = x / y</pre>
+   </div>`,
+      );
+
+      // 2.11 Iframe
+      addCard(
+        "2.11 Iframes",
+        "fa-window-maximize",
+        "Embed other web pages.",
+        `<span class="t">&lt;iframe</span> <span class="a">src</span>=<span class="v">"..."</span><span class="t">&gt;&lt;/iframe&gt;</span>`,
+        `<iframe src="https://www.wikipedia.org" style="width:100%; height:100px; border:none;"></iframe>`,
+      );
+
+      // 2.12 Entities
+      addCard(
+        "2.12 HTML Entities",
+        "fa-copyright",
+        "Use entities to display reserved characters (like &lt; &gt;) or special symbols (like &copy; &euro;).",
+        `<span class="c">&lt;!-- Displaying: © 2026 Coding Bird --&gt;</span><br><span class="t">&lt;p&gt;</span><span class="v">&amp;copy;</span> 2026, Coding Bird<span class="t">&lt;/p&gt;</span>`,
+        `<div class="structure-viz">
+      <table style="width:100%; border-collapse: collapse; font-size: 0.9rem;">
+        <tr style="background:#eee;"><th>Symbol</th><th>Entity Name</th><th>Result</th></tr>
+        <tr><td>Less than</td><td><code>&amp;lt;</code></td><td> < </td></tr>
+        <tr><td>Greater than</td><td><code>&amp;gt;</code></td><td> > </td></tr>
+        <tr><td>Copyright</td><td><code>&amp;copy;</code></td><td> © </td></tr>
+        <tr><td>Euro</td><td><code>&amp;euro;</code></td><td> € </td></tr>
+      </table>
+   </div>`,
+      );
+    </script>
+  </body>
+</html>

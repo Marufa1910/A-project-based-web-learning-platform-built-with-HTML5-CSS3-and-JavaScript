@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JS Chapter 9: Async & Workers | Coding Bird</title>
+
+    <link href="../img/logo_name_icon.png" rel="icon" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --primary: #ca1551;
+        --accent: #fe6868;
+        --bg: #f0f2f5;
+        --card-bg: #ffffff;
+        --code-bg: #1a1e21;
+        --code-text: #ffffff;
+        --success: #2ecc71;
+        --token-keyword: #ff79c6;
+        --token-function: #50fa7b;
+        --token-string: #f1fa8c;
+        --token-comment: #6272a4;
+        --token-number: #bd93f9;
+      }
+
+      body {
+        font-family: "Heebo", sans-serif;
+        background-color: var(--bg);
+        color: #2c3e50;
+        margin: 0;
+        padding-top: 100px;
+      }
+
+      .navbar-custom {
+        background: white;
+        height: 75px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 5%;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        box-sizing: border-box;
+      }
+      .navbar-brand {
+        font-family: "Nunito", sans-serif;
+        font-weight: 800;
+        font-size: 25px;
+        text-decoration: none;
+        color: #2c3e50;
+        display: flex;
+        align-items: center;
+      }
+
+      #learning-path {
+        max-width: 850px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .card {
+        background: var(--card-bg);
+        border-radius: 12px;
+        padding: 30px;
+        margin-bottom: 40px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        border-left: 5px solid var(--primary);
+      }
+      .card-header {
+        font-weight: 800;
+        font-family: "Nunito";
+        font-size: 1.4rem;
+        margin-bottom: 10px;
+        color: var(--primary);
+      }
+      .code-block {
+        background: var(--code-bg);
+        color: var(--token-string);
+        padding: 20px;
+        border-radius: 8px;
+        font-family: "Consolas", monospace;
+        font-size: 0.9rem;
+        white-space: pre-wrap;
+        line-height: 1.5;
+        margin: 15px 0;
+      }
+
+      .kw {
+        color: var(--token-keyword);
+      }
+      .fn {
+        color: var(--token-function);
+      }
+      .num {
+        color: var(--token-number);
+      }
+      .cmt {
+        color: var(--token-comment);
+      }
+
+      .result-box {
+        background: #f8f9fa;
+        border-left: 4px solid var(--success);
+        padding: 15px;
+        border-radius: 4px;
+        color: #27ae60;
+        font-weight: bold;
+        font-family: monospace;
+      }
+      .pro-tip {
+        background: #fff9eb;
+        border: 1px solid #ffeaa7;
+        padding: 12px;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        color: #d35400;
+        margin-top: 15px;
+      }
+      footer {
+        text-align: center;
+        padding: 40px;
+        background: #1a1e21;
+        color: white;
+        margin-top: 50px;
+      }
+      /* --- Navigation Buttons --- */
+      .chapter-nav {
+        max-width: 850px;
+        margin: 0 auto 20px auto;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 20px;
+      }
+
+      .btn-action {
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .btn-prev {
+        border: 2px solid #ddd;
+        color: #666;
+      }
+      .btn-next {
+        background: var(--primary);
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar-custom">
+      <a href="../index.html" class="navbar-brand">
+        <img src="../img/logo_name_icon.png" height="45px" alt="" /> Coding<span
+          style="color: var(--primary)"
+          >Bird</span
+        >
+      </a>
+      <div class="nav-links">
+        <a href="../js.html" style="color: var(--primary)">JS Reference</a>
+      </div>
+    </nav>
+    <nav class="navbar-custom">
+      <a href="../index.html" class="navbar-brand">
+        <img src="../img/logo_name_icon.png" height="45px" alt="" /> Coding<span
+          style="color: var(--primary)"
+          >Bird</span
+        >
+      </a>
+      <div class="nav-links">
+        <a href="../index.html">Home</a>
+        <a href="../html.html">HTML</a>
+        <a href="../css.html">CSS</a>
+        <a href="../js.html" style="color: var(--primary)">JS</a>
+      </div>
+    </nav>
+    <div class="chapter-nav">
+      <a href="JSChapter8.html" class="btn-action btn-prev"
+        ><i class="fa fa-arrow-left"></i> Previous Chapter</a
+      >
+      <a href="JSChapter10.html" class="btn-action btn-next"
+        >Next Chapter <i class="fa fa-arrow-right"></i
+      ></a>
+    </div>
+    <header style="text-align: center; margin-bottom: 40px">
+      <h1 style="font-family: &quot;Nunito&quot;; font-weight: 800">
+        Chapter 9: Asynchronous
+      </h1>
+      <p>From Callbacks and Promises to Multi-threaded Web Workers</p>
+    </header>
+
+    <main id="learning-path">
+      <div class="card" style="border-left-color: #3498db">
+        <div class="card-header" style="color: #3498db">
+          9.1 & 9.2: The Event Loop & Promises
+        </div>
+        <p>
+          JavaScript uses an <strong>Event Loop</strong> to handle tasks.
+          <strong>Promises</strong> act as placeholders for results that aren't
+          ready yet.
+        </p>
+
+        <div class="code-block">
+          <span class="cmt">// 9.2 Consuming a Promise</span>
+          <span class="fn">fetch</span>(url) .<span class="fn">then</span>(res
+          => res.<span class="fn">json</span>()) .<span class="fn">catch</span
+          >(err => <span class="fn">console</span>.<span class="fn">error</span
+          >(err));
+        </div>
+      </div>
+    </main>
+
+    <footer>&copy; 2026 Marufa Monjuri | Coding Bird</footer>
+
+    <script>
+      const lessons = [
+        {
+          title: "9.3 Wrapping Callbacks",
+          desc: "Convert older callback-style APIs into modern Promises for cleaner code.",
+          code: `<span class="kw">return new</span> <span class="fn">Promise</span>((resolve, reject) => {
+  <span class="fn">oldApi</span>(data, (err, res) => {
+    <span class="kw">if</span> (err) <span class="fn">reject</span>(err);
+    <span class="kw">else</span> <span class="fn">resolve</span>(res);
+  });
+});`,
+          res: "Allows using .then() on old functions",
+          tip: "This is called 'Promisifying' a function.",
+        },
+        {
+          title: "9.4 & 9.5 Async/Await",
+          desc: "Write asynchronous code that looks and behaves like synchronous code using the 'await' keyword.",
+          code: `<span class="kw">async function</span> <span class="fn">getData</span>() {
+  <span class="kw">try</span> {
+    <span class="kw">const</span> <span class="num">res</span> = <span class="kw">await</span> <span class="fn">fetch</span>(url);
+    <span class="kw">const</span> <span class="num">data</span> = <span class="kw">await</span> res.<span class="fn">json</span>();
+  } <span class="kw">catch</span> (err) { <span class="cmt">/* handle error */</span> }
+}`,
+          res: "Pauses execution until promise resolves",
+          tip: "You can only use 'await' inside an 'async' function.",
+        },
+        {
+          title: "9.6 Managing Multiple Promises",
+          desc: "Run multiple tasks at once and wait for all of them to finish with Promise.all().",
+          code: `<span class="kw">const</span> [<span class="num">user</span>, <span class="num">posts</span>] = <span class="kw">await</span> <span class="fn">Promise</span>.<span class="fn">all</span>([
+  <span class="fn">fetchUser</span>(), 
+  <span class="fn">fetchPosts</span>()
+]);`,
+          res: "Parallel execution (faster performance)",
+          tip: "If any promise fails, the whole Promise.all() fails immediately.",
+        },
+        {
+          title: "9.7 Web Workers (Threads)",
+          desc: "Offload heavy CPU work to a background thread so the UI never freezes.",
+          code: `<span class="kw">const</span> <span class="num">worker</span> = <span class="kw">new</span> <span class="fn">Worker</span>(<span class="str">'worker.js'</span>);
+worker.<span class="fn">postMessage</span>(<span class="str">'start'</span>);
+worker.<span class="fn">onmessage</span> = (e) => <span class="fn">console</span>.<span class="fn">log</span>(e.data);`,
+          res: "Multithreading in JavaScript",
+          tip: "Workers cannot access the DOM or the 'window' object.",
+        },
+        {
+          title: "9.8 Worker Progress Reports",
+          desc: "Send periodic messages from the worker to update a progress bar in the UI.",
+          code: `<span class="cmt">// worker.js</span>
+<span class="fn">postMessage</span>({ type: <span class="str">'Progress'</span>, val: <span class="num">50</span> });
+
+<span class="cmt">// main.js</span>
+worker.<span class="fn">onmessage</span> = (e) => {
+  <span class="kw">if</span>(e.data.type === <span class="str">'Progress'</span>) <span class="fn">updateUI</span>(e.data.val);
+};`,
+          res: "UI updates: '50% done...'",
+          tip: "Use 'messageType' strings to tell different worker messages apart.",
+        },
+      ];
+
+      const container = document.getElementById("learning-path");
+      lessons.forEach((l) => {
+        container.innerHTML += `
+          <div class="card">
+            <div class="card-header">${l.title}</div>
+            <p>${l.desc}</p>
+            <div class="code-block">${l.code}</div>
+            <div class="result-box"><i class="fas fa-terminal"></i> ${l.res}</div>
+            <div class="pro-tip"><strong>Pro Tip:</strong> ${l.tip}</div>
+          </div>
+        `;
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JS Chapter 7: Object Mastery | Coding Bird</title>
+
+    <link href="../img/logo_name_icon.png" rel="icon" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --primary: #ca1551;
+        --accent: #fe6868;
+        --bg: #f0f2f5;
+        --card-bg: #ffffff;
+        --code-bg: #1a1e21;
+        --code-text: #ffffff;
+        --success: #2ecc71;
+        --token-keyword: #ff79c6;
+        --token-function: #50fa7b;
+        --token-string: #f1fa8c;
+        --token-comment: #6272a4;
+        --token-number: #bd93f9;
+      }
+
+      body {
+        font-family: "Heebo", sans-serif;
+        background-color: var(--bg);
+        color: #2c3e50;
+        margin: 0;
+        padding-top: 100px;
+      }
+
+      .navbar-custom {
+        background: white;
+        height: 75px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 5%;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        box-sizing: border-box;
+      }
+
+      .navbar-brand {
+        font-family: "Nunito", sans-serif;
+        font-weight: 800;
+        font-size: 25px;
+        text-decoration: none;
+        color: #2c3e50;
+        display: flex;
+        align-items: center;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: #2c3e50;
+        margin-left: 20px;
+        font-weight: 500;
+      }
+
+      .chapter-nav {
+        max-width: 850px;
+        margin: 0 auto 20px auto;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 20px;
+      }
+
+      .btn-action {
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .btn-prev {
+        border: 2px solid #ddd;
+        color: #666;
+      }
+      .btn-next {
+        background: var(--primary);
+        color: white;
+      }
+
+      header {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+
+      #learning-path {
+        max-width: 850px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .card {
+        background: var(--card-bg);
+        border-radius: 12px;
+        padding: 30px;
+        margin-bottom: 40px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        border-top: 5px solid var(--primary);
+      }
+
+      .card-header {
+        font-weight: 800;
+        font-family: "Nunito";
+        font-size: 1.4rem;
+        margin-bottom: 10px;
+        color: var(--primary);
+      }
+
+      .card-desc {
+        font-size: 1rem;
+        color: #4a4a4a;
+        line-height: 1.6;
+        margin-bottom: 20px;
+      }
+
+      .code-block {
+        background: var(--code-bg);
+        color: var(--code-text);
+        padding: 20px;
+        border-radius: 8px;
+        font-family: "Consolas", monospace;
+        font-size: 0.95rem;
+        white-space: pre-wrap;
+        margin-bottom: 15px;
+        line-height: 1.5;
+      }
+
+      .kw {
+        color: var(--token-keyword);
+        font-weight: bold;
+      }
+      .fn {
+        color: var(--token-function);
+      }
+      .str {
+        color: var(--token-string);
+      }
+      .cmt {
+        color: var(--token-comment);
+        font-style: italic;
+      }
+      .num {
+        color: var(--token-number);
+      }
+
+      .result-box {
+        background: #f8f9fa;
+        border-left: 4px solid var(--success);
+        padding: 15px;
+        border-radius: 4px;
+        color: #27ae60;
+        font-weight: bold;
+        font-family: monospace;
+        margin-bottom: 15px;
+      }
+
+      .pro-tip {
+        background: #fff9eb;
+        border: 1px solid #ffeaa7;
+        padding: 12px;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        color: #d35400;
+        display: flex;
+        gap: 10px;
+      }
+
+      footer {
+        text-align: center;
+        padding: 40px;
+        background: #1a1e21;
+        color: white;
+        margin-top: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar-custom">
+      <a href="../index.html" class="navbar-brand">
+        <img src="../img/logo_name_icon.png" height="45px" alt="" /> Coding<span
+          style="color: var(--primary)"
+          >Bird</span
+        >
+      </a>
+      <div class="nav-links">
+        <a href="../index.html">Home</a>
+        <a href="../html.html">HTML</a>
+        <a href="../css.html">CSS</a>
+        <a href="../js.html" style="color: var(--primary)">JS</a>
+      </div>
+    </nav>
+
+    <div class="chapter-nav">
+      <a href="JSChapter6.html" class="btn-action btn-prev"
+        ><i class="fa fa-arrow-left"></i> Previous Chapter</a
+      >
+      <a href="JSChapter8.html" class="btn-action btn-next"
+        >Next Chapter <i class="fa fa-arrow-right"></i
+      ></a>
+    </div>
+
+    <header>
+      <h1 style="font-family: &quot;Nunito&quot;; font-weight: 800">
+        Chapter 7: Object Mastery
+      </h1>
+      <p>Technical Reference with Integrated Syntax Highlighting</p>
+    </header>
+
+    <main id="learning-path">
+      <div class="card" style="border-top-color: #3498db">
+        <div class="card-header" style="color: #3498db">
+          The Prototype Chain
+        </div>
+        <div class="card-desc">
+          Every object in JavaScript has a hidden link to another object (its
+          prototype), forming a chain that ends at
+          <code>Object.prototype</code>. When you access a property, JS looks at
+          the object, then its prototype, and so on up the chain.
+        </div>
+      </div>
+    </main>
+
+    <footer>&copy; 2026 Marufa Monjuri | Coding Bird</footer>
+
+    <script>
+      const lessons = [
+        {
+          title: "7.1 Checking Types",
+          desc: "Determining if a mystery variable is a specific object type using 'instanceof'.",
+          code: `<span class="kw">const</span> <span class="num">mystery</span> = <span class="kw">new</span> <span class="fn">Date</span>();
+<span class="kw">if</span> (<span class="num">mystery</span> <span class="kw">instanceof</span> <span class="fn">Date</span>) {
+  console.<span class="fn">log</span>(<span class="str">'It is a Date!'</span>);
+}`,
+          res: "instanceof Date -> true",
+          tip: "Use 'typeof' for primitives and 'instanceof' for objects/classes.",
+        },
+        {
+          title: "7.2 Object Literals",
+          desc: "Bundle data dynamically. Use brackets [] to compute keys at runtime.",
+          code: `<span class="kw">const</span> <span class="num">user</span> = {
+  id: <span class="num">402</span>,
+  [<span class="str">'role_'</span> + <span class="num">1</span>]: <span class="str">'Admin'</span>
+};`,
+          res: "user.role_1 -> 'Admin'",
+          tip: "Computed property names let you generate keys using variables or logic.",
+        },
+        {
+          title: "7.3 Property Verification",
+          desc: "Checking if a key exists on an object or its prototype chain.",
+          code: `<span class="kw">const</span> <span class="num">car</span> = { brand: <span class="str">'Tesla'</span> };
+console.<span class="fn">log</span>(<span class="str">'brand'</span> <span class="kw">in</span> <span class="num">car</span>); 
+console.<span class="fn">log</span>(<span class="num">car</span>.<span class="fn">hasOwnProperty</span>(<span class="str">'brand'</span>));`,
+          res: "true / true",
+          tip: "'in' includes inherited properties; 'hasOwnProperty' checks only local ones.",
+        },
+        {
+          title: "7.4 Iterating Properties",
+          desc: "Extracting keys or values into arrays for easy looping.",
+          code: `<span class="kw">const</span> <span class="num">stats</span> = { hp: <span class="num">10</span>, mp: <span class="num">5</span> };
+<span class="kw">const</span> <span class="num">keys</span> = Object.<span class="fn">keys</span>(<span class="num">stats</span>);
+<span class="kw">const</span> <span class="num">entries</span> = Object.<span class="fn">entries</span>(<span class="num">stats</span>);`,
+          res: "keys -> ['hp', 'mp']",
+          tip: "Object.entries() is perfect for for...of loops to get both key and value.",
+        },
+        {
+          title: "7.5 Merging & Spreading",
+          desc: "Combining multiple objects into one using the spread operator (...).",
+          code: `<span class="kw">const</span> <span class="num">base</span> = { a: <span class="num">1</span> };
+<span class="kw">const</span> <span class="num">ext</span> = { b: <span class="num">2</span> };
+<span class="kw">const</span> <span class="num">merged</span> = { ...<span class="num">base</span>, ...<span class="num">ext</span> };`,
+          res: "{ a: 1, b: 2 }",
+          tip: "Conflict rule: The object spread last wins the property value.",
+        },
+        {
+          title: "7.6 Freezing Objects",
+          desc: "Making an object immutable to prevent any further changes.",
+          code: `<span class="kw">const</span> <span class="num">config</span> = { status: <span class="str">'locked'</span> };
+Object.<span class="fn">freeze</span>(<span class="num">config</span>);
+<span class="num">config</span>.status = <span class="str">'unlocked'</span>;`,
+          res: "config.status remains 'locked'",
+          tip: "Freeze is shallow; inner objects must be frozen separately if needed.",
+        },
+        {
+          title: "7.7 Proxies (Interceptors)",
+          desc: "Using Proxies to validate data before it is saved to an object.",
+          code: `<span class="kw">const</span> <span class="num">proxy</span> = <span class="kw">new</span> <span class="fn">Proxy</span>({}, {
+  <span class="fn">set</span>: (obj, prop, val) => {
+    <span class="kw">if</span> (prop === <span class="str">'age'</span> && val < <span class="num">0</span>) <span class="kw">throw</span> <span class="str">'Invalid Age'</span>;
+    obj[prop] = val;
+  }
+});`,
+          res: "Prevents invalid state changes",
+          tip: "Proxies are the backbone of modern framework reactivity (like Vue 3).",
+        },
+        {
+          title: "7.8 Cloning Objects",
+          desc: "Creating a new reference to avoid mutating the original data.",
+          code: `<span class="kw">const</span> <span class="num">original</span> = { x: <span class="num">10</span> };
+<span class="kw">const</span> <span class="num">clone</span> = { ...<span class="num">original</span> };`,
+          res: "clone !== original",
+          tip: "Spread creates a 'Shallow Copy'. Use structuredClone() for deep nested objects.",
+        },
+      ];
+
+      const container = document.getElementById("learning-path");
+
+      lessons.forEach((item) => {
+        container.innerHTML += `
+            <div class="card">
+                <div class="card-header">${item.title}</div>
+                <div class="card-desc">${item.desc}</div>
+                <div class="code-block">${item.code}</div>
+                <div class="result-box"><i class="fas fa-terminal"></i> Outcome: ${item.res}</div>
+                <div class="pro-tip">
+                  <i class="fas fa-lightbulb" style="margin-top:3px"></i> 
+                  <div><strong>Pro Tip:</strong> ${item.tip}</div>
+                </div>
+            </div>
+        `;
+      });
+    </script>
+  </body>
+</html>

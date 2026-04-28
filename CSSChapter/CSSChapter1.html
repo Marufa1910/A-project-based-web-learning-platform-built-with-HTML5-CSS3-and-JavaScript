@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chapter 1: Getting to Know CSS | Coding Bird</title>
+
+    <link href="../img/logo_name_icon.png" rel="icon" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&family=Fira+Code:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --primary: #ca1551;
+        --accent: #fe6868;
+        --code-bg: #1e1e2e;
+        --bg: #f8f9fa;
+        --text: #2c3e50;
+        --tag-color: #f92672;
+        --attr-color: #a6e22e;
+        --val-color: #e6db74;
+        --comment-color: #c3c3c3;
+        --preview-bg: #ffffff;
+      }
+
+      body {
+        font-family: "Heebo", sans-serif;
+        background-color: var(--bg);
+        color: var(--text);
+        margin: 0;
+        line-height: 1.6;
+      }
+
+      .navbar-custom {
+        background: white;
+        height: 75px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 5%;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        box-sizing: border-box;
+      }
+
+      .navbar-brand {
+        font-family: "Nunito", sans-serif;
+        font-weight: 800;
+        font-size: 25px;
+        text-decoration: none;
+        color: var(--text);
+      }
+
+      .chapter-nav {
+        max-width: 850px;
+        margin: 100px auto 20px auto;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 20px;
+      }
+
+      .btn-action {
+        padding: 10px 20px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .btn-prev {
+        border: 2px solid #ddd;
+        color: #666;
+      }
+      .btn-next {
+        background: var(--primary);
+        color: white;
+      }
+
+      header {
+        text-align: center;
+        padding: 40px 20px;
+      }
+
+      .card {
+        background: white;
+        border-radius: 20px;
+        padding: 30px;
+        margin: 0 auto 35px auto;
+        max-width: 850px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        border: 1px solid #edf2f7;
+      }
+
+      h2 {
+        color: var(--primary);
+        font-family: "Nunito";
+        margin-top: 0;
+        font-size: 1.5rem;
+      }
+
+      .code-block {
+        background: var(--code-bg);
+        color: #f8f8f2;
+        padding: 20px;
+        border-radius: 12px;
+        font-family: "Fira Code", monospace;
+        font-size: 0.9rem;
+        margin: 15px 0;
+        position: relative;
+        overflow-x: auto;
+        white-space: pre-wrap;
+      }
+
+      .live-result {
+        background: #fff;
+        border: 2px solid #e2e8f0;
+        border-left: 5px solid var(--primary);
+        padding: 20px;
+        border-radius: 12px;
+        margin-top: 15px;
+      }
+
+      .label {
+        font-size: 0.7rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        color: #a0aec0;
+        margin-bottom: 10px;
+        display: block;
+      }
+
+      .t {
+        color: var(--tag-color);
+        font-weight: 500;
+      }
+      .a {
+        color: var(--attr-color);
+      }
+      .v {
+        color: var(--val-color);
+      }
+      .c {
+        color: var(--comment-color);
+        font-style: italic;
+      }
+
+      footer {
+        text-align: center;
+        padding: 40px;
+        background: #1a202c;
+        color: white;
+        margin-top: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar-custom">
+      <a href="../index.html" class="navbar-brand">
+        Coding<span style="color: var(--primary)">Bird</span>
+      </a>
+      <div class="nav-links">
+        <a href="../index.html">Home</a>
+        <a href="../html.html">HTML</a>
+        <a href="../css.html" style="color: var(--primary)">CSS</a>
+        <a href="../js.html">JS</a>
+      </div>
+    </nav>
+
+    <div class="chapter-nav">
+      <a href="HTMLChapter_Last.html" class="btn-action btn-prev"
+        ><i class="fa fa-arrow-left"></i> Previous</a
+      >
+      <a href="CSSChapter2.html" class="btn-action btn-next"
+        >Next Chapter <i class="fa fa-arrow-right"></i
+      ></a>
+    </div>
+
+    <header>
+      <h1 style="font-family: &quot;Nunito&quot;; font-weight: 800">
+        Chapter 1: Getting to Know CSS
+      </h1>
+      <p>Cascading Style Sheets: Presentation and Visual Style.</p>
+    </header>
+
+    <div id="chapter-content"></div>
+
+    <footer>&copy; 2026 Marufa Monjuri | Coding Bird</footer>
+
+    <script>
+      const content = document.getElementById("chapter-content");
+
+      function createSection(title, icon, desc, codeHtml, previewHtml) {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <h2><i class="fa ${icon}"></i> ${title}</h2>
+          <p style="color: #4a5568;">${desc}</p>
+          <span class="label">CSS Structure</span>
+          <div class="code-block">${codeHtml}</div>
+          <span class="label">Visual Representation</span>
+          <div class="live-result">${previewHtml}</div>
+        `;
+        content.appendChild(card);
+      }
+
+      // 1. CSS Syntax
+      createSection(
+        "1.1 CSS Syntax",
+        "fa-code",
+        "A CSS rule consists of a selector and a declaration block. The selector points to the HTML element you want to style.",
+        `<span class="t">p</span> {<br>
+  &nbsp;&nbsp;<span class="a">color</span>: <span class="v">red</span>;<br>
+  &nbsp;&nbsp;<span class="a">font-size</span>: <span class="v">28px</span>;<br>
+}`,
+        "<p style='color: red; font-size: 28px; margin:0;'>This paragraph matches the 'p' selector.</p>",
+      );
+
+      // 2. Comments
+      createSection(
+        "1.2 Comments in CSS",
+        "fa-comment-alt",
+        "Comments are used to explain the code and are ignored by browsers. Use /* and */.",
+        `<span class="c">/* This is a single-line comment */</span><br>
+<span class="c">/* This is a <br>   multi-line comment */</span>`,
+        "<p>Comments are invisible in the browser view but helpful in the code editor!</p>",
+      );
+
+      // 3. Absolute Units
+      createSection(
+        "1.3.1 Absolute Lengths",
+        "fa-ruler",
+        "Absolute units like <b>px</b> (pixels) are fixed and appear as exactly that size.",
+        `<span class="t">.box</span> { <span class="a">width</span>: <span class="v">100px</span>; <span class="a">border</span>: <span class="v">2px solid black</span>; }`,
+        "<div style='width: 100px; border: 2px solid black; padding: 5px; text-align: center;'>100px Wide</div>",
+      );
+
+      // 4. Relative Units (rem)
+      createSection(
+        "1.3.2 Relative Lengths (rem)",
+        "fa-expand-arrows-alt",
+        "<b>rem</b> is relative to the root (&lt;html&gt;) font size. It prevents compounding errors common with em.",
+        `<span class="c">/* If root is 16px, 2rem = 32px */</span><br>
+<span class="t">.child</span> { <span class="a">font-size</span>: <span class="v">2rem</span>; }`,
+        "<p style='font-size: 2rem; margin:0;'>This text is 2rem (32px).</p>",
+      );
+
+      // 5. Shorthand
+      createSection(
+        "1.4 Shorthand Properties",
+        "fa-compress-alt",
+        "Shorthand properties allow you to set multiple values in one line (Top, Right, Bottom, Left).",
+        `<span class="t">div</span> { <br>
+  &nbsp;&nbsp;<span class="a">border-width</span>: <span class="v">5px 10px 15px 20px</span>; <br>
+  &nbsp;&nbsp;<span class="a">border-style</span>: <span class="v">solid</span>;<br>
+}`,
+        "<div style='border-width: 5px 10px 15px 20px; border-style: solid; border-color: red; padding: 10px;'>Different border widths on each side.</div>",
+      );
+
+      // 6. External CSS
+      createSection(
+        "1.5.3 External CSS",
+        "fa-external-link-alt",
+        "The best way to style is using an external file linked in the &lt;head&gt;.",
+        `<span class="t">&lt;link</span> <span class="a">rel</span>=<span class="v">"stylesheet"</span> <span class="a">href</span>=<span class="v">"style.css"</span><span class="t">&gt;</span>`,
+        "<p><i class='fa fa-info-circle'></i> This keeps your HTML clean and makes maintenance easy!</p>",
+      );
+    </script>
+  </body>
+</html>

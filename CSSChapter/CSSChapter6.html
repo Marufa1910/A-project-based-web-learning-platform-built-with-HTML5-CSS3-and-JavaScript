@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chapter 6: CSS Text & Fonts | Coding Bird</title>
+
+    <link href="../img/logo_name_icon.png" rel="icon" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&family=Fira+Code:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --primary: #ca1551;
+        --accent: #fe6868;
+        --code-bg: #1e1e2e;
+        --bg: #f8f9fa;
+        --text: #2c3e50;
+        --tag-color: #f92672;
+        --attr-color: #a6e22e;
+        --val-color: #e6db74;
+        --comment-color: #75715e;
+        --preview-bg: #ffffff;
+      }
+
+      body {
+        font-family: "Heebo", sans-serif;
+        background-color: var(--bg);
+        color: var(--text);
+        margin: 0;
+        line-height: 1.6;
+      }
+
+      .navbar-custom {
+        background: white;
+        height: 75px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 5%;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        box-sizing: border-box;
+      }
+
+      .navbar-brand {
+        font-family: "Nunito", sans-serif;
+        font-weight: 800;
+        font-size: 25px;
+        text-decoration: none;
+        color: var(--text);
+      }
+
+      .chapter-nav {
+        max-width: 850px;
+        margin: 100px auto 20px auto;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 20px;
+      }
+
+      .btn-action {
+        padding: 10px 20px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .btn-prev {
+        border: 2px solid #ddd;
+        color: #666;
+      }
+      .btn-next {
+        background: var(--primary);
+        color: white;
+      }
+
+      header {
+        text-align: center;
+        padding: 40px 20px;
+      }
+
+      .card {
+        background: white;
+        border-radius: 20px;
+        padding: 30px;
+        margin: 0 auto 35px auto;
+        max-width: 850px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        border: 1px solid #edf2f7;
+      }
+
+      h2 {
+        color: var(--primary);
+        font-family: "Nunito";
+        margin-top: 0;
+        font-size: 1.5rem;
+      }
+
+      .code-block {
+        background: var(--code-bg);
+        color: #f8f8f2;
+        padding: 20px;
+        border-radius: 12px;
+        font-family: "Fira Code", monospace;
+        font-size: 0.85rem;
+        margin: 15px 0;
+        position: relative;
+        overflow-x: auto;
+        white-space: pre-wrap;
+      }
+
+      .live-result {
+        background: #fff;
+        border: 2px solid #e2e8f0;
+        border-left: 5px solid var(--primary);
+        padding: 20px;
+        border-radius: 12px;
+        margin-top: 15px;
+      }
+
+      .label {
+        font-size: 0.7rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        color: #a0aec0;
+        margin-bottom: 5px;
+        display: block;
+      }
+
+      .t {
+        color: var(--tag-color);
+        font-weight: 500;
+      }
+      .a {
+        color: var(--attr-color);
+      }
+      .v {
+        color: var(--val-color);
+      }
+
+      footer {
+        text-align: center;
+        padding: 40px;
+        background: #1a202c;
+        color: white;
+        margin-top: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar-custom">
+      <a href="../index.html" class="navbar-brand">
+        Coding<span style="color: var(--primary)">Bird</span>
+      </a>
+      <div class="nav-links">
+        <a href="../index.html">Home</a>
+        <a href="../html.html">HTML</a>
+        <a href="../css.html" style="color: var(--primary)">CSS</a>
+        <a href="../js.html">JS</a>
+      </div>
+    </nav>
+
+    <div class="chapter-nav">
+      <a href="CSSChapter5.html" class="btn-action btn-prev"
+        ><i class="fa fa-arrow-left"></i> Previous</a
+      >
+      <a href="CSSChapter7.html" class="btn-action btn-next"
+        >Next Chapter <i class="fa fa-arrow-right"></i
+      ></a>
+    </div>
+
+    <header>
+      <h1 style="font-family: &quot;Nunito&quot;; font-weight: 800">
+        Chapter 6: CSS Text & Fonts
+      </h1>
+      <p>Transforming text appearance, spacing, and typography.</p>
+    </header>
+
+    <div id="chapter-content"></div>
+
+    <footer>&copy; 2026 Marufa Monjuri | Coding Bird</footer>
+
+    <script>
+      const content = document.getElementById("chapter-content");
+
+      function createSection(title, icon, desc, codeHtml, previewHtml) {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <h2><i class="fa ${icon}"></i> ${title}</h2>
+          <p style="color: #4a5568;">${desc}</p>
+          <span class="label">CSS Code</span>
+          <div class="code-block">${codeHtml}</div>
+          <span class="label">Browser Result</span>
+          <div class="live-result">${previewHtml}</div>
+        `;
+        content.appendChild(card);
+      }
+
+      // 6.1 Text Decoration
+      createSection(
+        "6.1 Text Decoration",
+        "fa-underline",
+        "The shorthand property for lines, colors, and styles like wavy, dotted, or dashed.",
+        `<span class="t">p</span> { <br> &nbsp;&nbsp;<span class="a">text-decoration</span>: <span class="v">underline red wavy 3px</span>; <br> }`,
+        "<p style='text-decoration: underline red wavy 3px; margin:0;'>Wavy underlined text</p>",
+      );
+
+      // 6.2 Overflow & Wrapping
+      createSection(
+        "6.2 Text Overflow",
+        "fa-cut",
+        "Use <b>ellipsis</b> to add '...' to text that is too long for its container.",
+        `<span class="t">.box</span> { <br> &nbsp;&nbsp;<span class="a">white-space</span>: <span class="v">nowrap</span>; <br> &nbsp;&nbsp;<span class="a">overflow</span>: <span class="v">hidden</span>; <br> &nbsp;&nbsp;<span class="a">text-overflow</span>: <span class="v">ellipsis</span>; <br> }`,
+        "<div style='white-space: nowrap; width: 150px; overflow: hidden; text-overflow: ellipsis; border: 1px solid #000; padding: 5px;'>This text is way too long for this box!</div>",
+      );
+
+      // 6.3 Spacing
+      createSection(
+        "6.23Text Spacing",
+        "fa-arrows-alt-h",
+        "Control <b>letter-spacing</b>, <b>word-spacing</b>, and <b>line-height</b> for better readability.",
+        `<span class="t">p</span> { <br> &nbsp;&nbsp;<span class="a">line-height</span>: <span class="v">2.3</span>; <br> &nbsp;&nbsp;<span class="a">letter-spacing</span>: <span class="v">2px</span>; <br> }`,
+        "<p style='line-height: 2.3; letter-spacing: 2px; margin:0;'>Spaced out lines and letters.</p>",
+      );
+
+      // 6.4 Alignment
+      createSection(
+        "6.4 Text Alignment",
+        "fa-align-center",
+        "Align text to the left, right, center, or justify to spread lines evenly.",
+        `<span class="t">p</span> { <span class="a">text-align</span>: <span class="v">justify</span>; <span class="a">text-indent</span>: <span class="v">30px</span>; }`,
+        "<p style='text-align: justify; text-indent: 30px; width: 200px; border: 1px solid #ccc; font-size: 12px;'>This is a justified paragraph with an indent on the first line to make it look like a book.</p>",
+      );
+
+      // 6.5 Font Variant
+      createSection(
+        "6.5 Font Variant",
+        "fa-font",
+        "The <b>small-caps</b> value turns lowercase letters into smaller uppercase versions.",
+        `<span class="t">p</span> { <span class="a">font-variant</span>: <span class="v">small-caps</span>; }`,
+        "<p style='font-variant: small-caps; font-size: 20px; margin:0;'>Small Caps Example</p>",
+      );
+    </script>
+  </body>
+</html>

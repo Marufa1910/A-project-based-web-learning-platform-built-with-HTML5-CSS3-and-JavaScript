@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chapter 10: Transitions & Animations | Coding Bird</title>
+
+    <link href="../img/logo_name_icon.png" rel="icon" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&family=Fira+Code:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --primary: #ca1551;
+        --secondary: #2c3e50;
+        --bg: #f8f9fa;
+        --text: #2c3e50;
+        --code-bg: #1e1e2e;
+        --tag-color: #f92672;
+        --attr-color: #a6e22e;
+        --val-color: #e6db74;
+      }
+
+      body {
+        font-family: "Heebo", sans-serif;
+        background-color: var(--bg);
+        color: var(--text);
+        margin: 0;
+        line-height: 1.6;
+      }
+
+      /* Consistent Navbar */
+      .navbar-custom {
+        background: white;
+        height: 75px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 5%;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        box-sizing: border-box;
+      }
+
+      .navbar-brand {
+        font-family: "Nunito", sans-serif;
+        font-weight: 800;
+        font-size: 25px;
+        text-decoration: none;
+        color: var(--text);
+      }
+
+      /* Layout & Cards */
+      .chapter-nav {
+        max-width: 850px;
+        margin: 100px auto 20px auto;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 20px;
+      }
+
+      .btn-action {
+        padding: 10px 20px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .btn-prev {
+        border: 2px solid #ddd;
+        color: #666;
+      }
+      .btn-next {
+        background: var(--primary);
+        color: white;
+      }
+
+      header {
+        text-align: center;
+        padding: 40px 20px;
+      }
+
+      .card {
+        background: white;
+        border-radius: 20px;
+        padding: 30px;
+        margin: 0 auto 35px auto;
+        max-width: 850px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        border: 1px solid #edf2f7;
+      }
+
+      h2 {
+        color: var(--primary);
+        font-family: "Nunito";
+        margin-top: 0;
+        font-size: 1.5rem;
+      }
+
+      .code-block {
+        background: var(--code-bg);
+        color: #f8f8f2;
+        padding: 20px;
+        border-radius: 12px;
+        font-family: "Fira Code", monospace;
+        font-size: 0.85rem;
+        margin: 15px 0;
+        overflow-x: auto;
+        white-space: pre-wrap;
+      }
+
+      .label {
+        font-size: 0.7rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        color: #a0aec0;
+        margin-bottom: 5px;
+        display: block;
+      }
+
+      /* 10.1 Transition Demo */
+      .trans-box {
+        width: 100px;
+        height: 100px;
+        background: #fe6868;
+        transition: all 0.5s ease-out;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+      .trans-box:hover {
+        width: 200px;
+        background: var(--primary);
+        transform: rotate(5deg);
+        border-radius: 50px;
+      }
+
+      /* 10.2 Animation Demo */
+      @keyframes floatMove {
+        0% {
+          background-color: var(--primary);
+          left: 0px;
+          border-radius: 50%;
+        }
+        50% {
+          background-color: var(--secondary);
+          left: 200px;
+          border-radius: 12px;
+        }
+        100% {
+          background-color: #fe6868;
+          left: 0px;
+          border-radius: 50%;
+        }
+      }
+      .anim-container {
+        height: 120px;
+        background: #f1f5f9;
+        border-radius: 12px;
+        padding: 20px;
+        position: relative;
+        overflow: hidden;
+      }
+      .anim-box {
+        width: 80px;
+        height: 80px;
+        position: absolute;
+        animation: floatMove 4s infinite ease-in-out;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+      }
+      th {
+        background: #f8f9fa;
+        color: var(--secondary);
+        text-align: left;
+        padding: 12px;
+        border: 1px solid #edf2f7;
+      }
+      td {
+        padding: 12px;
+        border: 1px solid #edf2f7;
+        color: #4a5568;
+      }
+
+      footer {
+        text-align: center;
+        padding: 40px;
+        background: #1a202c;
+        color: white;
+        margin-top: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar-custom">
+      <a href="../index.html" class="navbar-brand">
+        Coding<span style="color: var(--primary)">Bird</span>
+      </a>
+      <div class="nav-links">
+        <a href="../index.html">Home</a>
+        <a href="../html.html">HTML</a>
+        <a href="../css.html" style="color: var(--primary)">CSS</a>
+        <a href="../js.html">JS</a>
+      </div>
+    </nav>
+
+    <div class="chapter-nav">
+      <a href="CSSChapter9.html" class="btn-action btn-prev"
+        ><i class="fa fa-arrow-left"></i> Previous</a
+      >
+      <a href="CSSChapter11.html" class="btn-action btn-next"
+        >Next Chapter <i class="fa fa-arrow-right"></i
+      ></a>
+    </div>
+
+    <header>
+      <h1
+        style="
+          font-family: &quot;Nunito&quot;;
+          font-weight: 800;
+          font-size: 2.5rem;
+        "
+      >
+        Chapter 10: Transitions & Animations
+      </h1>
+      <p>Bringing your UI to life with smooth motion and dynamic effects.</p>
+    </header>
+
+    <div class="card">
+      <h2>10.1 CSS Transitions</h2>
+      <p>
+        Transitions change property values smoothly over a specific duration,
+        usually triggered by an interaction like <b>:hover</b>.
+      </p>
+
+      <span class="label">Interactive Demo (Hover the box)</span>
+      <div
+        style="
+          padding: 30px;
+          background: #f1f5f9;
+          border-radius: 15px;
+          display: flex;
+          justify-content: center;
+        "
+      >
+        <div class="trans-box">Hover Me</div>
+      </div>
+
+      <span class="label">Shorthand Property</span>
+      <div class="code-block">
+        transition: [property] [duration] [timing-function] [delay];
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>10.2 CSS Animations</h2>
+      <p>
+        Animations move through multiple stages automatically using
+        <b>@keyframes</b> without needing a user trigger.
+      </p>
+
+      <span class="label">Live Keyframe View</span>
+      <div class="anim-container">
+        <div class="anim-box"></div>
+      </div>
+
+      <span class="label">Code Syntax</span>
+      <div class="code-block">
+        @keyframes move { 0% { left: 0px; } 100% { left: 200px; } } .box {
+        animation: move 4s infinite; }
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Transitions vs Animations</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Transition</th>
+            <th>Animation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Trigger</strong></td>
+            <td>Requires interaction (:hover)</td>
+            <td>Starts automatically</td>
+          </tr>
+          <tr>
+            <td><strong>Control</strong></td>
+            <td>Simple A to B states</td>
+            <td>Complex multi-step keyframes</td>
+          </tr>
+          <tr>
+            <td><strong>Loops</strong></td>
+            <td>Plays once</td>
+            <td>Can loop infinitely</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <footer>&copy; 2026 Marufa Monjuri | Coding Bird</footer>
+  </body>
+</html>

@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JS Chapter 2: Strings & RegEx | Coding Bird</title>
+
+    <link href="../img/logo_name_icon.png" rel="icon" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --primary: #ca1551;
+        --accent: #fe6868;
+        --code-bg: #1a1e21;
+        --bg: #f0f2f5;
+        --text: #2c3e50;
+        --secondary: #2ecc71;
+      }
+
+      body {
+        font-family: "Heebo", sans-serif;
+        background-color: var(--bg);
+        color: var(--text);
+        margin: 0;
+        line-height: 1.6;
+      }
+
+      /* --- Full Fixed Navbar --- */
+      .navbar-custom {
+        background: white;
+        height: 75px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 5%;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        box-sizing: border-box;
+      }
+
+      .navbar-brand {
+        font-family: "Nunito", sans-serif;
+        font-weight: 800;
+        font-size: 25px;
+        text-decoration: none;
+        color: var(--text);
+        display: flex;
+        align-items: center;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: var(--text);
+        margin-left: 20px;
+        font-weight: 500;
+      }
+
+      /* --- Chapter Navigation Buttons --- */
+      .chapter-nav {
+        max-width: 850px;
+        margin: 100px auto 20px auto;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 20px;
+      }
+
+      .btn-action {
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .btn-prev {
+        border: 2px solid #ddd;
+        color: #666;
+      }
+      .btn-next {
+        background: var(--primary);
+        color: white;
+      }
+      .btn-prev:hover {
+        background: #eee;
+      }
+      .btn-next:hover {
+        opacity: 0.9;
+      }
+
+      header {
+        text-align: center;
+        padding: 40px 20px;
+      }
+
+      /* --- Card System --- */
+      .card {
+        background: white;
+        border-radius: 15px;
+        padding: 30px;
+        margin: 0 auto 35px auto;
+        max-width: 850px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      }
+
+      h2 {
+        color: var(--primary);
+        font-family: "Nunito";
+        display: flex;
+        align-items: center;
+        margin-top: 0;
+        font-size: 1.4rem;
+        border-left: 5px solid var(--primary);
+        padding-left: 15px;
+      }
+
+      /* --- Output Rows with Tooltips --- */
+      .output-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px;
+        border-bottom: 1px solid #eee;
+        background: #fff;
+        position: relative;
+        cursor: help;
+        border-radius: 6px;
+        transition: 0.2s;
+      }
+
+      .output-row:hover {
+        background: #fff0f5;
+      }
+
+      .output-row::after {
+        content: "Syntax: " attr(data-syntax);
+        position: absolute;
+        bottom: 110%;
+        right: 10px;
+        background: var(--code-bg);
+        color: #50fa7b;
+        padding: 8px 12px;
+        border-radius: 4px;
+        font-family: "Consolas", monospace;
+        font-size: 0.8rem;
+        visibility: hidden;
+        opacity: 0;
+        transition: 0.2s;
+        z-index: 100;
+        white-space: pre;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      }
+
+      .output-row:hover::after {
+        visibility: visible;
+        opacity: 1;
+      }
+
+      .label {
+        font-weight: 600;
+        font-family: monospace;
+        color: #555;
+      }
+      .result {
+        font-weight: bold;
+        font-family: "Consolas", monospace;
+        color: var(--secondary);
+      }
+      .description {
+        font-size: 0.85em;
+        color: #7f8c8d;
+        margin: 4px 0 15px 12px;
+      }
+
+      .special-box {
+        background: #2c3e50;
+        color: #ecf0f1;
+        padding: 15px;
+        border-radius: 5px;
+        font-family: monospace;
+        margin: 10px 0;
+      }
+
+      footer {
+        text-align: center;
+        padding: 40px;
+        background: #1a1e21;
+        color: white;
+        margin-top: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar-custom">
+      <a href="../index.html" class="navbar-brand">
+        <img src="../img/logo_name_icon.png" height="45px" alt="" /> Coding<span
+          style="color: var(--primary)"
+          >Bird</span
+        >
+      </a>
+      <div class="nav-links">
+        <a href="../index.html">Home</a>
+        <a href="../html.html">HTML</a>
+        <a href="../css.html">CSS</a>
+        <a href="../js.html" style="color: var(--primary)">JS</a>
+      </div>
+    </nav>
+
+    <div class="chapter-nav">
+      <a href="JSChapter1.html" class="btn-action btn-prev"
+        ><i class="fa fa-arrow-left"></i> Previous Chapter</a
+      >
+      <a href="JSChapter3.html" class="btn-action btn-next"
+        >Next Chapter <i class="fa fa-arrow-right"></i
+      ></a>
+    </div>
+
+    <header>
+      <h1 style="font-family: &quot;Nunito&quot;; font-weight: 800">
+        JavaScript Chapter 2 Showcase
+      </h1>
+      <p>Comprehensive Strings & Regular Expressions Guide</p>
+    </header>
+
+    <div id="chapter-content"></div>
+
+    <footer>&copy; 2026 Marufa Monjuri | Coding Bird</footer>
+
+    <script>
+      function addCard(title) {
+        const container = document.getElementById("chapter-content");
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `<h2>${title}</h2><div class="card-body"></div>`;
+        container.appendChild(card);
+        return card.querySelector(".card-body");
+      }
+
+      function addToUI(cardBody, label, result, syntax, description = "") {
+        const wrapper = document.createElement("div");
+        wrapper.innerHTML = `
+                <div class="output-row" data-syntax="${syntax}">
+                    <span class="label">${label}</span>
+                    <span class="result">${result}</span>
+                </div>
+                ${description ? `<div class="description">${description}</div>` : ""}
+            `;
+        cardBody.appendChild(wrapper);
+      }
+
+      // --- 2.1 String Validation ---
+      const body21 = addCard("2.1 String Validation");
+      addToUI(
+        body21,
+        'typeof "Welcome"',
+        typeof "Welcome",
+        "typeof 'Welcome'",
+        "Identifies data type before processing.",
+      );
+      addToUI(
+        body21,
+        "Empty Check",
+        "".length === 0,
+        "''.length === 0",
+        "Checks for zero-length strings.",
+      );
+      addToUI(
+        body21,
+        "Whitespace Check",
+        "  ".trim().length === 0,
+        "'  '.trim().length === 0",
+        "Ensures the string isn't just empty spaces.",
+      );
+
+      // --- 2.2 Number Formatting ---
+      const body22 = addCard("2.2 Number Formatting");
+      const n = 1734.2344;
+      addToUI(
+        body22,
+        "Fixed Decimals",
+        n.toFixed(2),
+        "n.toFixed(2)",
+        "Rounds to exactly 2 decimal places.",
+      );
+      addToUI(
+        body22,
+        "Scientific Notation",
+        n.toExponential(3),
+        "n.toExponential(3)",
+        "Converts to exponential notation.",
+      );
+      addToUI(
+        body22,
+        "Currency (USD)",
+        new Intl.NumberFormat("en-US", {
+          style: "currency",
+          currency: "USD",
+        }).format(n),
+        "new Intl.NumberFormat()",
+        "Modern way to format money.",
+      );
+
+      // --- 2.3 Special Characters ---
+      const body23 = addCard("2.3 Special Characters");
+      addToUI(
+        body23,
+        "Unicode Symbol",
+        "\u00A9",
+        "'\\u00A9'",
+        "Inserting a Copyright symbol using Unicode.",
+      );
+      body23.innerHTML += `<div class="special-box">Line One\nLine Two (\\n used)</div>`;
+
+      // --- 2.4 Inserting Emojis ---
+      const body24 = addCard("2.4 Inserting Emojis");
+      const burger = String.fromCodePoint(0x1f354);
+      addToUI(
+        body24,
+        "Emoji Result",
+        burger,
+        "String.fromCodePoint(0x1F354)",
+        "Emoji from Hex code.",
+      );
+      addToUI(
+        body24,
+        "Leaky Length",
+        burger.length,
+        "emoji.length",
+        "Emojis usually have a length of 2.",
+      );
+
+      // --- 2.5 Template Literals ---
+      const body25 = addCard("2.5 Template Literals");
+      addToUI(
+        body25,
+        "Interpolation",
+        `User: Abe Lincoln`,
+        "`${fn} ${ln}`",
+        "Variables inside strings.",
+      );
+      addToUI(
+        body25,
+        "Expression",
+        `5 + 3 = ${5 + 3}`,
+        "`${5+3}`",
+        "Logic inside string literals.",
+      );
+
+      // --- 2.6 Comparison ---
+      const body26 = addCard("2.6 Case Comparison");
+      addToUI(
+        body26,
+        "localeCompare",
+        "hello".localeCompare("HELLO", undefined, { sensitivity: "accent" }) ===
+          0,
+        "str.localeCompare()",
+        "Safe international character comparison.",
+      );
+
+      // --- 2.7 Substring Check ---
+      const body27 = addCard("2.7 Substring Check");
+      const text = "The castle was infinitely old.";
+      addToUI(
+        body27,
+        "Includes Check",
+        text.includes("infinitely"),
+        "text.includes('infinitely')",
+        "Modern way to find text.",
+      );
+
+      // --- 2.8 Replacing All ---
+      const body28 = addCard("2.8 Replacing All");
+      addToUI(
+        body28,
+        "replaceAll",
+        text.replaceAll("infinitely", "somewhat"),
+        "str.replaceAll()",
+        "ES2021 way to replace all matches.",
+      );
+
+      // --- 2.9 HTML Entities ---
+      const body29 = addCard("2.9 Escaping HTML");
+      addToUI(
+        body29,
+        "Safe String",
+        "<div>".replaceAll("<", "&lt;").replaceAll(">", "&gt;"),
+        "str.replaceAll('<', '&lt;')",
+        "Escaping tags for security.",
+      );
+
+      // --- 2.10 Regular Expressions ---
+      const body210 = addCard("2.10 Regular Expressions");
+      addToUI(
+        body210,
+        "RegEx Replace",
+        "time tame".replaceAll(/t\w{2}e/g, "place"),
+        "str.replaceAll(/regex/g, 'val')",
+        "Pattern-based global replacement.",
+      );
+
+      // --- 2.11 List Extraction ---
+      const body211 = addCard("2.11 List Extraction");
+      const extracted = "cherries, limes".split(",").map((s) => s.trim());
+      addToUI(
+        body211,
+        "Array Result",
+        extracted.join(" | "),
+        "str.split().map()",
+        "Transforming string lists into clean arrays.",
+      );
+
+      // --- 2.12 matchAll ---
+      const body212 = addCard("2.12 matchAll Instances");
+      const matches = [..."test1 test2".matchAll(/test\d/g)];
+      addToUI(
+        body212,
+        "Count Matches",
+        matches.length,
+        "[...str.matchAll()]",
+        "Captures all occurrences of a pattern.",
+      );
+
+      // --- 2.13 Trimming ---
+      const body213 = addCard("2.13 Removing Whitespace");
+      addToUI(
+        body213,
+        "Trimmed Result",
+        "  hello  ".trim(),
+        "str.trim()",
+        "Removes extra spaces.",
+      );
+
+      // --- 2.14 Capitalization ---
+      const body214 = addCard("2.14 Uppercase First Letter");
+      addToUI(
+        body214,
+        "Capitalized",
+        "javascript"[0].toUpperCase() + "javascript".slice(1),
+        "s[0].toUpperCase() + slice",
+        "Manual title-casing.",
+      );
+
+      // --- 2.15 Email Validation ---
+      const body215 = addCard("2.15 Email Validation");
+      addToUI(
+        body215,
+        "Valid Email?",
+        /\S+@\S+\.\S+/.test("user@site.com"),
+        "regex.test(email)",
+        "Standard pattern validation.",
+      );
+    </script>
+  </body>
+</html>

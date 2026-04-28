@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JS Chapter 5: Array Mastery | Coding Bird</title>
+
+    <link href="../img/logo_name_icon.png" rel="icon" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --primary: #ca1551;
+        --accent: #fe6868;
+        --bg: #f0f2f5;
+        --card-bg: #ffffff;
+        --code-bg: #1a1e21;
+        --code-text: #50fa7b;
+        --text: #2c3e50;
+        --success: #2ecc71;
+      }
+
+      body {
+        font-family: "Heebo", sans-serif;
+        background-color: var(--bg);
+        color: var(--text);
+        margin: 0;
+        padding-top: 100px;
+      }
+
+      /* --- Navbar --- */
+      .navbar-custom {
+        background: white;
+        height: 75px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 5%;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        box-sizing: border-box;
+      }
+
+      .navbar-brand {
+        font-family: "Nunito", sans-serif;
+        font-weight: 800;
+        font-size: 25px;
+        text-decoration: none;
+        color: var(--text);
+        display: flex;
+        align-items: center;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: var(--text);
+        margin-left: 20px;
+        font-weight: 500;
+      }
+
+      /* --- Navigation --- */
+      .chapter-nav {
+        max-width: 850px;
+        margin: 0 auto 20px auto;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 20px;
+      }
+
+      .btn-action {
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .btn-prev {
+        border: 2px solid #ddd;
+        color: #666;
+      }
+      .btn-next {
+        background: var(--primary);
+        color: white;
+      }
+
+      header {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+
+      /* --- List Container --- */
+      .recipe-container {
+        max-width: 850px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .recipe-card {
+        background: var(--card-bg);
+        border-radius: 12px;
+        padding: 25px;
+        margin-bottom: 25px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        border-left: 6px solid var(--primary);
+      }
+
+      .recipe-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+
+      .recipe-title {
+        font-weight: 800;
+        font-family: "Nunito";
+        font-size: 1.2rem;
+        color: var(--primary);
+      }
+
+      .recipe-id {
+        background: #fdf0f5;
+        color: var(--primary);
+        padding: 2px 10px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: bold;
+      }
+
+      .recipe-desc {
+        color: #636e72;
+        margin-bottom: 15px;
+      }
+
+      .code-section {
+        background: var(--code-bg);
+        color: var(--code-text);
+        padding: 15px;
+        border-radius: 8px;
+        font-family: "Consolas", monospace;
+        font-size: 0.9rem;
+        margin-bottom: 10px;
+        position: relative;
+      }
+
+      .result-label {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #b2bec3;
+        margin-top: 10px;
+        display: block;
+      }
+
+      .result-val {
+        color: var(--secondary);
+        font-weight: bold;
+        font-family: monospace;
+      }
+
+      footer {
+        text-align: center;
+        padding: 40px;
+        background: #1a1e21;
+        color: white;
+        margin-top: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar-custom">
+      <a href="../index.html" class="navbar-brand">
+        <img src="../img/logo_name_icon.png" height="45px" alt="" /> Coding<span
+          style="color: var(--primary)"
+          >Bird</span
+        >
+      </a>
+      <div class="nav-links">
+        <a href="../index.html">Home</a>
+        <a href="../html.html">HTML</a>
+        <a href="../css.html">CSS</a>
+        <a href="../js.html" style="color: var(--primary)">JS</a>
+      </div>
+    </nav>
+
+    <div class="chapter-nav">
+      <a href="JSChapter4.html" class="btn-action btn-prev"
+        ><i class="fa fa-arrow-left"></i> Previous Chapter</a
+      >
+      <a href="JSChapter6.html" class="btn-action btn-next"
+        >Next Chapter <i class="fa fa-arrow-right"></i
+      ></a>
+    </div>
+
+    <header>
+      <h1 style="font-family: &quot;Nunito&quot;; font-weight: 800">
+        Chapter 5: Array Recipes
+      </h1>
+      <p>Modern JavaScript Array manipulation at a glance</p>
+    </header>
+
+    <main class="recipe-container">
+      <div
+        class="recipe-card"
+        style="border-left-color: var(--text); background: #f8f9fa"
+      >
+        <h2 style="margin-top: 0">Key Concepts</h2>
+        <p>
+          <strong>Immutability:</strong> Modern JS prefers
+          <code>slice()</code> as it returns a copy without changing the
+          original array.
+        </p>
+
+        <p>
+          <strong>The Accumulator:</strong> <code>reduce()</code> is used to
+          boil down an entire array into one final value (like a sum).
+        </p>
+      </div>
+
+      <div id="recipe-list"></div>
+    </main>
+
+    <footer>&copy; 2026 Marufa Monjuri | Coding Bird</footer>
+
+    <script>
+      const list = document.getElementById("recipe-list");
+
+      const recipes = [
+        {
+          title: "5.1 Array Validation",
+          desc: "The safest way to check if a variable is an array.",
+          code: "Array.isArray(['A', 'B'])",
+          run: () => Array.isArray(["A", "B"]),
+        },
+        {
+          title: "5.2 Functional Iteration",
+          desc: "Executing a function for every element in the list.",
+          code: "['X','Y'].forEach(v => console.log(v))",
+          run: () => "Iterated (See Console)",
+        },
+        {
+          title: "5.3 Array Equality",
+          desc: "Checking if contents match, not memory references.",
+          code: "[1,2].every((v,i) => v === [1,2][i])",
+          run: () => [1, 2].every((v, i) => v === [1, 2][i]),
+        },
+        {
+          title: "5.4 Destructuring",
+          desc: "Unpacking array values into distinct variables.",
+          code: "const [a, b] = [10, 20];",
+          run: () => "a=10, b=20",
+        },
+        {
+          title: "5.5 Spread Operator",
+          desc: "Exploding an array into function arguments.",
+          code: "Math.max(...[1, 5, 2])",
+          run: () => Math.max(...[1, 5, 2]),
+        },
+        {
+          title: "5.6 Array Cloning",
+          desc: "Creating a shallow copy of an existing array.",
+          code: "const copy = [...original]",
+          run: () => "New reference created",
+        },
+        {
+          title: "5.7 Merging Arrays",
+          desc: "Combining multiple arrays into a new one.",
+          code: "[...[1,2], ...[3,4]]",
+          run: () => JSON.stringify([...[1, 2], ...[3, 4]]),
+        },
+        {
+          title: "5.8 Slicing Portions",
+          desc: "Extracting a segment by index without mutation.",
+          code: "['A','B','C'].slice(1,3)",
+          run: () => JSON.stringify(["A", "B", "C"].slice(1, 3)),
+        },
+        {
+          title: "5.9 Filtering",
+          desc: "Creating a new array with items that pass a test.",
+          code: "[1,10,5].filter(n => n > 4)",
+          run: () => JSON.stringify([1, 10, 5].filter((n) => n > 4)),
+        },
+        {
+          title: "5.10 Emptying Arrays",
+          desc: "The most efficient way to clear an array.",
+          code: "myArray.length = 0",
+          run: () => "Length: 0",
+        },
+        {
+          title: "5.11 Removing Duplicates",
+          desc: "Using Set to force uniqueness instantly.",
+          code: "[...new Set([1,1,2])]",
+          run: () => JSON.stringify([...new Set([1, 1, 2])]),
+        },
+        {
+          title: "5.12 Flattening",
+          desc: "Collapsing nested arrays into a single list.",
+          code: "[1,[2,3]].flat()",
+          run: () => JSON.stringify([1, [2, 3]].flat()),
+        },
+        {
+          title: "5.13 Searching (Exact)",
+          desc: "Finding the index of a primitive value.",
+          code: "['A','B'].indexOf('B')",
+          run: () => ["A", "B"].indexOf("B"),
+        },
+        {
+          title: "5.14 Searching (Criteria)",
+          desc: "Finding an object that meets specific criteria.",
+          code: "users.find(u => u.id === 1)",
+          run: () => "Object Found",
+        },
+        {
+          title: "5.15 Splice (Modify)",
+          desc: "Adding or removing elements at any position.",
+          code: "arr.splice(1, 1, 'New')",
+          run: () => "Original Mutated",
+        },
+        {
+          title: "5.16 Sorting Objects",
+          desc: "Ordering a list based on an object property.",
+          code: "arr.sort((a,b) => a.val - b.val)",
+          run: () => "Order Changed",
+        },
+        {
+          title: "5.17 Mapping",
+          desc: "Transforming every item into something new.",
+          code: "[1,2].map(n => n * 10)",
+          run: () => JSON.stringify([1, 2].map((n) => n * 10)),
+        },
+        {
+          title: "5.18 Reduce (Aggregate)",
+          desc: "Condensing an array into a single calculation.",
+          code: "[1,2,3].reduce((acc,v) => acc+v, 0)",
+          run: () => [1, 2, 3].reduce((acc, v) => acc + v, 0),
+        },
+        {
+          title: "5.19 Validation (Every)",
+          desc: "Checking if all items pass a test.",
+          code: "[2,4].every(n => n % 2 === 0)",
+          run: () => [2, 4].every((n) => n % 2 === 0),
+        },
+        {
+          title: "5.19 Set Collection",
+          desc: "Unique value collection with size property.",
+          code: "new Set([1,1,2]).size",
+          run: () => new Set([1, 1, 2]).size,
+        },
+        {
+          title: "5.20 Map Collection",
+          desc: "Key-indexed collection (superior to objects).",
+          code: "map.set('key', 'val').get('key')",
+          run: () => "Value Retrieved",
+        },
+      ];
+
+      recipes.forEach((recipe) => {
+        const card = document.createElement("div");
+        card.className = "recipe-card";
+        card.innerHTML = `
+          <div class="recipe-header">
+            <span class="recipe-title">${recipe.title}</span>
+          </div>
+          <div class="recipe-desc">${recipe.desc}</div>
+          <div class="code-section">${recipe.code}</div>
+          <span class="result-label">Live Output</span>
+          <div class="result-val">${recipe.run()}</div>
+        `;
+        list.appendChild(card);
+      });
+    </script>
+  </body>
+</html>

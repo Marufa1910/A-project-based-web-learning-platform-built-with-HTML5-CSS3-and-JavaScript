@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chapter 3: CSS Cascading | Coding Bird</title>
+
+    <link href="../img/logo_name_icon.png" rel="icon" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&family=Fira+Code:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --primary: #ca1551;
+        --accent: #fe6868;
+        --code-bg: #1e1e2e;
+        --bg: #f8f9fa;
+        --text: #2c3e50;
+        --tag-color: #f92672;
+        --attr-color: #a6e22e;
+        --val-color: #e6db74;
+        --comment-color: #75715e;
+        --preview-bg: #ffffff;
+      }
+
+      body {
+        font-family: "Heebo", sans-serif;
+        background-color: var(--bg);
+        color: var(--text);
+        margin: 0;
+        line-height: 1.6;
+      }
+
+      .navbar-custom {
+        background: white;
+        height: 75px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 5%;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        box-sizing: border-box;
+      }
+
+      .navbar-brand {
+        font-family: "Nunito", sans-serif;
+        font-weight: 800;
+        font-size: 25px;
+        text-decoration: none;
+        color: var(--text);
+      }
+
+      .chapter-nav {
+        max-width: 850px;
+        margin: 100px auto 20px auto;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 20px;
+      }
+
+      .btn-action {
+        padding: 10px 20px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .btn-prev {
+        border: 2px solid #ddd;
+        color: #666;
+      }
+      .btn-next {
+        background: var(--primary);
+        color: white;
+      }
+
+      header {
+        text-align: center;
+        padding: 40px 20px;
+      }
+
+      .card {
+        background: white;
+        border-radius: 20px;
+        padding: 30px;
+        margin: 0 auto 35px auto;
+        max-width: 850px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        border: 1px solid #edf2f7;
+      }
+
+      h2 {
+        color: var(--primary);
+        font-family: "Nunito";
+        margin-top: 0;
+        font-size: 1.5rem;
+      }
+
+      .code-block {
+        background: var(--code-bg);
+        color: #f8f8f2;
+        padding: 20px;
+        border-radius: 12px;
+        font-family: "Fira Code", monospace;
+        font-size: 0.85rem;
+        margin: 15px 0;
+        position: relative;
+        overflow-x: auto;
+        white-space: pre-wrap;
+      }
+
+      .live-result {
+        background: #fff;
+        border: 2px solid #e2e8f0;
+        border-left: 5px solid var(--primary);
+        padding: 20px;
+        border-radius: 12px;
+        margin-top: 15px;
+      }
+
+      .label {
+        font-size: 0.7rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        color: #a0aec0;
+        margin-bottom: 5px;
+        display: block;
+      }
+
+      .t {
+        color: var(--tag-color);
+        font-weight: 500;
+      }
+      .a {
+        color: var(--attr-color);
+      }
+      .v {
+        color: var(--val-color);
+      }
+      .imp {
+        color: #ff5555;
+        font-weight: bold;
+      }
+
+      footer {
+        text-align: center;
+        padding: 40px;
+        background: #1a202c;
+        color: white;
+        margin-top: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar-custom">
+      <a href="../index.html" class="navbar-brand">
+        Coding<span style="color: var(--primary)">Bird</span>
+      </a>
+      <div class="nav-links">
+        <a href="../index.html">Home</a>
+        <a href="../html.html">HTML</a>
+        <a href="../css.html" style="color: var(--primary)">CSS</a>
+        <a href="../js.html">JS</a>
+      </div>
+    </nav>
+
+    <div class="chapter-nav">
+      <a href="CSSChapter2.html" class="btn-action btn-prev"
+        ><i class="fa fa-arrow-left"></i> Previous</a
+      >
+      <a href="CSSChapter4.html" class="btn-action btn-next"
+        >Next Chapter <i class="fa fa-arrow-right"></i
+      ></a>
+    </div>
+
+    <header>
+      <h1 style="font-family: &quot;Nunito&quot;; font-weight: 800">
+        Chapter 3: CSS Cascading & Inheritance
+      </h1>
+      <p>Understanding which style "wins" when rules conflict.</p>
+    </header>
+
+    <div id="chapter-content"></div>
+
+    <footer>&copy; 2026 Marufa Monjuri | Coding Bird</footer>
+
+    <script>
+      const content = document.getElementById("chapter-content");
+
+      function createSection(title, icon, desc, codeHtml, previewHtml) {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <h2><i class="fa ${icon}"></i> ${title}</h2>
+          <p style="color: #4a5568;">${desc}</p>
+          <span class="label">CSS Conflict Rules</span>
+          <div class="code-block">${codeHtml}</div>
+          <span class="label">Resulting View</span>
+          <div class="live-result">${previewHtml}</div>
+        `;
+        content.appendChild(card);
+      }
+
+      // 3.1 & 3.2 Last Declaration & Specificity
+      createSection(
+        "3.1 & 3.2 Specificity Wins",
+        "fa-layer-group",
+        "When rules conflict, the most specific selector wins. If specificity is equal, the last declaration in the code wins.",
+        `<span class="t">h1</span> { <span class="a">color</span>: <span class="v">yellow</span>; } <br> <span class="t">h1</span> { <span class="a">color</span>: <span class="v">red</span>; } <span class="c">/* Wins because it is last */</span>`,
+        "<h1 style='color: red; margin:0; font-size: 24px;'>Red Heading</h1>",
+      );
+
+      // 3.3 Inline Style Strength
+      createSection(
+        "3.3 Inline Style Power",
+        "fa-bolt",
+        "Inline styles (written directly in the HTML tag) are stronger than styles written in external or internal CSS files.",
+        `<span class="t">&lt;h1</span> <span class="a">style</span>=<span class="v">"color: blue;"</span><span class="t">&gt;</span>Blue Title<span class="t">&lt;/h1&gt;</span>`,
+        "<h1 style='color: blue; margin:0; font-size: 24px;'>Blue Title</h1>",
+      );
+
+      // 3.4 !important
+      createSection(
+        "3.4 The !important Rule",
+        "fa-exclamation-triangle",
+        "The !important declaration overrides all other cascading rules, including inline styles. Use it sparingly!",
+        `<span class="t">h1</span> { <span class="a">color</span>: <span class="v">green</span> <span class="imp">!important</span>; }`,
+        "<h1 style='color: green; margin:0; font-size: 24px;'>Forced Green Heading</h1>",
+      );
+
+      // 3.5 Inheritance
+      createSection(
+        "3.5 CSS Inheritance",
+        "fa-child",
+        "Children inherit text-related styles from parents. Use the 'inherit' keyword to manually force a child to copy its parent's style.",
+        `<span class="t">.parent</span> { <span class="a">color</span>: <span class="v">red</span>; } <br> <span class="t">.line</span> { <span class="a">color</span>: <span class="v">green</span>; } <br> <span class="t">.first-line</span> { <span class="a">color</span>: <span class="v">inherit</span>; }`,
+        "<div style='color: red; border: 1px solid #ddd; padding: 10px;'>Parent Text (Red) <div style='color: red;'>Child 1 (Inherited Red)</div> <div style='color: green;'>Child 2 (Overridden Green)</div></div>",
+      );
+    </script>
+  </body>
+</html>

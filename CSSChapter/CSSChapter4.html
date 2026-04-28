@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chapter 4: CSS Box Model | Coding Bird</title>
+
+    <link href="../img/logo_name_icon.png" rel="icon" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&family=Fira+Code:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --primary: #ca1551;
+        --accent: #fe6868;
+        --code-bg: #1e1e2e;
+        --bg: #f8f9fa;
+        --text: #2c3e50;
+        --tag-color: #f92672;
+        --attr-color: #a6e22e;
+        --val-color: #e6db74;
+        --comment-color: #75715e;
+        --preview-bg: #ffffff;
+      }
+
+      body {
+        font-family: "Heebo", sans-serif;
+        background-color: var(--bg);
+        color: var(--text);
+        margin: 0;
+        line-height: 1.6;
+      }
+
+      .navbar-custom {
+        background: white;
+        height: 75px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 5%;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        box-sizing: border-box;
+      }
+
+      .navbar-brand {
+        font-family: "Nunito", sans-serif;
+        font-weight: 800;
+        font-size: 25px;
+        text-decoration: none;
+        color: var(--text);
+      }
+
+      .chapter-nav {
+        max-width: 850px;
+        margin: 100px auto 20px auto;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 20px;
+      }
+
+      .btn-action {
+        padding: 10px 20px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .btn-prev {
+        border: 2px solid #ddd;
+        color: #666;
+      }
+      .btn-next {
+        background: var(--primary);
+        color: white;
+      }
+
+      header {
+        text-align: center;
+        padding: 40px 20px;
+      }
+
+      .card {
+        background: white;
+        border-radius: 20px;
+        padding: 30px;
+        margin: 0 auto 35px auto;
+        max-width: 850px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        border: 1px solid #edf2f7;
+      }
+
+      h2 {
+        color: var(--primary);
+        font-family: "Nunito";
+        margin-top: 0;
+        font-size: 1.5rem;
+      }
+
+      .code-block {
+        background: var(--code-bg);
+        color: #f8f8f2;
+        padding: 20px;
+        border-radius: 12px;
+        font-family: "Fira Code", monospace;
+        font-size: 0.85rem;
+        margin: 15px 0;
+        position: relative;
+        overflow-x: auto;
+        white-space: pre-wrap;
+      }
+
+      .live-result {
+        background: #fff;
+        border: 2px solid #e2e8f0;
+        border-left: 5px solid var(--primary);
+        padding: 20px;
+        border-radius: 12px;
+        margin-top: 15px;
+      }
+
+      .label {
+        font-size: 0.7rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        color: #a0aec0;
+        margin-bottom: 5px;
+        display: block;
+      }
+
+      .t {
+        color: var(--tag-color);
+        font-weight: 500;
+      }
+      .a {
+        color: var(--attr-color);
+      }
+      .v {
+        color: var(--val-color);
+      }
+
+      footer {
+        text-align: center;
+        padding: 40px;
+        background: #1a202c;
+        color: white;
+        margin-top: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar-custom">
+      <a href="../index.html" class="navbar-brand">
+        Coding<span style="color: var(--primary)">Bird</span>
+      </a>
+      <div class="nav-links">
+        <a href="../index.html">Home</a>
+        <a href="../html.html">HTML</a>
+        <a href="../css.html" style="color: var(--primary)">CSS</a>
+        <a href="../js.html">JS</a>
+      </div>
+    </nav>
+
+    <div class="chapter-nav">
+      <a href="CSSChapter3.html" class="btn-action btn-prev"
+        ><i class="fa fa-arrow-left"></i> Previous</a
+      >
+      <a href="CSSChapter5.html" class="btn-action btn-next"
+        >Next Chapter <i class="fa fa-arrow-right"></i
+      ></a>
+    </div>
+
+    <header>
+      <h1 style="font-family: &quot;Nunito&quot;; font-weight: 800">
+        Chapter 4: CSS Box Model
+      </h1>
+      <p>
+        Every element is a box. Learn to control its size, spacing, and borders.
+      </p>
+    </header>
+
+    <div id="chapter-content"></div>
+
+    <footer>&copy; 2026 Marufa Monjuri | Coding Bird</footer>
+
+    <script>
+      const content = document.getElementById("chapter-content");
+
+      function createSection(title, icon, desc, codeHtml, previewHtml) {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <h2><i class="fa ${icon}"></i> ${title}</h2>
+          <p style="color: #4a5568;">${desc}</p>
+          <span class="label">CSS Code</span>
+          <div class="code-block">${codeHtml}</div>
+          <span class="label">Browser Preview</span>
+          <div class="live-result">${previewHtml}</div>
+        `;
+        content.appendChild(card);
+      }
+
+      // 4.1 Box Sizing
+      createSection(
+        "4.1 Box Sizing Types",
+        "fa-vector-square",
+        "<b>border-box</b> includes padding and border in the width calculation. <b>content-box</b> (default) adds them on top of the width.",
+        `<span class="t">*</span> { <span class="a">box-sizing</span>: <span class="v">border-box</span>; }`,
+        "<div style='box-sizing: border-box; width: 100px; padding: 10px; border: 5px solid red; background: #eee;'>100px Total</div>",
+      );
+
+      // 4.2 Margins
+      createSection(
+        "4.2 CSS Margins",
+        "fa-arrows-alt",
+        "Margins create space <b>outside</b> the border. Use <b>margin: auto</b> to center elements horizontally.",
+        `<span class="t">.box</span> { <br> &nbsp;&nbsp;<span class="a">margin</span>: <span class="v">auto</span>; <br> &nbsp;&nbsp;<span class="a">width</span>: <span class="v">50%</span>; <br> }`,
+        "<div style='border: 1px solid black;'><div style='margin: auto; width: 50%; border: 1px solid red; text-align: center;'>Centered with Auto Margin</div></div>",
+      );
+
+      // 4.3 Outline
+      createSection(
+        "4.3 CSS Outline",
+        "fa-border-style",
+        "An outline is drawn outside the border but does not take up physical space in the layout.",
+        `<span class="t">p</span> { <span class="a">outline</span>: <span class="v">5px dotted red</span>; <span class="a">border</span>: <span class="v">1px solid black</span>; }`,
+        "<p style='outline: 5px dotted red; border: 1px solid black; margin: 10px;'>Paragraph with Outline</p>",
+      );
+
+      // 4.4. Border Styles
+      createSection(
+        "4.4 Border Styles",
+        "fa-paint-roller",
+        "Borders can be solid, dashed, dotted, or 3D effects like <b>groove</b>, <b>ridge</b>, <b>inset</b>, and <b>outset</b>.",
+        `<span class="t">p</span> { <span class="a">border</span>: <span class="v">10px groove red</span>; }`,
+        "<p style='border: 10px groove red; padding: 10px; margin:0;'>3D Groove Border</p>",
+      );
+
+      // 4.5 Border Radius
+      createSection(
+        "4.5 Border Radius",
+        "fa-circle-notch",
+        "Use <b>border-radius</b> to round corners. 50% creates a circle if the width and height are equal.",
+        `<span class="t">#circle</span> { <span class="a">border-radius</span>: <span class="v">50%</span>; <span class="a">width</span>: <span class="v">60px</span>; }`,
+        "<div style='display:flex; gap:20px;'><div style='width:60px; height:60px; background:green; border-radius:10px; display:grid; place-items:center; color:white;'>10px</div><div style='width:60px; height:60px; background:green; border-radius:50%; display:grid; place-items:center; color:white;'>50%</div></div>",
+      );
+
+      // 4.6 Padding
+      createSection(
+        "4.6 CSS Padding",
+        "fa-expand",
+        "Padding creates space <b>inside</b> the border, between the content and the edge.",
+        `<span class="t">p</span> { <span class="a">padding</span>: <span class="v">20px</span>; <span class="a">border</span>: <span class="v">1px solid black</span>; }`,
+        "<p style='border: 1px solid black; padding: 20px; margin:0;'>Content with 20px padding</p>",
+      );
+
+      // 4.7 Width & Height
+      createSection(
+        "4.7 Width, Max-Width & Min-Height",
+        "fa-arrows-alt-h",
+        "Use <b>max-width</b> to ensure elements don't overflow on small screens.",
+        `<span class="t">div</span> { <span class="a">max-width</span>: <span class="v">100%</span>; <span class="a">min-height</span>: <span class="v">100px</span>; }`,
+        "<div style='border:1px solid black; max-width:100%; min-height:50px; padding:5px;'>Responsive Box</div>",
+      );
+    </script>
+  </body>
+</html>

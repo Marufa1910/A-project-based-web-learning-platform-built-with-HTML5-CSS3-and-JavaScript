@@ -1,0 +1,486 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JS Chapter 12: Working with HTML | Coding Bird</title>
+
+    <link href="../img/logo_name_icon.png" rel="icon" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --primary: #ca1551;
+        --accent: #fe6868;
+        --code-bg: #1a1e21;
+        --bg: #f0f2f5;
+        --text: #2c3e50;
+        --secondary: #2ecc71;
+        --error: #e74c3c;
+      }
+
+      body {
+        font-family: "Heebo", sans-serif;
+        background-color: var(--bg);
+        margin: 0;
+        padding-top: 100px;
+        color: var(--text);
+        line-height: 1.6;
+      }
+
+      /* --- Fixed Navbar --- */
+      .navbar-custom {
+        background: white;
+        height: 75px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 5%;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        box-sizing: border-box;
+      }
+
+      .navbar-brand {
+        font-family: "Nunito", sans-serif;
+        font-weight: 800;
+        font-size: 25px;
+        text-decoration: none;
+        color: var(--text);
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: var(--text);
+        margin-left: 20px;
+        font-weight: 500;
+        transition: 0.3s;
+      }
+
+      .nav-links a:hover {
+        color: var(--primary);
+      }
+
+      /* --- Header & Navigation --- */
+      .chapter-nav {
+        max-width: 850px;
+        margin: 20px auto;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 20px;
+      }
+
+      .btn-action {
+        padding: 12px 24px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        border: none;
+        cursor: pointer;
+        transition: 0.3s;
+        background: var(--primary);
+        color: white;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .btn-prev {
+        background: white;
+        border: 1px solid #ddd;
+        color: #666;
+      }
+      .btn-action:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(202, 21, 81, 0.2);
+      }
+      .btn-action:disabled {
+        background: #ccc;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      /* --- Content Cards --- */
+      .card {
+        background: white;
+        border-radius: 15px;
+        padding: 30px;
+        margin: 0 auto 35px auto;
+        max-width: 850px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      }
+
+      h2 {
+        color: var(--primary);
+        font-family: "Nunito";
+        border-left: 5px solid var(--primary);
+        padding-left: 15px;
+        margin-top: 0;
+      }
+
+      /* --- DOM Specific Styles --- */
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+      }
+      th,
+      td {
+        border: 1px solid #eee;
+        padding: 12px;
+        text-align: left;
+      }
+      tr:hover {
+        background: #fffafb;
+      }
+
+      .popup-box {
+        position: fixed;
+        background: #333;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 6px;
+        font-size: 0.85rem;
+        z-index: 2000;
+        pointer-events: none;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Accessibility Highlighting */
+      [aria-invalid="true"] {
+        border: 2px solid var(--error) !important;
+        background-color: #fff8f8;
+      }
+      .error-text {
+        color: var(--error);
+        font-size: 0.85rem;
+        margin-top: 5px;
+        font-weight: 500;
+      }
+
+      footer {
+        text-align: center;
+        padding: 40px;
+        background: #1a1e21;
+        color: white;
+        margin-top: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar-custom">
+      <a href="../index.html" class="navbar-brand">
+        <img src="../img/logo_name_icon.png" height="45px" alt="" /> Coding<span
+          style="color: var(--primary)"
+          >Bird</span
+        >
+      </a>
+      <div class="nav-links">
+        <a href="../index.html">Home</a>
+        <a href="../html.html">HTML</a>
+        <a href="../css.html">CSS</a>
+        <a href="../js.html" style="color: var(--primary)">JS</a>
+      </div>
+    </nav>
+
+    <div class="chapter-nav">
+      <a href="JSChapter11.html" class="btn-action btn-prev"
+        ><i class="fa fa-arrow-left"></i> Previous Chapter</a
+      >
+      <a href="JSChapter13.html" class="btn-action"
+        >Next Chapter <i class="fa fa-arrow-right"></i
+      ></a>
+    </div>
+
+    <header style="text-align: center; margin-bottom: 40px">
+      <h1
+        style="
+          font-family: &quot;Nunito&quot;;
+          font-weight: 800;
+          font-size: 2.5rem;
+        "
+      >
+        Chapter 12: Working with HTML
+      </h1>
+      <p style="color: #7f8c8d">
+        Interacting with the Document Object Model (DOM)
+      </p>
+    </header>
+
+    <div id="chapter-content">
+      <div class="card" id="demo-traversal">
+        <h2>12.1 - 12.6: DOM Traversal</h2>
+        <p>Accessing parents, children, and using query selectors.</p>
+        <div
+          id="parent-node"
+          style="padding: 15px; background: #f9f9f9; border-radius: 8px"
+        >
+          <p class="child-item">Child Element 1 (Paragraph)</p>
+          <ul class="child-item">
+            <li>Child Element 2 (List Item)</li>
+            <li>Child Element 3 (List Item)</li>
+          </ul>
+        </div>
+        <button
+          onclick="runTraversal()"
+          class="btn-action"
+          style="margin-top: 15px"
+        >
+          Run Node Analysis
+        </button>
+      </div>
+
+      <div class="card">
+        <h2>12.7 - 12.10: Classes & Styles</h2>
+        <div
+          id="style-box"
+          style="
+            padding: 20px;
+            border: 2px solid #ddd;
+            margin-bottom: 15px;
+            border-radius: 8px;
+          "
+        >
+          Target Element
+        </div>
+        <button onclick="toggleBoxStyle()" class="btn-action">
+          Toggle Style & Class
+        </button>
+        <button onclick="createNewPara()" class="btn-action btn-prev">
+          Add New Paragraph
+        </button>
+      </div>
+
+      <div class="card">
+        <h2>12.12 - 12.13: Table Data & Pruning</h2>
+        <table id="salesTable">
+          <thead>
+            <tr>
+              <th>Region</th>
+              <th>Revenue ($)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>North America</td>
+              <td>1200.50</td>
+            </tr>
+            <tr>
+              <td>Europe</td>
+              <td>950.25</td>
+            </tr>
+            <tr>
+              <td>Asia Pacific</td>
+              <td>1500.00</td>
+            </tr>
+          </tbody>
+        </table>
+        <div style="display: flex; gap: 10px">
+          <button id="calcTotalBtn" class="btn-action">Sum Column</button>
+          <p style="margin: 0; color: #7f8c8d; font-size: 0.9rem">
+            Click a row to <strong>Prune</strong> it from the DOM.
+          </p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>12.14 - 12.15: Visibility & Hover</h2>
+        <div style="display: flex; gap: 40px; align-items: center">
+          <div>
+            <button onclick="toggleVisibility()" class="btn-action btn-prev">
+              Toggle Display
+            </button>
+            <div
+              id="hiddenText"
+              style="margin-top: 10px; padding: 10px; background: #e8f4fd"
+            >
+              I am a toggled element!
+            </div>
+          </div>
+          <div>
+            <p>Hover the Info icon:</p>
+            <i
+              class="fas fa-info-circle fa-2x"
+              id="hoverTrigger"
+              style="color: var(--primary); cursor: pointer"
+            ></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>12.16 - 12.17: Accessible Validation</h2>
+        <form id="accessibleForm" novalidate>
+          <div style="margin-bottom: 20px">
+            <label for="userEmail">Email Address (Required):</label><br />
+            <input
+              type="email"
+              id="userEmail"
+              required
+              style="
+                width: 100%;
+                padding: 10px;
+                margin-top: 5px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+              "
+            />
+            <div id="emailError" role="alert" class="error-text"></div>
+          </div>
+          <div style="margin-bottom: 20px">
+            <label for="zipCode">Postal Code (Numbers Only):</label><br />
+            <input
+              type="text"
+              id="zipCode"
+              style="
+                width: 100%;
+                padding: 10px;
+                margin-top: 5px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+              "
+            />
+            <div id="zipError" role="alert" class="error-text"></div>
+          </div>
+          <button type="submit" class="btn-action">Submit Data</button>
+        </form>
+      </div>
+    </div>
+
+    <footer>&copy; 2026 Marufa Monjuri | Coding Bird</footer>
+
+    <script>
+      // 12.1 - 12.6 Traversal
+      function runTraversal() {
+        const parent = document.getElementById("parent-node");
+        const children = parent.childNodes; // 12.1 includes text nodes
+        const elementChildren = parent.children; // only elements
+        console.log("Total Nodes (inc. whitespace):", children.length);
+        alert(
+          `Parent: ${parent.nodeName}\nElement Children: ${elementChildren.length}\nCheck console for NodeList details.`,
+        );
+      }
+
+      // 12.7 - 12.10 Styling
+      function toggleBoxStyle() {
+        const box = document.getElementById("style-box");
+        // 12.7 Toggle class
+        box.classList.toggle("active-highlight");
+        // 12.8 Direct Style
+        if (box.style.backgroundColor === "rgb(202, 21, 81)") {
+          box.style.backgroundColor = "transparent";
+          box.style.color = "inherit";
+        } else {
+          box.style.backgroundColor = "#ca1551";
+          box.style.color = "white";
+          box.style.border = "none";
+        }
+      }
+
+      function createNewPara() {
+        // 12.9 & 12.10 Creation
+        const p = document.createElement("p");
+        const text = document.createTextNode(
+          "Newly created via document.createTextNode().",
+        );
+        p.appendChild(text);
+        p.style.color = "var(--primary)";
+        document.getElementById("demo-traversal").appendChild(p);
+      }
+
+      // 12.12 Table Summation
+      document
+        .getElementById("calcTotalBtn")
+        .addEventListener("click", function () {
+          let sum = 0;
+          // 12.12 querySelectorAll with nth-of-type
+          const cells = document.querySelectorAll(
+            "#salesTable td:nth-of-type(2)",
+          );
+          cells.forEach((cell) => {
+            sum += parseFloat(cell.textContent);
+          });
+
+          const newRow = document.createElement("tr");
+          newRow.innerHTML = `<td><strong>Total</strong></td><td><strong>$${sum.toFixed(2)}</strong></td>`;
+          document
+            .getElementById("salesTable")
+            .querySelector("tbody")
+            .appendChild(newRow);
+          this.disabled = true;
+        });
+
+      // 12.13 Pruning
+      document
+        .querySelector("#salesTable tbody")
+        .addEventListener("click", function (e) {
+          const row = e.target.closest("tr");
+          if (row) {
+            // 12.13 removeChild via parentNode
+            row.parentNode.removeChild(row);
+          }
+        });
+
+      // 12.14 Visibility
+      function toggleVisibility() {
+        const el = document.getElementById("hiddenText");
+        // 12.14 display: none vs block
+        el.style.display = el.style.display === "none" ? "block" : "none";
+      }
+
+      // 12.15 Hover Popups
+      const hoverIcon = document.getElementById("hoverTrigger");
+      hoverIcon.addEventListener("mouseover", function (e) {
+        const rect = this.getBoundingClientRect(); // 12.15 positioning
+        const popup = document.createElement("div");
+        popup.id = "active-popup";
+        popup.className = "popup-box";
+        popup.style.top = rect.top - 40 + "px";
+        popup.style.left = rect.left + "px";
+        popup.textContent = "Recipe 12.15: Dynamic Help Window";
+        document.body.appendChild(popup);
+      });
+      hoverIcon.addEventListener("mouseout", () => {
+        const p = document.getElementById("active-popup");
+        if (p) p.remove();
+      });
+
+      // 12.16 - 12.17 Form Validation
+      const emailInput = document.getElementById("userEmail");
+      const zipInput = document.getElementById("zipCode");
+
+      emailInput.addEventListener("blur", function () {
+        const err = document.getElementById("emailError");
+        // 12.17 aria-invalid & accessibility
+        if (!this.value.includes("@") && this.value !== "") {
+          this.setAttribute("aria-invalid", "true");
+          err.textContent = "Invalid email: Must contain '@'";
+        } else {
+          this.removeAttribute("aria-invalid");
+          err.textContent = "";
+        }
+      });
+
+      zipInput.addEventListener("input", function () {
+        const err = document.getElementById("zipError");
+        if (isNaN(this.value)) {
+          this.setAttribute("aria-invalid", "true");
+          err.textContent = "Error: Numbers only for Zip Code.";
+        } else {
+          this.removeAttribute("aria-invalid");
+          err.textContent = "";
+        }
+      });
+    </script>
+  </body>
+</html>

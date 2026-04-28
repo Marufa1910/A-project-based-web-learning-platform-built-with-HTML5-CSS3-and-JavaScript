@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JS Chapter 4: Date Mastery | Coding Bird</title>
+
+    <link href="../img/logo_name_icon.png" rel="icon" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --primary: #ca1551;
+        --accent: #fe6868;
+        --code-bg: #1a1e21;
+        --bg: #f0f2f5;
+        --text: #2c3e50;
+        --secondary: #2ecc71;
+      }
+
+      body {
+        font-family: "Heebo", sans-serif;
+        background-color: var(--bg);
+        color: var(--text);
+        margin: 0;
+        line-height: 1.6;
+      }
+
+      /* --- Navbar --- */
+      .navbar-custom {
+        background: white;
+        height: 75px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 5%;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        box-sizing: border-box;
+      }
+
+      .navbar-brand {
+        font-family: "Nunito", sans-serif;
+        font-weight: 800;
+        font-size: 25px;
+        text-decoration: none;
+        color: var(--text);
+        display: flex;
+        align-items: center;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: var(--text);
+        margin-left: 20px;
+        font-weight: 500;
+      }
+
+      /* --- Navigation Buttons --- */
+      .chapter-nav {
+        max-width: 850px;
+        margin: 100px auto 20px auto;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 20px;
+      }
+
+      .btn-action {
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .btn-prev {
+        border: 2px solid #ddd;
+        color: #666;
+      }
+      .btn-next {
+        background: var(--primary);
+        color: white;
+      }
+
+      header {
+        text-align: center;
+        padding: 40px 20px;
+      }
+
+      /* --- Card UI --- */
+      .card {
+        background: white;
+        border-radius: 15px;
+        padding: 30px;
+        margin: 0 auto 35px auto;
+        max-width: 850px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      }
+
+      h2 {
+        color: var(--primary);
+        font-family: "Nunito";
+        margin-top: 0;
+        font-size: 1.4rem;
+        border-left: 5px solid var(--primary);
+        padding-left: 15px;
+      }
+
+      /* --- Rows & Hover --- */
+      .output-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        cursor: help;
+        transition: 0.2s;
+        border-radius: 6px;
+      }
+
+      .output-row:hover {
+        background: #fff0f5;
+      }
+
+      .output-row::after {
+        content: "Syntax: " attr(data-syntax);
+        position: absolute;
+        bottom: 110%;
+        right: 10px;
+        background: var(--code-bg);
+        color: #50fa7b;
+        padding: 8px 12px;
+        border-radius: 4px;
+        font-family: "Consolas", monospace;
+        font-size: 0.8rem;
+        visibility: hidden;
+        opacity: 0;
+        transition: 0.2s;
+        z-index: 100;
+        white-space: pre;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      }
+
+      .output-row:hover::after {
+        visibility: visible;
+        opacity: 1;
+      }
+
+      .label {
+        font-weight: 600;
+        font-family: monospace;
+        color: #555;
+      }
+      .result {
+        font-weight: bold;
+        font-family: "Consolas", monospace;
+        color: var(--secondary);
+      }
+      .description {
+        font-size: 0.85em;
+        color: #7f8c8d;
+        margin: 4px 0 15px 12px;
+      }
+
+      footer {
+        text-align: center;
+        padding: 40px;
+        background: #1a1e21;
+        color: white;
+        margin-top: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar-custom">
+      <a href="../index.html" class="navbar-brand">
+        <img src="../img/logo_name_icon.png" height="45px" alt="" /> Coding<span
+          style="color: var(--primary)"
+          >Bird</span
+        >
+      </a>
+      <div class="nav-links">
+        <a href="../index.html">Home</a>
+        <a href="../html.html">HTML</a>
+        <a href="../css.html">CSS</a>
+        <a href="../js.html" style="color: var(--primary)">JS</a>
+      </div>
+    </nav>
+
+    <div class="chapter-nav">
+      <a href="JSChapter3.html" class="btn-action btn-prev"
+        ><i class="fa fa-arrow-left"></i> Previous Chapter</a
+      >
+      <a href="JSChapter5.html" class="btn-action btn-next"
+        >Next Chapter <i class="fa fa-arrow-right"></i
+      ></a>
+    </div>
+
+    <header>
+      <h1 style="font-family: &quot;Nunito&quot;; font-weight: 800">
+        Chapter 4: Date & Time Mastery
+      </h1>
+      <p>
+        Comprehensive Guide to JavaScript Dates, Parsing, and International
+        Formatting
+      </p>
+    </header>
+
+    <div id="chapter-content"></div>
+
+    <footer>&copy; 2026 Marufa Monjuri | Coding Bird</footer>
+
+    <script>
+      function addCard(title) {
+        const container = document.getElementById("chapter-content");
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `<h2>${title}</h2><div class="card-body"></div>`;
+        container.appendChild(card);
+        return card.querySelector(".card-body");
+      }
+
+      function addToUI(cardBody, label, result, syntax, description = "") {
+        const wrapper = document.createElement("div");
+        wrapper.innerHTML = `
+                <div class="output-row" data-syntax="${syntax}">
+                    <span class="label">${label}</span>
+                    <span class="result">${result}</span>
+                </div>
+                ${description ? `<div class="description">${description}</div>` : ""}
+            `;
+        cardBody.appendChild(wrapper);
+      }
+
+      const now = new Date();
+
+      // 4.1 Basic Extraction
+      const body41 = addCard("4.1 Getting Current Date Parts");
+      addToUI(body41, "Year", now.getFullYear(), "date.getFullYear()");
+      addToUI(
+        body41,
+        "Month (0-11)",
+        now.getMonth(),
+        "date.getMonth()",
+        "Remember: 0 is January, 11 is December.",
+      );
+      addToUI(
+        body41,
+        "Day of Week",
+        now.getDay(),
+        "date.getDay()",
+        "0 is Sunday, 6 is Saturday.",
+      );
+
+      // 4.2 String to Date
+      const body42 = addCard("4.2 Converting String to Date");
+      const iso = new Date("2021-12-17T03:24:00Z");
+      addToUI(
+        body42,
+        "ISO Parse",
+        iso.toDateString(),
+        "new Date('ISO_STRING')",
+      );
+
+      const manualParts = "12/30/2021".split("/");
+      const manualDate = new Date(
+        manualParts[2],
+        manualParts[0] - 1,
+        manualParts[1],
+      );
+      addToUI(
+        body42,
+        "Manual Parse",
+        manualDate.toDateString(),
+        "new Date(y, m-1, d)",
+        "Correcting for 0-based months manually.",
+      );
+
+      // 4.3 Rollover
+      const body43 = addCard("4.3 Adding Days (Rollover)");
+      const future = new Date(2021, 0, 10);
+      future.setDate(future.getDate() + 25);
+      addToUI(
+        body43,
+        "Jan 10 + 25 Days",
+        future.toDateString(),
+        "date.setDate(date.getDate() + n)",
+        "Automatically moves to February.",
+      );
+
+      // 4.4 & 4.5 Logic
+      const body44 = addCard("4.4 & 4.5 Date Comparison Logic");
+      const d1 = new Date(2021, 0, 1);
+      const d2 = new Date(2021, 0, 1);
+      addToUI(
+        body44,
+        "Object Check (d1 === d2)",
+        d1 === d2,
+        "d1 === d2",
+        "False: Reference check (they are separate objects).",
+      );
+      addToUI(
+        body44,
+        "Value Check",
+        d1.getTime() === d2.getTime(),
+        "d1.getTime() === d2.getTime()",
+        "True: Millisecond comparison.",
+      );
+
+      const diff = (new Date(2021, 0, 15) - d1) / (1000 * 60 * 60 * 24);
+      addToUI(body44, "Days Elapsed", diff, "(d2 - d1) / msPerDay");
+
+      // 4.6 Formatting
+      const body46 = addCard("4.6 Formatting Dates");
+      const fmtDate = new Date(2021, 0, 1, 10, 30);
+      addToUI(
+        body46,
+        "ISO Format",
+        fmtDate.toISOString(),
+        "date.toISOString()",
+        "Standard for databases.",
+      );
+      addToUI(
+        body46,
+        "Locale (US)",
+        new Intl.DateTimeFormat("en-US").format(fmtDate),
+        "Intl.DateTimeFormat('en-US')",
+      );
+      addToUI(
+        body46,
+        "Locale (Japan)",
+        new Intl.DateTimeFormat("ja-JP").format(fmtDate),
+        "Intl format for YYYY/MM/DD.",
+      );
+
+      const complexOptions = {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      };
+      addToUI(
+        body46,
+        "German Long Form",
+        new Intl.DateTimeFormat("de-DE", complexOptions).format(fmtDate),
+        "Intl.DateTimeFormat with Options",
+      );
+
+      const customY = fmtDate.getFullYear();
+      const customM = (fmtDate.getMonth() + 1).toString().padStart(2, "0");
+      const customD = fmtDate.getDate().toString().padStart(2, "0");
+      addToUI(
+        body46,
+        "Custom (YYYY.MM.DD)",
+        `${customY}.${customM}.${customD}`,
+        "String Padding (padStart)",
+      );
+    </script>
+  </body>
+</html>

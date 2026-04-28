@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chapter 5: Web Forms | Coding Bird</title>
+
+    <link href="../img/logo_name_icon.png" rel="icon" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&family=Fira+Code:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --primary: #ca1551;
+        --accent: #fe6868;
+        --code-bg: #1e1e2e;
+        --bg: #f8f9fa;
+        --text: #2c3e50;
+        --tag-color: #f92672;
+        --attr-color: #a6e22e;
+        --val-color: #e6db74;
+      }
+
+      body {
+        font-family: "Heebo", sans-serif;
+        background-color: var(--bg);
+        color: var(--text);
+        margin: 0;
+        line-height: 1.6;
+      }
+
+      .navbar-custom {
+        background: white;
+        height: 75px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 5%;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        box-sizing: border-box;
+      }
+
+      .navbar-brand {
+        font-family: "Nunito", sans-serif;
+        font-weight: 800;
+        font-size: 25px;
+        text-decoration: none;
+        color: var(--text);
+      }
+
+      .chapter-nav {
+        max-width: 850px;
+        margin: 100px auto 20px auto;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 20px;
+      }
+
+      .btn-action {
+        padding: 10px 20px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .btn-prev {
+        border: 2px solid #ddd;
+        color: #666;
+      }
+      .btn-next {
+        background: var(--primary);
+        color: white;
+      }
+
+      header {
+        text-align: center;
+        padding: 40px 20px;
+      }
+
+      .card {
+        background: white;
+        border-radius: 20px;
+        padding: 30px;
+        margin: 0 auto 35px auto;
+        max-width: 850px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        border: 1px solid #edf2f7;
+      }
+
+      h2 {
+        color: var(--primary);
+        font-family: "Nunito";
+        margin-top: 0;
+        font-size: 1.5rem;
+      }
+
+      .code-block {
+        background: var(--code-bg);
+        color: #f8f8f2;
+        padding: 20px;
+        border-radius: 12px;
+        font-family: "Fira Code", monospace;
+        font-size: 0.85rem;
+        margin: 15px 0;
+        overflow-x: auto;
+      }
+
+      .live-result {
+        background: #fff;
+        border: 2px solid #e2e8f0;
+        border-left: 5px solid var(--primary);
+        padding: 20px;
+        border-radius: 12px;
+        margin-top: 15px;
+      }
+
+      /* Syntax Highlighting */
+      .label {
+        font-size: 0.7rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        color: #a0aec0;
+        margin-bottom: 5px;
+        display: block;
+      }
+      .t {
+        color: var(--tag-color);
+      }
+      .a {
+        color: var(--attr-color);
+      }
+      .v {
+        color: var(--val-color);
+      }
+
+      /* Form Preview Styling */
+      .live-result
+        input:not([type="submit"]):not([type="button"]):not([type="reset"]),
+      .live-result textarea,
+      .live-result select {
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin: 5px 0;
+        display: block;
+        width: 100%;
+        max-width: 300px;
+      }
+
+      footer {
+        text-align: center;
+        padding: 40px;
+        background: #1a202c;
+        color: white;
+        margin-top: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar-custom">
+      <a href="../index.html" class="navbar-brand">
+        Coding<span style="color: var(--primary)">Bird</span>
+      </a>
+      <div class="nav-links">
+        <a href="../index.html">Home</a>
+        <a href="../html.html" style="color: var(--primary)">HTML</a>
+        <a href="../css.html">CSS</a>
+        <a href="../js.html">JS</a>
+      </div>
+    </nav>
+
+    <div class="chapter-nav">
+      <a href="HTMLChapter4.html" class="btn-action btn-prev"
+        ><i class="fa fa-arrow-left"></i> Previous</a
+      >
+      <a href="HTMLChapter6.html" class="btn-action btn-next"
+        >Next Chapter <i class="fa fa-arrow-right"></i
+      ></a>
+    </div>
+
+    <header>
+      <h1 style="font-family: &quot;Nunito&quot;; font-weight: 800">
+        Web Forms
+      </h1>
+      <p>Collecting and processing user input effectively.</p>
+    </header>
+
+    <div id="chapter-content"></div>
+
+    <footer>&copy; 2026 Marufa Monjuri | Coding Bird</footer>
+
+    <script>
+      const content = document.getElementById("chapter-content");
+
+      function createSection(title, icon, desc, codeHtml, previewHtml) {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <h2><i class="fa ${icon}"></i> ${title}</h2>
+          <p style="color: #4a5568;">${desc}</p>
+          <span class="label">HTML Source Code</span>
+          <div class="code-block">${codeHtml}</div>
+          <span class="label">Live Result</span>
+          <div class="live-result">${previewHtml}</div>
+        `;
+        content.appendChild(card);
+      }
+
+      // 5.1 Input & Label
+      createSection(
+        "Basic Inputs & Labels",
+        "fa-font",
+        "The &lt;label&gt; 'for' attribute must match the &lt;input&gt; 'id' so that clicking the label focuses the input.",
+        `<span class="t">&lt;label</span> <span class="a">for</span>=<span class="v">"fname"</span><span class="t">&gt;</span>First Name:<span class="t">&lt;/label&gt;</span><br><span class="t">&lt;input</span> <span class="a">type</span>=<span class="v">"text"</span> <span class="a">id</span>=<span class="v">"fname"</span> <span class="a">name</span>=<span class="v">"firstname"</span><span class="t">&gt;</span>`,
+        `<label for="fname">First Name:</label><input type="text" id="fname" placeholder="Enter name...">`,
+      );
+
+      // 5.2 Textarea
+      createSection(
+        "Textarea",
+        "fa-paragraph",
+        "Used for multi-line text input. You can define rows and columns to set its initial size.",
+        `<span class="t">&lt;textarea</span> <span class="a">name</span>=<span class="v">"comment"</span> <span class="a">rows</span>=<span class="v">"3"</span> <span class="a">cols</span>=<span class="v">"30"</span><span class="t">&gt;</span><span class="t">&lt;/textarea&gt;</span>`,
+        `<textarea rows="3" cols="30" placeholder="Type your message here..."></textarea>`,
+      );
+
+      // 5.3 Select & Datalist
+      createSection(
+        "Selection Menus",
+        "fa-list",
+        "&lt;select&gt; creates a dropdown, while &lt;datalist&gt; provides autocomplete suggestions for a standard input.",
+        `<span class="t">&lt;select&gt;</span><br>&nbsp;&nbsp;<span class="t">&lt;option&gt;</span>Volvo<span class="t">&lt;/option&gt;</span><br><span class="t">&lt;/select&gt;</span>`,
+        `<select><option>Volvo</option><option>Saab</option><option>Audi</option></select>
+         <p>Try typing 'M' below:</p>
+         <input list="car-list" placeholder="Choose a car...">
+         <datalist id="car-list"><option value="Mercedes"><option value="Mazda"></datalist>`,
+      );
+
+      // 5.4 Buttons
+      createSection(
+        "Buttons & Submission",
+        "fa-mouse-pointer",
+        "Submit buttons send form data, while Reset buttons clear all fields to their default state.",
+        `<span class="t">&lt;input</span> <span class="a">type</span>=<span class="v">"submit"</span> <span class="a">value</span>=<span class="v">"Log In"</span><span class="t">&gt;</span>`,
+        `<input type="submit" value="Log In" style="background:var(--primary); color:white; border:none; padding:10px 20px; border-radius:5px; cursor:pointer;">
+         <input type="reset" value="Clear Form" style="padding:10px 20px; border-radius:5px; cursor:pointer;">`,
+      );
+
+      // 5.5 Checkbox & Radio
+      createSection(
+        "Checkboxes & Radio Buttons",
+        "fa-check-square",
+        "Checkboxes allow multiple selections. Radio buttons allow only one selection per 'name' group.",
+        `<span class="t">&lt;input</span> <span class="a">type</span>=<span class="v">"radio"</span> <span class="a">name</span>=<span class="v">"gender"</span><span class="t">&gt;</span> Male`,
+        `<input type="checkbox" id="c1"> <label for="c1">I agree to terms</label><br>
+         <input type="radio" name="g1" id="r1"> <label for="r1">Option A</label>
+         <input type="radio" name="g1" id="r2"> <label for="r2">Option B</label>`,
+      );
+
+      // 5.6 Color & Date Pickers
+      createSection(
+        "HTML5 Pickers",
+        "fa-calendar-alt",
+        "Modern inputs for selecting colors, dates, and times directly from the browser's UI.",
+        `<span class="t">&lt;input</span> <span class="a">type</span>=<span class="v">"date"</span><span class="t">&gt;</span><br><span class="t">&lt;input</span> <span class="a">type</span>=<span class="v">"color"</span><span class="t">&gt;</span>`,
+        `<label>Pick a Date:</label><input type="date"><br><label>Pick a Color:</label><input type="color">`,
+      );
+
+      // 5.7 Attributes & Validation
+      createSection(
+        "Validation Attributes",
+        "fa-shield-alt",
+        "Use 'required', 'placeholder', and 'readonly' to control user behavior and validate data.",
+        `<span class="t">&lt;input</span> <span class="a">required</span> <span class="a">placeholder</span>=<span class="v">"Required field..."</span><span class="t">&gt;</span>`,
+        `<form onsubmit="alert('Success!'); return false;">
+           <input type="text" placeholder="Required field" required>
+           <input type="text" value="Read only text" readonly>
+           <button type="submit" style="display:block; margin-top:10px; padding:5px 15px;">Test Validation</button>
+         </form>`,
+      );
+
+      // 5.8 Fieldset & Legend
+      createSection(
+        "Fieldset & Legend",
+        "fa-border-all",
+        "Groups related form elements with a visible border and a title (Legend).",
+        `<span class="t">&lt;fieldset&gt;</span><br>&nbsp;&nbsp;<span class="t">&lt;legend&gt;</span>Profile info<span class="t">&lt;/legend&gt;</span><br><span class="t">&lt;/fieldset&gt;</span>`,
+        `<fieldset><legend style="font-weight:bold; padding:0 10px;">User Profile</legend>
+           <input type="email" placeholder="Email"><input type="password" placeholder="Password">
+         </fieldset>`,
+      );
+    </script>
+  </body>
+</html>

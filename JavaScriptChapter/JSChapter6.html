@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JS Chapter 6: Function Mastery | Coding Bird</title>
+
+    <link href="../img/logo_name_icon.png" rel="icon" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --primary: #ca1551;
+        --accent: #fe6868;
+        --bg: #f0f2f5;
+        --card-bg: #ffffff;
+        --code-bg: #1a1e21;
+        --code-text: #ffffff;
+        --success: #2ecc71;
+
+        /* Syntax Highlighting */
+        --token-keyword: #ff79c6;
+        --token-function: #50fa7b;
+        --token-string: #f1fa8c;
+        --token-comment: #6272a4;
+        --token-number: #bd93f9;
+      }
+
+      body {
+        font-family: "Heebo", sans-serif;
+        background-color: var(--bg);
+        color: #2c3e50;
+        margin: 0;
+        padding-top: 100px;
+      }
+
+      /* --- Navbar --- */
+      .navbar-custom {
+        background: white;
+        height: 75px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 5%;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        box-sizing: border-box;
+      }
+
+      .navbar-brand {
+        font-family: "Nunito", sans-serif;
+        font-weight: 800;
+        font-size: 25px;
+        text-decoration: none;
+        color: #2c3e50;
+        display: flex;
+        align-items: center;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: #2c3e50;
+        margin-left: 20px;
+        font-weight: 500;
+      }
+
+      /* --- Navigation --- */
+      .chapter-nav {
+        max-width: 850px;
+        margin: 0 auto 20px auto;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 20px;
+      }
+
+      .btn-action {
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .btn-prev {
+        border: 2px solid #ddd;
+        color: #666;
+      }
+      .btn-next {
+        background: var(--primary);
+        color: white;
+      }
+
+      header {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+
+      #learning-path {
+        max-width: 850px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .card {
+        background: var(--card-bg);
+        border-radius: 12px;
+        padding: 30px;
+        margin-bottom: 40px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        border-top: 5px solid var(--primary);
+      }
+
+      .card-header {
+        font-weight: 800;
+        font-family: "Nunito";
+        font-size: 1.4rem;
+        margin-bottom: 10px;
+        color: var(--primary);
+      }
+
+      .card-desc {
+        font-size: 1rem;
+        color: #4a4a4a;
+        line-height: 1.6;
+        margin-bottom: 20px;
+      }
+
+      .code-block {
+        background: var(--code-bg);
+        color: var(--code-text);
+        padding: 20px;
+        border-radius: 8px;
+        font-family: "Consolas", monospace;
+        font-size: 0.95rem;
+        white-space: pre-wrap;
+        margin-bottom: 15px;
+        line-height: 1.5;
+      }
+
+      .kw {
+        color: var(--token-keyword);
+        font-weight: bold;
+      }
+      .fn {
+        color: var(--token-function);
+      }
+      .str {
+        color: var(--token-string);
+      }
+      .cmt {
+        color: var(--token-comment);
+        font-style: italic;
+      }
+      .num {
+        color: var(--token-number);
+      }
+
+      .result-box {
+        background: #f8f9fa;
+        border-left: 4px solid var(--success);
+        padding: 15px;
+        border-radius: 4px;
+        color: #27ae60;
+        font-weight: bold;
+        font-family: monospace;
+        margin-bottom: 15px;
+      }
+
+      .pro-tip {
+        background: #fff9eb;
+        border: 1px solid #ffeaa7;
+        padding: 12px;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        color: #d35400;
+        display: flex;
+        gap: 10px;
+      }
+
+      footer {
+        text-align: center;
+        padding: 40px;
+        background: #1a1e21;
+        color: white;
+        margin-top: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar-custom">
+      <a href="../index.html" class="navbar-brand">
+        <img src="../img/logo_name_icon.png" height="45px" alt="" /> Coding<span
+          style="color: var(--primary)"
+          >Bird</span
+        >
+      </a>
+      <div class="nav-links">
+        <a href="../index.html">Home</a>
+        <a href="../html.html">HTML</a>
+        <a href="../css.html">CSS</a>
+        <a href="../js.html" style="color: var(--primary)">JS</a>
+      </div>
+    </nav>
+
+    <div class="chapter-nav">
+      <a href="JSChapter5.html" class="btn-action btn-prev"
+        ><i class="fa fa-arrow-left"></i> Previous Chapter</a
+      >
+      <a href="JSChapter7.html" class="btn-action btn-next"
+        >Next Chapter <i class="fa fa-arrow-right"></i
+      ></a>
+    </div>
+
+    <header>
+      <h1 style="font-family: &quot;Nunito&quot;; font-weight: 800">
+        Chapter 6: Function Mastery
+      </h1>
+      <p>Technical Reference with Integrated Syntax Highlighting</p>
+    </header>
+
+    <main id="learning-path"></main>
+
+    <footer>&copy; 2026 Marufa Monjuri | Coding Bird</footer>
+
+    <script>
+      const lessons = [
+        {
+          title: "6.1 Passing Callbacks",
+          desc: "Functions can be passed as arguments to other functions, acting as a set of instructions to be run later.",
+          code: `<span class="kw">function</span> <span class="fn">done</span>() { <span class="kw">return</span> <span class="str">'Finished!'</span>; }
+<span class="fn">setTimeout</span>(done, <span class="num">2000</span>);`,
+          res: "Executes after 2 seconds",
+          tip: "Callbacks allow for asynchronous behavior in JavaScript.",
+        },
+        {
+          title: "6.2 Arrow Functions",
+          desc: "A concise syntax for functions that uses lexical 'this' binding.",
+          code: `<span class="kw">const</span> <span class="fn">square</span> = <span class="num">n</span> => <span class="num">n</span> * <span class="num">n</span>;
+console.<span class="fn">log</span>(<span class="fn">square</span>(<span class="num">4</span>));`,
+          res: "16",
+          tip: "Arrows are great for one-liners but don't have their own 'arguments' object.",
+        },
+        {
+          title: "6.3 Default Parameters",
+          desc: "Set initial values for parameters if they are missing or undefined.",
+          code: `<span class="kw">function</span> <span class="fn">greet</span>(<span class="num">name</span> = <span class="str">'Guest'</span>) { 
+  <span class="kw">return</span> <span class="str">'Hi, '</span> + <span class="num">name</span>; 
+}`,
+          res: "greet() -> 'Hi, Guest'",
+          tip: "Default values can also be expressions or function calls.",
+        },
+        {
+          title: "6.4 Rest Parameters (...)",
+          desc: "Gather all remaining arguments into a single array.",
+          code: `<span class="kw">function</span> <span class="fn">logAll</span>(...<span class="num">args</span>) { 
+  <span class="kw">return</span> <span class="num">args</span>.length; 
+}`,
+          res: "logAll(1, 2, 3) -> 3",
+          tip: "Only one rest parameter is allowed, and it must be last.",
+        },
+        {
+          title: "6.5 Named Parameters",
+          desc: "Use object destructuring in parameters for better readability.",
+          code: `<span class="kw">function</span> <span class="fn">setup</span>({<span class="num">width</span>, <span class="num">height</span>}) { 
+  <span class="kw">return</span> <span class="num">width</span> * <span class="num">height</span>; 
+}`,
+          res: "setup({width: 10, height: 5}) -> 50",
+          tip: "This allows you to pass arguments in any order.",
+        },
+        {
+          title: "6.6 Closures (Memory)",
+          desc: "Functions remember the environment (scope) in which they were created.",
+          code: `<span class="kw">function</span> <span class="fn">makeCounter</span>() {
+  <span class="kw">let</span> <span class="num">count</span> = <span class="num">0</span>;
+  <span class="kw">return</span> () => ++<span class="num">count</span>;
+}`,
+          res: "Encapsulates private state",
+          tip: "Closures are the primary way to create 'private' variables in JS.",
+        },
+        {
+          title: "6.7 Generator Functions",
+          desc: "Functions that can pause and resume execution using 'yield'.",
+          code: `<span class="kw">function</span>* <span class="fn">steps</span>() {
+  <span class="kw">yield</span> <span class="num">1</span>; <span class="kw">yield</span> <span class="num">2</span>;
+}`,
+          res: "Iterates through values on demand",
+          tip: "Useful for handling large datasets or infinite sequences.",
+        },
+        {
+          title: "6.8 Partial Application",
+          desc: "Pre-filling a function with some arguments to create a specialized function.",
+          code: `<span class="kw">const</span> <span class="fn">add</span> = (<span class="num">a</span>, <span class="num">b</span>) => <span class="num">a</span> + <span class="num">b</span>;
+<span class="kw">const</span> <span class="fn">addFive</span> = <span class="num">add</span>.<span class="fn">bind</span>(<span class="kw">null</span>, <span class="num">5</span>);`,
+          res: "addFive(10) -> 15",
+          tip: "This promotes code reuse by locking in common parameters.",
+        },
+        {
+          title: "6.9 Function Binding (.bind)",
+          desc: "Explicitly set the value of 'this' for a function.",
+          code: `<span class="kw">const</span> <span class="num">obj</span> = { <span class="num">val</span>: <span class="num">100</span> };
+<span class="kw">const</span> <span class="fn">func</span> = <span class="kw">function</span>() { <span class="kw">return</span> <span class="kw">this</span>.<span class="num">val</span>; };
+<span class="kw">const</span> <span class="fn">bound</span> = <span class="fn">func</span>.<span class="fn">bind</span>(<span class="num">obj</span>);`,
+          res: "bound() -> 100",
+          tip: ".bind() returns a new function; it doesn't run the original immediately.",
+        },
+        {
+          title: "6.10 Recursion",
+          desc: "A function calling itself to solve a recursive data structure or problem.",
+          code: `<span class="kw">function</span> <span class="fn">fact</span>(<span class="num">n</span>) {
+  <span class="kw">if</span> (<span class="num">n</span> === <span class="num">1</span>) <span class="kw">return</span> <span class="num">1</span>;
+  <span class="kw">return</span> <span class="num">n</span> * <span class="fn">fact</span>(<span class="num">n</span> - <span class="num">1</span>);
+}`,
+          res: "fact(5) -> 120",
+          tip: "Always ensure a base case exists to prevent infinite loops.",
+        },
+      ];
+
+      const container = document.getElementById("learning-path");
+
+      lessons.forEach((item) => {
+        container.innerHTML += `
+            <div class="card">
+                <div class="card-header">${item.title}</div>
+                <div class="card-desc">${item.desc}</div>
+                <div class="code-block">${item.code}</div>
+                <div class="result-box"><i class="fas fa-terminal"></i> ${item.res}</div>
+                <div class="pro-tip"><i class="fas fa-lightbulb" style="margin-top:3px"></i> <div><strong>Pro Tip:</strong> ${item.tip}</div></div>
+            </div>
+        `;
+      });
+    </script>
+  </body>
+</html>

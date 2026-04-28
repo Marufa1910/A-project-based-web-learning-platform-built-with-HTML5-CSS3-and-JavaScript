@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chapter 8: HTML Advanced | Coding Bird</title>
+
+    <link href="../img/logo_name_icon.png" rel="icon" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&family=Fira+Code:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --primary: #ca1551;
+        --accent: #fe6868;
+        --code-bg: #1e1e2e;
+        --bg: #f8f9fa;
+        --text: #2c3e50;
+        --tag-color: #f92672;
+        --attr-color: #a6e22e;
+        --val-color: #e6db74;
+      }
+
+      body {
+        font-family: "Heebo", sans-serif;
+        background-color: var(--bg);
+        color: var(--text);
+        margin: 0;
+        line-height: 1.6;
+      }
+
+      .navbar-custom {
+        background: white;
+        height: 75px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 5%;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        box-sizing: border-box;
+      }
+
+      .navbar-brand {
+        font-family: "Nunito", sans-serif;
+        font-weight: 800;
+        font-size: 25px;
+        text-decoration: none;
+        color: var(--text);
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: var(--text);
+        margin-left: 20px;
+        font-weight: 500;
+      }
+
+      .chapter-nav {
+        max-width: 850px;
+        margin: 100px auto 20px auto;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 20px;
+      }
+
+      .btn-action {
+        padding: 10px 20px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .btn-prev {
+        border: 2px solid #ddd;
+        color: #666;
+      }
+      .btn-next {
+        background: var(--primary);
+        color: white;
+      }
+
+      header {
+        text-align: center;
+        padding: 40px 20px;
+      }
+
+      .card {
+        background: white;
+        border-radius: 20px;
+        padding: 30px;
+        margin: 0 auto 35px auto;
+        max-width: 850px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        border: 1px solid #edf2f7;
+      }
+
+      h2 {
+        color: var(--primary);
+        font-family: "Nunito";
+        margin-top: 0;
+        font-size: 1.5rem;
+      }
+
+      .code-block {
+        background: var(--code-bg);
+        color: #f8f8f2;
+        padding: 20px;
+        border-radius: 12px;
+        font-family: "Fira Code", monospace;
+        font-size: 0.85rem;
+        margin: 15px 0;
+        overflow-x: auto;
+      }
+
+      .live-result {
+        background: #fff;
+        border: 2px solid #e2e8f0;
+        border-left: 5px solid var(--primary);
+        padding: 20px;
+        border-radius: 12px;
+        margin-top: 15px;
+      }
+
+      .label {
+        font-size: 0.7rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        color: #a0aec0;
+        margin-bottom: 5px;
+        display: block;
+      }
+      .t {
+        color: var(--tag-color);
+      }
+      .a {
+        color: var(--attr-color);
+      }
+      .v {
+        color: var(--val-color);
+      }
+      .c {
+        color: #75715e;
+        font-style: italic;
+      }
+
+      footer {
+        text-align: center;
+        padding: 40px;
+        background: #1a202c;
+        color: white;
+        margin-top: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar-custom">
+      <a
+        href="../index.html"
+        class="navbar-brand"
+        style="
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          text-decoration: none;
+          color: var(--text);
+        "
+      >
+        <img
+          src="../img/logo_name_icon.png"
+          alt="Logo"
+          style="height: 30px; width: auto"
+        />
+
+        <span
+          style="
+            font-family: &quot;Nunito&quot;, sans-serif;
+            font-weight: 800;
+            font-size: 25px;
+          "
+        >
+          Coding<span style="color: var(--primary)">Bird</span>
+        </span>
+      </a>
+
+      <div class="nav-links">
+        <a href="../index.html">Home</a>
+        <a href="../html.html" style="color: var(--primary)">HTML</a>
+        <a href="../css.html">CSS</a>
+        <a href="../js.html">JS</a>
+      </div>
+    </nav>
+
+    <div class="chapter-nav">
+      <a href="HTMLChapter7.html" class="btn-action btn-prev"
+        ><i class="fa fa-arrow-left"></i> Previous</a
+      >
+      <a href="HTMLChapter9.html" class="btn-action btn-next"
+        >Next Chapter <i class="fa fa-arrow-right"></i
+      ></a>
+    </div>
+
+    <header>
+      <h1 style="font-family: &quot;Nunito&quot;; font-weight: 800">
+        Chapter 8: HTML Advanced
+      </h1>
+      <p>Mastering Data URIs and Element Display Types.</p>
+    </header>
+
+    <div id="chapter-content"></div>
+
+    <footer>&copy; 2026 Marufa Monjuri | Coding Bird</footer>
+
+    <script>
+      const content = document.getElementById("chapter-content");
+
+      function createSection(title, icon, desc, codeHtml, previewHtml) {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <h2><i class="fa ${icon}"></i> ${title}</h2>
+          <p style="color: #4a5568;">${desc}</p>
+          <span class="label">Source Code</span>
+          <div class="code-block">${codeHtml}</div>
+          <span class="label">Live Result</span>
+          <div class="live-result">${previewHtml}</div>
+        `;
+        content.appendChild(card);
+      }
+
+      // 8.1 Data URIs
+      createSection(
+        "Data URIs",
+        "fa-link",
+        "Data URIs allow you to embed file data directly into web pages. Syntax: <b>data:[mediatype][;base64],data</b>. This example shows an inline text file download.",
+        `<span class="t">&lt;a</span> <span class="a">href</span>=<span class="v">"data:text/plain;charset=utf-8,Hello%20World"</span> <span class="a">download</span><span class="t">&gt;</span>Download<span class="t">&lt;/a&gt;</span>`,
+        `<div>
+           <p>Click below to download an auto-generated text file:</p>
+           <a href="data:text/plain;charset=utf-8,This%20is%20advanced%20HTML%20data!" 
+              download="CodingBird.txt" 
+              style="color: var(--primary); font-weight: bold; text-decoration: underline;">
+              <i class="fa fa-download"></i> Download Text
+           </a>
+         </div>`,
+      );
+
+      // 8.2 Block Elements
+      createSection(
+        "Block Elements",
+        "fa-cube",
+        "Block elements occupy 100% of the parent's width and stack vertically. Examples: &lt;div&gt;, &lt;h1-h6&gt;, &lt;p&gt;, &lt;header&gt;, &lt;footer&gt;.",
+        `<span class="c">/* CSS */</span><br><span class="v">display: block;</span>`,
+        `<div style="background: #edf2f7; padding: 10px; margin-bottom: 5px; border: 1px solid #cbd5e0;">Block 1: Full Width</div>
+         <div style="background: #edf2f7; padding: 10px; border: 1px solid #cbd5e0;">Block 2: Vertical Stack</div>`,
+      );
+
+      // 8.3 Inline Elements
+      createSection(
+        "Inline Elements",
+        "fa-arrows-alt-h",
+        "Inline elements only occupy necessary space and do not cause line breaks. They ignore width/height and vertical margins.",
+        `<span class="c">/* CSS */</span><br><span class="v">display: inline;</span>`,
+        `<span style="background: #fed7d7; padding: 5px; border: 1px dashed #feb2b2;">Inline Span A</span>
+         <span style="background: #fed7d7; padding: 5px; border: 1px dashed #feb2b2;">Inline Span B</span>
+         <p style="font-size: 0.8rem; color: #718096; margin-top: 10px;">Notice they sit side-by-side on the same line.</p>`,
+      );
+
+      // 8.4 Inline-block Elements
+      createSection(
+        "Inline-block Elements",
+        "fa-th-large",
+        "Hybrid elements that sit on one line but allow width, height, and margins. Common examples: &lt;img&gt;, &lt;button&gt;, &lt;input&gt;.",
+        `<span class="c">/* CSS */</span><br><span class="v">display: inline-block;</span>`,
+        `<div style="display: inline-block; width: 120px; height: 60px; background: #c6f6d5; border: 1px solid #9ae6b4; text-align: center; line-height: 60px; margin: 5px;">Box 1</div>
+         <div style="display: inline-block; width: 120px; height: 60px; background: #c6f6d5; border: 1px solid #9ae6b4; text-align: center; line-height: 60px; margin: 5px;">Box 2</div>
+         <p style="font-size: 0.8rem; color: #718096;">Side-by-side, yet they respect width/height.</p>`,
+      );
+    </script>
+  </body>
+</html>
